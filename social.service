@@ -1,0 +1,16 @@
+[Unit]
+Description=A social media platform
+
+[Service]
+Type=simple
+User=social
+Group=social
+Restart=on-failure
+Environment=MIX_ENV=prod "PORT=5800"
+Environment=LANG=en_US.UTF-8
+
+WorkingDirectory=/home/social/social
+ExecStart=/bin/bash /home/social/social/start.sh
+
+[Install]
+WantedBy=multi-user.target
