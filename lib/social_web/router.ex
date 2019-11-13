@@ -20,7 +20,11 @@ defmodule SocialWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", SocialWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", SocialWeb do
+    pipe_through :api
+    resources "/users", UserController, except: [:new, :edit]
+    resources "/connections", ConnectionController, except: [:new, :edit]
+    resources "/messages", MessageController, except: [:new, :edit]
+    resources "/notifications", NotificationController, except: [:new, :edit]
+  end
 end
