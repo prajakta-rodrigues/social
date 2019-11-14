@@ -9,3 +9,8 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
+
+alias Social.Repo
+alias Social.Users.User
+
+pw = Argon2.hash_pwd_salt("password")

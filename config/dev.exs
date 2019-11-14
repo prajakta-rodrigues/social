@@ -2,7 +2,7 @@ use Mix.Config
 
 # Configure your database
 config :social, Social.Repo,
-  username: "social",
+  username: "nikhil",
   password: "Xie0eeTohcah",
   database: "social_dev",
   hostname: "localhost",

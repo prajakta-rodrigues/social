@@ -8,6 +8,7 @@ defmodule Social.Repo.Migrations.CreateUsers do
       add :email, :string
       add :password, :string
       add :dob, :date
+      add :password_hash, :string
 
       timestamps()
     end
