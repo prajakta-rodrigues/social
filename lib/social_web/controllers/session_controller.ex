@@ -1,7 +1,7 @@
 defmodule SocialWeb.SessionController do
 	use SocialWeb, :controller
 	
-	alias SocialWeb.Users
+	alias Social.Users
 
 	action_fallback SocialWeb.FallbackController
 

@@ -14,3 +14,6 @@ alias Social.Repo
 alias Social.Users.User
 
 pw = Argon2.hash_pwd_salt("password")
+date = ~D[1999-05-18]
+
+Repo.insert!(%User{name: "Test", username: "test", email: "test@test.com", dob: date, password_hash: pw, password: "password"})
