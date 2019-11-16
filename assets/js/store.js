@@ -1,6 +1,13 @@
 import { createStore, combineReducers } from "redux";
 import deepFreeze from "deep-freeze-strict";
 
+
+/**
+ * store = {
+ *    session: {...},
+ *    forms: {...}
+ * }
+ */
 let session0 = localStorage.getItem("session");
 if (session0) {
   session0 = JSON.parse(session0);

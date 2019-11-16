@@ -40,4 +40,10 @@ defmodule SocialWeb.UserController do
       send_resp(conn, :no_content, "")
     end
   end
+
+  def get_by_email(conn, %{"email" => email}) do
+    IO.inspect email
+    user = Users.get_by_email(email)
+    render(conn, "show.json", user: user)
+  end
 end

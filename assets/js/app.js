@@ -22,3 +22,16 @@ window.addEventListener("load", () => {
 	init_page(root);
 });
 
+/**
+ * To init the FB API calls on any page in the app.
+ */
+window.fbAsyncInit = function() {
+	FB.init({
+		appId      : process.env.APP_ID,
+		cookie     : true,
+		xfbml      : true,
+		version    : 'v5.0'
+	});
+		
+	FB.AppEvents.logPageView();       
+};

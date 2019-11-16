@@ -20,26 +20,21 @@ defmodule SocialWeb.Router do
     plug :accepts, ["json"]
   end
 
+  # There were 2 scopes so deleted the api scope. We can work with /ajax scope
   scope "/ajax", SocialWeb do
     pipe_through :ajax
 
+    get "/user/:email", UserController, :get_by_email
     resources "/users", UserController, except: [:new, :edit]
     resources "/sessions", SessionController, only: [:create], singleton: true
+    resources "/connections", ConnectionController, except: [:new, :edit]
+    resources "/messages", MessageController, except: [:new, :edit]
+    resources "/notifications", NotificationController, except: [:new, :edit]
   end
 
   scope "/", SocialWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
     get "/*path", PageController, :index
-  end
-
-  # Other scopes may use custom stacks.
-  scope "/api", SocialWeb do
-    pipe_through :api
-    resources "/users", UserController, except: [:new, :edit]
-    resources "/connections", ConnectionController, except: [:new, :edit]
-    resources "/messages", MessageController, except: [:new, :edit]
-    resources "/notifications", NotificationController, except: [:new, :edit]
   end
 end

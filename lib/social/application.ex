@@ -11,7 +11,7 @@ defmodule Social.Application do
       # Start the Ecto repository
       Social.Repo,
       # Start the endpoint when the application starts
-      SocialWeb.Endpoint
+      SocialWeb.Endpoint,
       # Starts a worker by calling: Social.Worker.start_link(arg)
       # {Social.Worker, arg},
     ]

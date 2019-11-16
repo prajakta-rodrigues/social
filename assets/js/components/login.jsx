@@ -2,17 +2,16 @@ import React from "react";
 import { connect } from "react-redux";
 import { Row, Col, Form, Button, Alert } from "react-bootstrap";
 import { Redirect } from "react-router";
-
-import { submit_login } from "../ajax";
-
+import { submit_login, get } from "../ajax";
+import store from '../store'
 class Login extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
-      redirect: null
+      redirect: null,
     };
   }
+  
 
   changed(data) {
     this.props.dispatch({
@@ -27,11 +26,51 @@ class Login extends React.Component {
     });
   }
 
+  /**
+   * To create/login user using fb.
+   */
+  continueWithFB() {
+    FB.getLoginStatus((response) => {
+      console.log(response)
+      if(response.status !== "connected") {
+        FB.login((response) => {
+          console.log(response)
+          if(response.authResponse) {
+            // TODO: Redirect user to main page.
+
+            FB.api('/me/', 'get', {fields: ['email','name']}, (resp) => {
+
+              // Set the session from the info obtained.
+              this.props.dispatch({
+                type: "LOG_IN",
+                data: resp
+              })
+
+              // Check if the user exists on our database.
+              let email = store.getState().session.email
+
+              get('/user/'+email).then((resp) => {
+                console.log(resp)
+                // If user exists, redirect them to home page.
+
+
+                // Else create a password for the user.
+              })
+
+            })
+          }
+        }, {
+          scope: ['email'], 
+          return_scopes: true
+        })
+      }
+    })    
+  }
+
   render() {
     if (this.state.redirect) {
       return <Redirect to={this.state.redirect} />;
     }
-
     let { email, password, errors } = this.props;
     let error_msg = null;
     if (errors) {
@@ -79,14 +118,17 @@ class Login extends React.Component {
 
               <div style={{ textAlign: 'center' }}>
                 <div
-                  className="btn btn-outline-success"
-                  style={{
-                    cursor: "pointer"
-                  }}
+                  className="btn btn-outline-success action-btn"
                   onClick={() => submit_login(this)}
                 >
                   Login
                 </div>
+              </div>
+              <div
+                  className="btn btn-primary d-block mx-auto action-btn"
+                  onClick={() => this.continueWithFB()}
+                >
+                  Continue with Facebook
               </div>
             </Form>
           </Col>
