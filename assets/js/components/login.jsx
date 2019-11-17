@@ -4,6 +4,8 @@ import { Row, Col, Form, Button, Alert } from "react-bootstrap";
 import { Redirect } from "react-router";
 import { submit_login, get } from "../ajax";
 import store from '../store'
+import logo from '../../static/logo.png'
+
 class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -82,9 +84,22 @@ class Login extends React.Component {
         </Row>
       );
     }
-
+    
+    const header = (
+      <Row>
+        <div className="header-container">
+          <Col xs={12}>
+            <h1> Social </h1>
+            <img src={logo} alt="logo" />
+            <hr />
+          </Col>
+        </div>
+      </Row>
+    );
     const logInForm = (
       <div>
+        {header}
+        <hr />
         {error_msg}
         <Row>
           <Col xs={2} />
