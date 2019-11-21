@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Row, Col, Form, Button, Alert } from "react-bootstrap";
 import { Redirect } from "react-router";
 
-import { submit_login } from "../ajax";
+import { submitLogin } from "../ajax";
 
 class Login extends React.Component {
   constructor(props) {
@@ -12,6 +12,8 @@ class Login extends React.Component {
     this.state = {
       redirect: null
     };
+
+    this.redirect = this.redirect.bind(this);
   }
 
   changed(data) {
@@ -79,13 +81,23 @@ class Login extends React.Component {
 
               <div style={{ textAlign: 'center' }}>
                 <div
-                  className="btn btn-outline-success"
+                  className="btn btn-outline-primary"
                   style={{
                     cursor: "pointer"
                   }}
-                  onClick={() => submit_login(this)}
+                  onClick={() => submitLogin()}
                 >
                   Login
+                </div>
+                <div
+                  className="btn btn-outline-secondary"
+                  style={{
+                    cursor: "pointer",
+                    marginLeft: "1em"
+                  }}
+                  onClick={() => this.redirect('/signup')}
+                >
+                  Sign Up
                 </div>
               </div>
             </Form>

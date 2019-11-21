@@ -10,6 +10,7 @@ import { Nav, Col, Row } from "react-bootstrap";
 import { Provider, connect } from "react-redux";
 
 import Login from "./components/login";
+import SignUp from "./components/signup";
 import store from "./store";
 
 export default function init_page(root) {
@@ -41,6 +42,7 @@ function Index(props) {
       <Switch>
         <Route exact path="/" component={Login} />
         <Route exact path="/login" component={Login} />
+        <Route exact path="/signup" component={SignUp} />
       </Switch>
     </Router>
   );
@@ -55,7 +57,6 @@ let Session = connect(({ session }) => ({ session }))(
         type: "LOG_OUT"
       });
     }
-    console.log(session);
 
     if (session) {
       const userName = session.user_name;
