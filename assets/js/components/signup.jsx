@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Row, Col, Form, Button } from "react-bootstrap";
+import { Row, Col, Form, Button, Alert } from "react-bootstrap";
 import { Redirect } from "react-router";
 import { newUser } from "../ajax";
 
