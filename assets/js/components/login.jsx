@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Row, Col, Form, Button, Alert } from "react-bootstrap";
 import { Redirect } from "react-router";
-import { submit_login, get } from "../ajax";
+import { submitLogin, get } from "../ajax";
 import logo from '../../static/logo.png'
 
 class Login extends React.Component {
@@ -136,7 +136,7 @@ class Login extends React.Component {
               <div style={{ textAlign: 'center' }}>
                 <div
                   className="btn btn-outline-success action-btn"
-                  onClick={() => submit_login(this)}
+                  onClick={() => submitLogin(this)}
                 >
                   Login
                 </div>
