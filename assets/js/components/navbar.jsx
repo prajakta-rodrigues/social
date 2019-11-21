@@ -37,8 +37,8 @@ export default function Navigation(props) {
             </Navbar.Brand>
             <Navbar.Toggle className="ml-auto" aria-controls="basic-navbar-nav"/>
             <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
-              // Based on the status of authentication of current user, the
-              // navbar will render appropriate links to visit.
+              {/* Based on the status of authentication of current user, the
+              navbar will render appropriate links to visit. */}
                 <Session />
             </Navbar.Collapse>
         </Navbar>
