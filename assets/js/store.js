@@ -26,9 +26,28 @@ function login(
   }
 }
 
+function new_user(
+  st0 = {
+    name: "",
+    email: "",
+    dob: "",
+    username: "",
+    password: "",
+  },
+  action
+) {
+  switch (action.type) {
+    case "CHANGE_NEW_USER":
+      return Object.assign({}, st0, action.data);
+    default:
+      return st0;
+  }
+}
+
 function forms(st0, action) {
   let reducer = combineReducers({
-    login
+    login,
+    new_user
   });
   return reducer(st0, action);
 }
@@ -45,7 +64,14 @@ function session(st0 = session0, action) {
 }
 
 function users(st0 = new Map(), action) {
-  return st0;
+  switch (action.type) {
+    case "NEW_USER":
+      let st1 = new Map(st0);
+      st1.set(action.data.id, action.data);
+      return st1;
+    default:
+      return st0;
+  }
 }
 
 function ig_posts(st0 = new Map(), action) {

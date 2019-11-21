@@ -12,7 +12,7 @@ import socket from './socket'
 import Login from "./components/login";
 import Insta_auth from './components/insta_auth'
 import Navbar from './components/navbar'
-
+import SignUp from "./components/signup";
 import store from "./store";
 import MapComponent from "./components/maps";
 import Profile from "./components/profile";
@@ -49,6 +49,7 @@ class Index extends React.Component {
         <Switch>
           <Route exact path="/" render={(props) => <Login {...props} channel={this.state.channel} joinChannel={this.joinChannel} />} />
           <Route exact path="/login" component={Login} />
+          <Route exact path="/signup" component={SignUp} />
           <Route exact path="/insta_auth" component={Insta_auth} />
           <Route exact path="/map" component={MapComponent} />
           <Route exact path="/profile" component={Profile} />

@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { Row, Col, Form, Button, Alert } from "react-bootstrap";
 import { Redirect } from "react-router";
 import { submit_login, get } from "../ajax";
-import store from '../store'
 import logo from '../../static/logo.png'
 
 class Login extends React.Component {
@@ -13,6 +12,8 @@ class Login extends React.Component {
     this.state = {
       redirect: null,
     };
+
+    this.redirect = this.redirect.bind(this);
   }
   
 
