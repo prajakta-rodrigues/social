@@ -67,7 +67,8 @@ class SignUp extends React.Component {
               </Form.Label>
               <Col sm={10}>
                 <Form.Control
-                  type="text"
+									type="text"
+									value={name}
                   placeholder="Enter full name"
                   onChange={ev => this.changed({ name: ev.target.value })}
                 />
@@ -80,7 +81,8 @@ class SignUp extends React.Component {
               </Form.Label>
               <Col sm={10}>
                 <Form.Control
-                  type="text"
+									type="text"
+									value={email}
                   placeholder="Enter your email"
                   onChange={ev => this.changed({ email: ev.target.value })}
                 />
@@ -107,7 +109,8 @@ class SignUp extends React.Component {
               </Form.Label>
               <Col sm={10}>
                 <Form.Control
-                  type="text"
+									type="text"
+									value={username}
                   placeholder="Enter your username"
                   onChange={ev => this.changed({ username: ev.target.value })}
                 />
@@ -120,7 +123,8 @@ class SignUp extends React.Component {
               </Form.Label>
               <Col sm={10}>
                 <Form.Control
-                  type="password"
+									type="password"
+									value={password}
                   placeholder="Password"
                   onChange={ev => this.changed({ password: ev.target.value })}
                 />
