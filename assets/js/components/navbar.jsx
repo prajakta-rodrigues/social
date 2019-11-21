@@ -18,12 +18,10 @@ export default function Navigation(props) {
     // listened to and an appropriate action would be taken.
     if(props.channel) {
       props.channel.on('update', resp => {
+        console.log(resp)
         store.dispatch({
           type: "GOT_POSTS",
-          data: resp.data.filter((post) => {
-              if(post.media_type === "IMAGE")
-                  return post
-          })
+          data: resp.data
         })
       })
     } 
@@ -79,7 +77,7 @@ let Session = connect(({ session }) => ({ session }))(
       }
       
       // If user is currently logged in, it returns the following links.
-      if (session) {
+      if (session.token) {
         let insta_app_id = process.env.INSTA_APP_ID
         let redirect_uri = process.env.INSTA_REDIRECT_URI
         let auth_url = "https://api.instagram.com/oauth/authorize"
@@ -90,7 +88,7 @@ let Session = connect(({ session }) => ({ session }))(
         return (
           <div style={{ display: "inline-block", float: "right" }}>
             <Nav>
-              <NavDropdown title={session.name} id="basic-nav-dropdown">
+              <NavDropdown title={session.user_name} id="basic-nav-dropdown">
                 <div className="dropdown-link">
                   <NavLink to="/profile">My Profile</NavLink>
                 </div>

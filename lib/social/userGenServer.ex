@@ -25,12 +25,12 @@ defmodule Social.UserGenServer do
   end
 
   # To broadcast the posts to the channel to which current user is connected.
-  def broadcast_posts(id, data) do
-    broadcast(id, data)
+  def broadcast_posts(id, posts) do
+    broadcast(id, posts)
     # {:reply, {:ok, %{"message" => "broadcast successful"}}}
   end
 
-  defp broadcast(id, data) do
-    SocialWeb.Endpoint.broadcast!("user:"<>id, "update", data)
+  defp broadcast(id, posts) do
+    SocialWeb.Endpoint.broadcast!("user:"<>id, "update", posts)
   end
 end

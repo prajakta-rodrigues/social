@@ -54,6 +54,22 @@ defmodule SocialWeb.UserController do
     render(conn, "show.json", user: user)
   end
 
+  def get_with_token(conn, %{"email" => email, "id"=>id}) do
+    if id == System.get_env("APP_ID") do
+      user = Users.get_by_email(email)
+      token = Phoenix.Token.sign(conn, "session", user.id)
+      data = %{
+        user_name: user.name,
+        token: token,
+        user_id: user.id,
+        email: email
+      }
+      send_resp(conn, 200, Jason.encode!(data))
+    else
+      send_resp(conn, 403, Jason.encode!(%{"error" => "Unauthorized access"}))
+    end
+
+  end
   # To get the posts from instagram.
   def get_ig_posts(conn, %{"code" => code, "id" => id}) do
     HTTPoison.start
@@ -73,9 +89,13 @@ defmodule SocialWeb.UserController do
       url = "https://graph.instagram.com/#{user_id}/media?fields=id,media_url,media_type&access_token=#{body["access_token"]}"
       response = HTTPoison.get!(url)
       {_, body} = Jason.decode(response.body)
-
+      posts = Enum.filter(body["data"], fn x ->
+        if x["media_url"] do
+          x
+        end
+      end)
       # Broadcast the message through genserver.
-      Social.UserGenServer.broadcast_posts(id, body)
+      Social.UserGenServer.broadcast_posts(id, %{data: posts})
       send_resp(conn, 200, Jason.encode!(%{message: "Got posts successfully."}))
     else
       send_resp(conn, 403, Jason.encode!(%{error: body["error_message"]}))

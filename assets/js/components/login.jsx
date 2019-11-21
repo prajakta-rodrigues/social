@@ -2,8 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 import { Row, Col, Form, Button, Alert } from "react-bootstrap";
 import { Redirect } from "react-router";
-import { submitLogin, get } from "../ajax";
+import { submitLogin, get, post } from "../ajax";
 import logo from '../../static/logo.png'
+// import argon2 from 'argon2'
 
 class Login extends React.Component {
   constructor(props) {
@@ -40,22 +41,25 @@ class Login extends React.Component {
       if(response.status !== "connected") {
         FB.login((response) => {
           if(response.authResponse) {
-            // TODO: Redirect user to main page.
-
             // Get the information about the user and login them to the app
             // using email
             FB.api('/me/', 'get', {fields: ['email','name']}, (resp) => {
               // Set the session from the info obtained.
-              this.props.dispatch({
-                type: "LOG_IN",
-                data: resp
-              })
 
               // Check if the user exists on our database.
               let email = resp.email
               this.props.joinChannel(email)
-              get('/user/'+email).then((resp) => {
-                // If user exists, redirect them to home page.
+              post('/user/get_with_token', {email, id: process.env.APP_ID}).then((resp) => {
+                console.log(resp)
+                
+                // If user exists, login them to our app and get a token from
+                // the server.
+                this.props.dispatch({
+                  type: "LOG_IN",
+                  data: resp
+                })
+                // Then redirect them to their dashboard.
+                // THIS IS TEMP ROUTING.
                 this.redirect('/profile')
 
                 // Else create a password for the user.

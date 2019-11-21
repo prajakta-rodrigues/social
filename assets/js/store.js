@@ -9,10 +9,6 @@ import deepFreeze from "deep-freeze-strict";
  *    posts: {...},
  * }
  */
-let session0 = localStorage.getItem("session");
-if (session0) {
-  session0 = JSON.parse(session0);
-}
 
 function login(
   st0 = { email: "", password: "", errors: null },
@@ -52,12 +48,27 @@ function forms(st0, action) {
   return reducer(st0, action);
 }
 
+let session0
+if (localStorage.getItem("session")) {
+  session0 = JSON.parse(localStorage.getItem("session"));
+} else {
+  session0 = {
+    token: null,
+    user_name: null,
+    user_id: null,
+    email: null,
+  }
+}
 function session(st0 = session0, action) {
   switch (action.type) {
-    case "LOG_IN":
-      return action.data;
-    case "LOG_OUT":
-      return null;
+    case "LOG_IN": {
+      let st1 = {...st0, ...action.data}
+      return st1
+    }
+    case "LOG_OUT":{
+      let st1 = session0
+      return st1
+    }
     default:
       return st0;
   }

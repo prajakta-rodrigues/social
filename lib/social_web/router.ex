@@ -25,6 +25,7 @@ defmodule SocialWeb.Router do
     pipe_through :ajax
 
     get "/user/:email", UserController, :get_by_email
+    post "/user/get_with_token/", UserController, :get_with_token
     post "/user/ig_posts", UserController, :get_ig_posts
     resources "/users", UserController, except: [:new, :edit]
     resources "/sessions", SessionController, only: [:create], singleton: true
