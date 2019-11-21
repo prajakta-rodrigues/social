@@ -36,6 +36,11 @@ class Index extends React.Component {
     this.joinChannel = this.joinChannel.bind(this)
   }
 
+  /**
+   * Component passed to the login component so that when a user is logged in
+   * a new channel will be created and they will be joined to that channel. All
+   * the notifications and updates now can be sent through this channel.
+   */
   joinChannel(email) {
     let userChannel = socket.channel("user:"+email)
     userChannel.join().receive("ok", (resp) => console.log(resp))

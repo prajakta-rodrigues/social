@@ -7,10 +7,15 @@ import store from '../store'
 
 
 export default function Navigation(props) {
+
+    // Check whether the user is logged into the app or not.
     if(!store.getState().session) {
       checkUser(props)
     }
     
+    // If user is logged in then a channel will be created and if a channel
+    // exists then this is the place where every event on the channel will be
+    // listened to and an appropriate action would be taken.
     if(props.channel) {
       props.channel.on('update', resp => {
         store.dispatch({
@@ -28,10 +33,12 @@ export default function Navigation(props) {
             <Navbar bg="primary" variant="dark" expand="lg">
             <Navbar.Brand>
                 <img src={require('../../static/logo.png')} alt="logo"/>
-                Social
+                <NavLink to="/" className="brand-text">Social</NavLink>
             </Navbar.Brand>
             <Navbar.Toggle className="ml-auto" aria-controls="basic-navbar-nav"/>
             <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
+              // Based on the status of authentication of current user, the
+              // navbar will render appropriate links to visit.
                 <Session />
             </Navbar.Collapse>
         </Navbar>
@@ -39,6 +46,10 @@ export default function Navigation(props) {
     ) 
 }
 
+/**
+ * Check whether the user is logged into the fb. If so, log them in to the app
+ * and redirect them to the main page
+ */
 function checkUser(props) {
   FB.getLoginStatus((resp) => {
     if(resp.status === "connected") {
@@ -53,17 +64,13 @@ function checkUser(props) {
   })
 }
 
-/**
- * Check whether the user is logged into the fb. If so, log them in to the app
- * and redirect them to the main page
- */
-
-
 
 let Session = connect(({ session }) => ({ session }))(
     ({ session, dispatch }) => {
+      // To log the user out of the app
       function logout(ev) {
         ev.preventDefault();
+        // This logs user out of the FB instance too.
         FB.logout()
         localStorage.removeItem("session");
         dispatch({
@@ -71,6 +78,7 @@ let Session = connect(({ session }) => ({ session }))(
         });
       }
       
+      // If user is currently logged in, it returns the following links.
       if (session) {
         let insta_app_id = process.env.INSTA_APP_ID
         let redirect_uri = process.env.INSTA_REDIRECT_URI
@@ -102,6 +110,7 @@ let Session = connect(({ session }) => ({ session }))(
           </div>
         );
       } else {
+        // If user is logged out, it returns the following links
         return (
             <Nav>
                 <Nav.Item>

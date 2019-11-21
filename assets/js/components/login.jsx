@@ -8,7 +8,6 @@ import logo from '../../static/logo.png'
 class Login extends React.Component {
   constructor(props) {
     super(props);
-    console.log("props:")
     this.state = {
       redirect: null,
     };
@@ -34,11 +33,17 @@ class Login extends React.Component {
    * To create/login user using fb.
    */
   continueWithFB() {
+    // Get the status of the current user i.e. to see whether the user is logged
+    // in or not.
     FB.getLoginStatus((response) => {
+      // If user is not already logged in then proceed.
       if(response.status !== "connected") {
         FB.login((response) => {
           if(response.authResponse) {
             // TODO: Redirect user to main page.
+
+            // Get the information about the user and login them to the app
+            // using email
             FB.api('/me/', 'get', {fields: ['email','name']}, (resp) => {
               // Set the session from the info obtained.
               this.props.dispatch({
@@ -50,9 +55,8 @@ class Login extends React.Component {
               let email = resp.email
               this.props.joinChannel(email)
               get('/user/'+email).then((resp) => {
-                console.log(resp)
                 // If user exists, redirect them to home page.
-
+                this.redirect('/profile')
 
                 // Else create a password for the user.
               })

@@ -24,6 +24,7 @@ defmodule Social.UserGenServer do
     {:ok, id}
   end
 
+  # To broadcast the posts to the channel to which current user is connected.
   def broadcast_posts(id, data) do
     broadcast(id, data)
     # {:reply, {:ok, %{"message" => "broadcast successful"}}}
