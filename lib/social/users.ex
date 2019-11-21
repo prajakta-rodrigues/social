@@ -102,6 +102,17 @@ defmodule Social.Users do
     User.changeset(user, %{})
   end
 
+  def get_user_by_email(email) do
+    user = Repo.all from u in User,
+            where: u.email == ^email
+
+    if length(user) > 0 do
+      true
+    else
+      false
+    end
+  end
+
   def authenticate(email, password) do
     user = Repo.get_by(User, email: email)
 
@@ -109,5 +120,9 @@ defmodule Social.Users do
       {:ok, user} -> user
       _ -> nil
     end
+  end
+
+  def get_by_email(email) do
+    Repo.get_by(User, email: email)
   end
 end

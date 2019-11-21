@@ -5,6 +5,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const Dotenv = require('dotenv-webpack')
 
 module.exports = (env, options) => ({
   optimization: {
@@ -39,6 +40,10 @@ module.exports = (env, options) => ({
       {
         test: /\.scss$/,
         use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
+      },
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: ['file-loader']
       }
     ]
   },
@@ -47,6 +52,9 @@ module.exports = (env, options) => ({
     extensions: ['.js', '.jsx', '.css', '.scss'],
   },
   plugins: [
+    new Dotenv({
+      path: '../.env'
+    }),
     new MiniCssExtractPlugin({ filename: '../css/app.css' }),
     new webpack.ProvidePlugin({
       $: 'jquery',

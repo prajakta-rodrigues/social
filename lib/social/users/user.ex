@@ -16,9 +16,9 @@ defmodule Social.Users.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:name, :username, :email, :password, :dob, :password_hash])
+    |> cast(attrs, [:name, :username, :email, :password, :dob])
     |> hash_password()
-    |> validate_required([:name, :username, :email, :password, :dob, :password_hash])
+    |> validate_required([:name, :username, :email, :dob, :password_hash])
   end
 
   def hash_password(cset) do

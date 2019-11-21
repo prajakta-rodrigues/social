@@ -2,17 +2,19 @@ import React from "react";
 import { connect } from "react-redux";
 import { Row, Col, Form, Button, Alert } from "react-bootstrap";
 import { Redirect } from "react-router";
-
-import { submit_login } from "../ajax";
+import { submitLogin, get } from "../ajax";
+import logo from '../../static/logo.png'
 
 class Login extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
-      redirect: null
+      redirect: null,
     };
+
+    this.redirect = this.redirect.bind(this);
   }
+  
 
   changed(data) {
     this.props.dispatch({
@@ -27,11 +29,52 @@ class Login extends React.Component {
     });
   }
 
+  /**
+   * To create/login user using fb.
+   */
+  continueWithFB() {
+    // Get the status of the current user i.e. to see whether the user is logged
+    // in or not.
+    FB.getLoginStatus((response) => {
+      // If user is not already logged in then proceed.
+      if(response.status !== "connected") {
+        FB.login((response) => {
+          if(response.authResponse) {
+            // TODO: Redirect user to main page.
+
+            // Get the information about the user and login them to the app
+            // using email
+            FB.api('/me/', 'get', {fields: ['email','name']}, (resp) => {
+              // Set the session from the info obtained.
+              this.props.dispatch({
+                type: "LOG_IN",
+                data: resp
+              })
+
+              // Check if the user exists on our database.
+              let email = resp.email
+              this.props.joinChannel(email)
+              get('/user/'+email).then((resp) => {
+                // If user exists, redirect them to home page.
+                this.redirect('/profile')
+
+                // Else create a password for the user.
+              })
+
+            })
+          }
+        }, {
+          scope: ['email'], 
+          return_scopes: true
+        })
+      }
+    })    
+  }
+
   render() {
     if (this.state.redirect) {
       return <Redirect to={this.state.redirect} />;
     }
-
     let { email, password, errors } = this.props;
     let error_msg = null;
     if (errors) {
@@ -43,9 +86,22 @@ class Login extends React.Component {
         </Row>
       );
     }
-
+    
+    const header = (
+      <Row>
+        <div className="header-container">
+          <Col xs={12}>
+            <h1> Social </h1>
+            <img src={logo} alt="logo" />
+            <hr />
+          </Col>
+        </div>
+      </Row>
+    );
     const logInForm = (
       <div>
+        {header}
+        <hr />
         {error_msg}
         <Row>
           <Col xs={2} />
@@ -79,14 +135,17 @@ class Login extends React.Component {
 
               <div style={{ textAlign: 'center' }}>
                 <div
-                  className="btn btn-outline-success"
-                  style={{
-                    cursor: "pointer"
-                  }}
-                  onClick={() => submit_login(this)}
+                  className="btn btn-outline-success action-btn"
+                  onClick={() => submitLogin(this)}
                 >
                   Login
                 </div>
+              </div>
+              <div
+                  className="btn btn-primary d-block mx-auto action-btn"
+                  onClick={() => this.continueWithFB()}
+                >
+                  Continue with Facebook
               </div>
             </Form>
           </Col>

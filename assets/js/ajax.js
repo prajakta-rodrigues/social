@@ -5,8 +5,7 @@ export function post(path, body) {
 	let token = "";
 	if (state.session && state.session.token) {
 		token = state.session.token;
-	}
-
+  }
   return fetch("/ajax" + path, {
     method: "post",
     credentials: "same-origin",
@@ -39,12 +38,11 @@ export function get(path) {
   }).then(resp => resp.json());
 }
 
-export function submit_login(form) {
+export function submitLogin(form) {
   let state = store.getState();
   let data = state.forms.login;
 
   post("/sessions", data).then(resp => {
-    console.log(resp);
     if (resp.token) {
       localStorage.setItem("session", JSON.stringify(resp));
       store.dispatch({
@@ -60,3 +58,24 @@ export function submit_login(form) {
     }
   });
 }
+
+export function newUser(form) {
+	let state = store.getState();
+	let data = state.forms.new_user;
+
+  post("/users", {user: data}).then(resp => {
+    if (resp && resp.data) {
+      store.dispatch({
+        type: "NEW_USER",
+        data: resp.data
+			});
+			form.redirect("/login");
+    } else {
+      store.dispatch({
+        type: "CHANGE_NEW_USER",
+        data: { errors: JSON.stringify(resp.errors) }
+      });
+    }
+  });
+}
+

@@ -17,6 +17,12 @@ config :social, Social.Repo,
 # with webpack to recompile .js and .css sources.
 config :social, SocialWeb.Endpoint,
   http: [port: 4000],
+  https: [
+    port: 4040,
+    otp_app: :social,
+    keyfile: "priv/keys/localhost.key",
+    certfile: "priv/keys/localhost.cert"
+  ],
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
