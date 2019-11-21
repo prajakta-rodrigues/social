@@ -9,6 +9,7 @@ import logo from '../../static/logo.png'
 class Login extends React.Component {
   constructor(props) {
     super(props);
+    console.log("props:")
     this.state = {
       redirect: null,
     };
@@ -33,15 +34,11 @@ class Login extends React.Component {
    */
   continueWithFB() {
     FB.getLoginStatus((response) => {
-      console.log(response)
       if(response.status !== "connected") {
         FB.login((response) => {
-          console.log(response)
           if(response.authResponse) {
             // TODO: Redirect user to main page.
-
             FB.api('/me/', 'get', {fields: ['email','name']}, (resp) => {
-
               // Set the session from the info obtained.
               this.props.dispatch({
                 type: "LOG_IN",
@@ -49,8 +46,8 @@ class Login extends React.Component {
               })
 
               // Check if the user exists on our database.
-              let email = store.getState().session.email
-
+              let email = resp.email
+              this.props.joinChannel(email)
               get('/user/'+email).then((resp) => {
                 console.log(resp)
                 // If user exists, redirect them to home page.

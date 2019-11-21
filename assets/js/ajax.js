@@ -5,8 +5,7 @@ export function post(path, body) {
 	let token = "";
 	if (state.session && state.session.token) {
 		token = state.session.token;
-	}
-
+  }
   return fetch("/ajax" + path, {
     method: "post",
     credentials: "same-origin",

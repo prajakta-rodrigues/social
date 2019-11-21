@@ -42,8 +42,36 @@ defmodule SocialWeb.UserController do
   end
 
   def get_by_email(conn, %{"email" => email}) do
-    IO.inspect email
     user = Users.get_by_email(email)
     render(conn, "show.json", user: user)
+  end
+
+  # To get the posts from instagram.
+  def get_ig_posts(conn, %{"code" => code, "id" => id}) do
+    HTTPoison.start
+    body = URI.encode_query(%{
+      "app_id" => System.get_env("INSTA_APP_ID"),
+      "app_secret" => System.get_env("INSTA_APP_SECRET"),
+      "grant_type" => "authorization_code",
+      "redirect_uri" => "https://localhost:4040/insta_auth",
+      "code" => code
+      })
+      # Get the access token by exchanging the code.
+    {:ok, response} = HTTPoison.post("https://api.instagram.com/oauth/access_token", body, [{"Content-Type", "application/x-www-form-urlencoded"}])
+    {_, body} = Jason.decode(response.body)
+    if body["access_token"] do
+      user_id = body["user_id"]
+      # Get user's media
+      url = "https://graph.instagram.com/#{user_id}/media?fields=id,media_url,media_type&access_token=#{body["access_token"]}"
+      response = HTTPoison.get!(url)
+      {_, body} = Jason.decode(response.body)
+
+      # Broadcast the message through genserver.
+      Social.UserGenServer.broadcast_posts(id, body)
+      send_resp(conn, 200, Jason.encode!(%{message: "Got posts successfully."}))
+    else
+      send_resp(conn, 403, Jason.encode!(%{error: body["error_message"]}))
+    end
+
   end
 end

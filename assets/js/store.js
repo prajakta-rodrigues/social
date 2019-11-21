@@ -5,7 +5,8 @@ import deepFreeze from "deep-freeze-strict";
 /**
  * store = {
  *    session: {...},
- *    forms: {...}
+ *    forms: {...},
+ *    posts: {...},
  * }
  */
 let session0 = localStorage.getItem("session");
@@ -47,12 +48,25 @@ function users(st0 = new Map(), action) {
   return st0;
 }
 
+function ig_posts(st0 = new Map(), action) {
+  switch(action.type) {
+    case "GOT_POSTS": {
+      let st1 = new Map(st0)
+      action.data.forEach((el) => st1.set(el.id, el))
+      return st1
+    }
+    default:
+      return st0
+  }
+}
+
 function root_reducer(st0, action) {
   console.log("root reducer", st0, action);
   let reducer = combineReducers({
     forms,
     users,
-    session
+    session,
+    ig_posts
   });
   return deepFreeze(reducer(st0, action));
 }

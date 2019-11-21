@@ -6,8 +6,8 @@ import {
   Route,
   Switch
 } from "react-router-dom";
-import { Col, Row } from "react-bootstrap";
 import { Provider } from "react-redux";
+import socket from './socket'
 
 import Login from "./components/login";
 import Insta_auth from './components/insta_auth'
@@ -15,6 +15,7 @@ import Navbar from './components/navbar'
 
 import store from "./store";
 import MapComponent from "./components/maps";
+import Profile from "./components/profile";
 
 export default function init_page(root) {
   let tree = (
@@ -25,17 +26,35 @@ export default function init_page(root) {
   ReactDOM.render(tree, root);
 }
 
-function Index(props) {
-  return (
-    <Router>
-      <Navbar />
-      <Switch>
-        <Route exact path="/" component={Login} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/insta_auth" component={Insta_auth} />
-        <Route exact path="/map" component={MapComponent} />
-      </Switch>
-    </Router>
-  );
+
+class Index extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      channel: null
+    }
+    this.joinChannel = this.joinChannel.bind(this)
+  }
+
+  joinChannel(email) {
+    let userChannel = socket.channel("user:"+email)
+    userChannel.join().receive("ok", (resp) => console.log(resp))
+    this.setState({channel: userChannel})
+  }
+  
+  render() {
+    return (
+      <Router>
+        <Navbar channel={this.state.channel} joinChannel={this.joinChannel}/>
+        <Switch>
+          <Route exact path="/" render={(props) => <Login {...props} channel={this.state.channel} joinChannel={this.joinChannel} />} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/insta_auth" component={Insta_auth} />
+          <Route exact path="/map" component={MapComponent} />
+          <Route exact path="/profile" component={Profile} />
+        </Switch>
+      </Router>
+    )
+  }
 }
 

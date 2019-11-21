@@ -14,6 +14,8 @@ defmodule Social.Application do
       SocialWeb.Endpoint,
       # Starts a worker by calling: Social.Worker.start_link(arg)
       # {Social.Worker, arg},
+      Social.UserSup,
+
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

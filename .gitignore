@@ -1,4 +1,5 @@
 prod-env.sh
+env.sh
 .env
 .elixir_ls
 

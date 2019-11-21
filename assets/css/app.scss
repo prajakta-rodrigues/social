@@ -25,3 +25,24 @@ html, body {
 #map {
     height: 100%;
 }
+
+.dropdown-link, .dropdown-link a {
+    padding: 5px;
+    color: black;
+}
+
+.ig_post {
+    height: 300px;
+    // border-radius: 5px;
+    border: 1px solid #aaaaaa;
+    // margin: 2px;
+}
+
+.ig_post img {
+    max-height: 300px;
+    padding: 10px;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%)
+}

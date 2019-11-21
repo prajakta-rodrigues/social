@@ -1,22 +1,20 @@
-//TODO: FIGURE OUT A WAY TO OVERCOME CORS ERROR.
+// This is a popup through which user can give permission for accessing their
+// IG from the app. On approval, a message will be broadcasted from the server
+// indicating successful authorization or if permission is not given then an
+// error message will be displayed. This popup will self close on success or 
+// failure.
 
-import React from 'react'
+import { post } from '../ajax'
+import store from '../store'
 
 export default function Insta_auth(props) {
     let code = props.location.search.split("=")[1]
-    let app_secret = process.env.INSTA_APP_SECRET
-    let app_id = process.env.INSTA_APP_ID
-    let redirect_uri = "https://localhost:4040/insta_auth/"
-
-    fetch('https://api.instagram.com/oauth/access_token', {
-        method: 'post',
-        body: "app_id=" + app_id 
-            + "&app_secret=" + app_secret
-            + "&grant_type=authorization_code"
-            + "&redirect_uri=" + redirect_uri
-            + "&code=" + code 
-    }).then((resp) => console.log(resp))
-    return (
-        <h1>Hello User</h1>
-    )
+    let session = store.getState().session
+    if(session) {
+        post("/user/ig_posts", {code, id: session.email}).then(resp => {
+            window.close()
+        })
+    }
+    return null
+    
 }
