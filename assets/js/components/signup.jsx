@@ -8,9 +8,11 @@ class SignUp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      redirect: null
+			redirect: null,
+			showAlert: true
     };
-    this.redirect = this.redirect.bind(this);
+		this.redirect = this.redirect.bind(this);
+		this.setAlertVisibility = this.setAlertVisibility.bind(this);
   }
 
   changed(data) {
@@ -24,7 +26,13 @@ class SignUp extends React.Component {
     this.setState({
       redirect: path
     });
-  }
+	}
+	
+	setAlertVisibility(showAlert) {
+		this.setState({
+			showAlert
+		})
+	}
 
   render() {
     if (this.state.redirect) {
@@ -32,14 +40,24 @@ class SignUp extends React.Component {
     }
 
     let { name, email, dob, username, password, errors } = this.props;
-    let error_msg = null;
+    let error_msg = "";
     if (errors) {
-      error_msg = <Alert variant="danger">{errors}</Alert>;
+			const { showAlert } = this.state;
+      error_msg = showAlert ? (
+        <Row style={{ textAlign: "center" }}>
+          <Col xs={2} />
+          <Col xs={8}>
+            <Alert variant="danger" onClose={() => this.setAlertVisibility(false)} dismissible>
+              {errors}
+            </Alert>
+          </Col>
+          <Col xs={2} />
+        </Row>
+      ) : "";
     }
 
     const newUserForm = (
       <Row>
-        {error_msg}
         <Col xs={2} />
         <Col xs={8}>
           <Form>
@@ -132,6 +150,7 @@ class SignUp extends React.Component {
           </span>
         </h3>
         <br />
+        {error_msg}
         {newUserForm}
       </div>
     );
