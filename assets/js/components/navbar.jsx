@@ -12,7 +12,7 @@ export default function Navigation(props) {
     if(!store.getState().session) {
       checkUser(props)
     }
-    
+
     // If user is logged in then a channel will be created and if a channel
     // exists then this is the place where every event on the channel will be
     // listened to and an appropriate action would be taken.
@@ -26,7 +26,7 @@ export default function Navigation(props) {
           })
         })
       })
-    } 
+    }
 
     return(
         <div id="navbar">
@@ -43,7 +43,7 @@ export default function Navigation(props) {
             </Navbar.Collapse>
         </Navbar>
         </div>
-    ) 
+    )
 }
 
 /**
@@ -77,7 +77,7 @@ let Session = connect(({ session }) => ({ session }))(
           type: "LOG_OUT"
         });
       }
-      
+
       // If user is currently logged in, it returns the following links.
       if (session) {
         let insta_app_id = process.env.INSTA_APP_ID
@@ -95,15 +95,16 @@ let Session = connect(({ session }) => ({ session }))(
                   <NavLink to="/profile">My Profile</NavLink>
                 </div>
                 <div className="dropdown-link">
-                  <a href="#" 
+                  <a href="#"
                     target="popup"
                     onClick={(ev) => {
                       ev.preventDefault()
                       let myWindow = window.open(auth_url, 'popup', 'width=800, height=600')
                       return false
-                    }}>Connect with Instagram</a>                  
+                    }}>Connect with Instagram</a>
                 </div>
                 <NavDropdown.Divider />
+                <div className="dropdown-link"><NavLink to="/edit_profile">Edit Profile</NavLink></div>
                 <div onClick={logout} className="dropdown-link"><NavLink to="/">Logout</NavLink></div>
               </NavDropdown>
             </Nav>

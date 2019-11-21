@@ -16,6 +16,7 @@ import SignUp from "./components/signup";
 import store from "./store";
 import MapComponent from "./components/maps";
 import Profile from "./components/profile";
+import EditUserProfile from "./components/edit-user-profile"
 
 export default function init_page(root) {
   let tree = (
@@ -46,7 +47,7 @@ class Index extends React.Component {
     userChannel.join().receive("ok", (resp) => console.log(resp))
     this.setState({channel: userChannel})
   }
-  
+
   render() {
     return (
       <Router>
@@ -58,9 +59,9 @@ class Index extends React.Component {
           <Route exact path="/insta_auth" component={Insta_auth} />
           <Route exact path="/map" component={MapComponent} />
           <Route exact path="/profile" component={Profile} />
+          <Route exact path="/edit_profile" component={EditUserProfile} />
         </Switch>
       </Router>
     )
   }
 }
-
