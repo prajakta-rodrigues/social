@@ -44,10 +44,24 @@ function new_user(
   }
 }
 
+function user_profile(st0 = {behavior: "", description: "", interests: "",
+qualities: [], request_setting_allow: "", errors: ""}, action) {
+  switch (action.type) {
+    case "CHANGE_USER_PROFILE":
+    console.log(action.data);
+      return Object.assign({}, st0, action.data);
+    default:
+      return st0;
+  }
+}
+
+
+
 function forms(st0, action) {
   let reducer = combineReducers({
     login,
-    new_user
+    new_user,
+    user_profile,
   });
   return reducer(st0, action);
 }
@@ -74,6 +88,18 @@ function users(st0 = new Map(), action) {
   }
 }
 
+function user_profiles(st0 = new Map(), action) {
+  switch (action.type) {
+    case "NEW_USER_PROFILE":
+      let st1 = new Map(st0);
+      st1.set(action.data.id, action.data);
+      return st1;
+    default:
+      return st0;
+  }
+}
+
+
 function ig_posts(st0 = new Map(), action) {
   switch(action.type) {
     case "GOT_POSTS": {
@@ -92,7 +118,8 @@ function root_reducer(st0, action) {
     forms,
     users,
     session,
-    ig_posts
+    ig_posts,
+    user_profiles
   });
   return deepFreeze(reducer(st0, action));
 }
