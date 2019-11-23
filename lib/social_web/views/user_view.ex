@@ -15,7 +15,6 @@ defmodule SocialWeb.UserView do
       name: user.name,
       username: user.username,
       email: user.email,
-      password: user.password,
       dob: user.dob}
   end
 end

@@ -57,6 +57,8 @@ qualities: [], request_setting_allow: "", errors: ""}, action) {
 
 
 
+
+
 function forms(st0, action) {
   let reducer = combineReducers({
     login,
@@ -87,6 +89,19 @@ function users(st0 = new Map(), action) {
       return st0;
   }
 }
+
+function recommendedUsers(st0 = new Map(), action) {
+  switch(action.type) {
+    case "GOT_RECOMMENDED_USERS": {
+      let st1 = new Map(st0)
+      action.data.forEach((el) => st1.set(el.id, el))
+      return st1
+    }
+    default:
+      return st0
+  }
+}
+
 
 function user_profiles(st0 = new Map(), action) {
   switch (action.type) {
@@ -119,7 +134,8 @@ function root_reducer(st0, action) {
     users,
     session,
     ig_posts,
-    user_profiles
+    user_profiles,
+    recommendedUsers
   });
   return deepFreeze(reducer(st0, action));
 }

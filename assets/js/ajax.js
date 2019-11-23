@@ -79,3 +79,17 @@ export function newUser(form) {
   });
 }
 
+
+export function get_recommended_users() {
+	let state = store.getState();
+	let session = state.session;
+
+  get('/user/recommended-users/'+ session.user_id)
+    .then((resp) => {
+      console.log("recommended-users", resp);
+      store.dispatch({
+        type: 'GOT_RECOMMENDED_USERS',
+        data: resp.data,
+      });
+    });
+}

@@ -21,6 +21,11 @@ defmodule Social.Users do
     Repo.all(User)
   end
 
+
+  def get_recommended_users(id) do
+    Repo.all(User)
+  end
+
   @doc """
   Gets a single user.
 

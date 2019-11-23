@@ -23,7 +23,7 @@ defmodule SocialWeb.ProfileController do
         resp = %{errors: ["Some errors with given data"]}
         conn
         |> put_resp_header("content-type", "application/json; charset=UTF-8")
-        |> send_resp(:unauthorized, Jason.encode!(resp))
+        |> send_resp(500, Jason.encode!(resp))
       end
   end
 

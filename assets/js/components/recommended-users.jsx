@@ -3,58 +3,54 @@ import { connect } from 'react-redux';
 import store from '../store';
 import {Card, Button} from 'react-bootstrap';
 import _ from 'lodash';
-
-class RecommendedUsers extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.props = props;
-
-    this.state = {
-      redirect: null,
-      users: [{user_id: 1, email: "test@test.com", "name": "Ryan Renolds"},
-              {user_id: 2, email: "brad@test.com", "name": "Brad Pitt"},
-              {user_id: 3, email: "rini@test.com", "name": "Rini Rini"}]
-    };
-
-    let state = store.getState();
-    this.session = state.session;
-
-  }
-
-  sendRequest(ev) {
-    console.log(ev.target.value);
-  }
+import { Link } from 'react-router-dom';
+import {get_recommended_users} from "../ajax";
 
 
-  render() {
-    let recommendedUsers = [];
+export default function RecommendedUsers(params){
 
-    this.state.users.forEach((user) => {
-      console.log(user);
-      recommendedUsers.push(<Card key={"card" + user.user_id}>
-        <Card.Body  key={"body" + user.user_id}>
-          <Card.Title key={"title" + user.user_id}>
-              {user.name}
-          </Card.Title>
-          <Card.Text key={"text" + user.user_id}>
-            <Button key={"btn" + user.user_id} value={user.user_id} variant="primary" onClick={this.sendRequest.bind(this)}>Send Request</Button>
-          </Card.Text>
-        </Card.Body>
-      </Card>)
-    });
-
-
-    return (
-      <div className="container-fluid">
-        <h1>Recommended Users for you:</h1>
-        {recommendedUsers}
-      </div>
-
-  );
-  }
-
+  return <Req />;
 
 }
 
-export default RecommendedUsers;
+let flag = 0;
+
+let Req = connect(({recommendedUsers, session}) => ({recommendedUsers, session}))(({recommendedUsers, session, dispatch}) =>{
+  console.log("in", recommendedUsers);
+  let recommend = [];
+  if(flag == 0){
+    get_recommended_users();
+    flag = 1;
+  }
+  recommendedUsers.forEach((tt) => {
+    recommend.push(<Recommend key={tt.id} id= {tt.id} name={tt.name} session={session}/>)
+});
+  return <div className="container-fluid">
+    {recommend}
+  </div>;
+});
+
+function sendRequest(ev) {
+  console.log(ev.target.value);
+}
+
+function Recommend(params){
+  let name = params.name;
+  let session = params.session;
+  let id = params.id;
+
+
+  return <Card key={"card" + id}>
+        <Card.Body  key={"body" + id}>
+          <Card.Title key={"title" + id}>
+            <Link to="#" >
+            {name}</Link>
+
+          </Card.Title>
+          <Card.Text key={"text" + id}>
+            <Button key={"btn" + id} value={id} variant="primary"
+              onClick={sendRequest} >Send Request</Button>
+          </Card.Text>
+        </Card.Body>
+      </Card>;
+}
