@@ -47,6 +47,8 @@ let Session = connect(({ session }) => ({ session }))(
       function logout(ev) {
         ev.preventDefault();
         // This logs user out of the FB instance too.
+        if(session.FB_ID)
+          FB.logout()
         localStorage.removeItem("session");
         dispatch({
           type: "LOG_OUT"

@@ -29,6 +29,7 @@ function new_user(
     dob: "",
     username: "",
     password: "",
+    FB_ID: ""
   },
   action
 ) {
