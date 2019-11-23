@@ -23,6 +23,11 @@ html, body {
     padding: 0;
 }
 
+.dropdown-menu {
+    right: 0;
+    left: auto;
+}
+
 #map {
     height: 100%;
 }
