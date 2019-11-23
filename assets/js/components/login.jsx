@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Row, Col, Form, Button, Alert } from "react-bootstrap";
 import { Redirect } from "react-router";
-import { submitLogin, get, post } from "../ajax";
+import { submitLogin, post } from "../ajax";
 import logo from '../../static/logo.png'
 // import argon2 from 'argon2'
 
@@ -97,9 +97,7 @@ class Login extends React.Component {
       <Row>
         <div className="header-container">
           <Col xs={12}>
-            <h1> Social </h1>
-            <img src={logo} alt="logo" />
-            <hr />
+            <img src={logo} alt="logo" height="25%" width="25%" />
           </Col>
         </div>
       </Row>
@@ -107,7 +105,6 @@ class Login extends React.Component {
     const logInForm = (
       <div>
         {header}
-        <hr />
         {error_msg}
         <Row>
           <Col xs={2} />

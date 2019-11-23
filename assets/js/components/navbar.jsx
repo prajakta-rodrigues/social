@@ -22,11 +22,12 @@ export default function Navigation(props) {
     
 
     return(
-        <div id="navbar">
-            <Navbar bg="primary" variant="dark" expand="lg">
+        <div id="navbar" style={{ borderBottom: '2px solid lightgray' }}>
+            <Navbar bg="light" variant="light" expand="lg">
             <Navbar.Brand>
-                <img src={require('../../static/logo.png')} alt="logo"/>
-                <NavLink to="/" className="brand-text">Social</NavLink>
+                <NavLink to="/" className="brand-text">
+                  Social
+                </NavLink>
             </Navbar.Brand>
             <Navbar.Toggle className="ml-auto" aria-controls="basic-navbar-nav"/>
             <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">

@@ -5,9 +5,10 @@
 .header-container {
     width: 100%;
     color: #2c2b2b;
-    height: 5em;
+    height: auto;
     text-align: center;
     margin-top: 2em;
+    padding-bottom: 1em;
 }
 
 .action-btn {
@@ -48,6 +49,8 @@ html, body {
 }
 
 .brand-text, .brand-text:hover {
-    color: white;
+    color: #050505;
+    font-size: 1.5em;
     text-decoration: none;
+    font-family: 'Eczar';
 }
