@@ -42,14 +42,24 @@ module.exports = (env, options) => ({
         use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
       },
       {
-        test: /\.(png|svg|jpg|gif)$/,
-        use: ['file-loader']
+        test: /\.(gif|png|jpe?g|svg)$/i,
+        use: [
+          'file-loader?name=[name].[ext]&outputPath=../images/',
+          {
+            loader: 'image-webpack-loader',
+            options: {
+              bypassOnDebug: true, // webpack@1.x
+              disable: true, // webpack@2.x and newer
+            },
+          },
+        ],
       }
     ]
   },
   devtool: 'cheap-module-source-map',
   resolve: {
-    extensions: ['.js', '.jsx', '.css', '.scss'],
+    extensions: ['.js', '.jsx', '.css', '.scss'
+  ],
   },
   plugins: [
     new Dotenv({
