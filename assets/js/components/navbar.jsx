@@ -6,13 +6,7 @@ import { connect } from 'react-redux';
 import store from '../store'
 
 
-export default function Navigation(props) {
-
-    // Check whether the user is logged into the app or not.
-    if(!store.getState().session) {
-      checkUser(props)
-    }
-    
+export default function Navigation(props) {    
     // If user is logged in then a channel will be created and if a channel
     // exists then this is the place where every event on the channel will be
     // listened to and an appropriate action would be taken.
@@ -25,6 +19,7 @@ export default function Navigation(props) {
         })
       })
     } 
+    
 
     return(
         <div id="navbar">
@@ -42,24 +37,6 @@ export default function Navigation(props) {
         </Navbar>
         </div>
     ) 
-}
-
-/**
- * Check whether the user is logged into the fb. If so, log them in to the app
- * and redirect them to the main page
- */
-function checkUser(props) {
-  FB.getLoginStatus((resp) => {
-    if(resp.status === "connected") {
-        FB.api('/me/', 'get', {fields: ['email','name']}, (resp) => {
-            store.dispatch({
-                type: 'LOG_IN',
-                data: resp
-            })
-            props.joinChannel(resp.email)
-        })
-    }
-  })
 }
 
 

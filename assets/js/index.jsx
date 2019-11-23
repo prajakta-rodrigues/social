@@ -31,9 +31,12 @@ class Index extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      channel: null
+      channel: store.getState().session.email ? socket.channel("user:" + store.getState().session.email) : null
     }
     this.joinChannel = this.joinChannel.bind(this)
+    if(this.state.channel) {
+      this.state.channel.join().receive("ok", (resp) => console.log(resp))
+    }
   }
 
   /**
@@ -48,6 +51,7 @@ class Index extends React.Component {
   }
   
   render() {
+    // Check whether the user is logged into the app or not.
     return (
       <Router>
         <Navbar channel={this.state.channel} joinChannel={this.joinChannel}/>

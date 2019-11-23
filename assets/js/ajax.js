@@ -49,7 +49,7 @@ export function submitLogin(form) {
         type: "LOG_IN",
         data: resp
       });
-      form.redirect("/test");
+      form.redirect("/profile");
     } else {
       store.dispatch({
         type: "CHANGE_LOGIN",

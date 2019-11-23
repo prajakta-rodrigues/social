@@ -71,7 +71,7 @@ defmodule SocialWeb.UserController do
 
   end
   # To get the posts from instagram.
-  def get_ig_posts(conn, %{"code" => code, "id" => id}) do
+  def get_ig_posts(conn, %{"code" => code, "id" => id, "channel" => channel}) do
     HTTPoison.start
     body = URI.encode_query(%{
       "app_id" => System.get_env("INSTA_APP_ID"),
@@ -94,8 +94,9 @@ defmodule SocialWeb.UserController do
           x
         end
       end)
+      IO.inspect id
       # Broadcast the message through genserver.
-      Social.UserGenServer.broadcast_posts(id, %{data: posts})
+      Social.UserGenServer.broadcast_posts(channel, %{data: posts})
       send_resp(conn, 200, Jason.encode!(%{message: "Got posts successfully."}))
     else
       send_resp(conn, 403, Jason.encode!(%{error: body["error_message"]}))

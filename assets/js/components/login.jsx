@@ -38,41 +38,43 @@ class Login extends React.Component {
     // in or not.
     FB.getLoginStatus((response) => {
       // If user is not already logged in then proceed.
-      if(response.status !== "connected") {
-        FB.login((response) => {
-          if(response.authResponse) {
-            // Get the information about the user and login them to the app
-            // using email
-            FB.api('/me/', 'get', {fields: ['email','name']}, (resp) => {
-              // Set the session from the info obtained.
+      FB.login((response) => {
+        if(response.authResponse) {
+          // Get the information about the user and login them to the app
+          // using email
+          FB.api('/me/', 'get', {fields: ['email','name']}, (resp) => {
+            // Set the session from the info obtained.
 
-              // Check if the user exists on our database.
-              let email = resp.email
+            // Check if the user exists on our database.
+            let email = resp.email
+            post('/user/get_with_token', {email, id: process.env.APP_ID}).then((resp) => {
               this.props.joinChannel(email)
-              post('/user/get_with_token', {email, id: process.env.APP_ID}).then((resp) => {
-                console.log(resp)
-                
-                // If user exists, login them to our app and get a token from
-                // the server.
-                this.props.dispatch({
-                  type: "LOG_IN",
-                  data: resp
-                })
-                // Then redirect them to their dashboard.
-                // THIS IS TEMP ROUTING.
-                this.redirect('/profile')
-
-                // Else create a password for the user.
+              localStorage.setItem("session", JSON.stringify(resp));
+              // If user exists, login them to our app and get a token from
+              // the server.
+              this.props.dispatch({
+                type: "LOG_IN",
+                data: resp
               })
+              // Then redirect them to their dashboard.
+              // THIS IS TEMP ROUTING.
+              this.redirect('/profile')
 
+              // Else create a password for the user.
             })
-          }
-        }, {
-          scope: ['email'], 
-          return_scopes: true
-        })
-      }
+
+          })
+        }
+      }, {
+        scope: ['email'], 
+        return_scopes: true
+      })
     })    
+  }
+
+  submit_login(form) {
+    this.props.joinChannel(form.props.email)
+    submitLogin(form)
   }
 
   render() {
@@ -140,7 +142,7 @@ class Login extends React.Component {
               <div style={{ textAlign: 'center' }}>
                 <div
                   className="btn btn-outline-success action-btn"
-                  onClick={() => submitLogin(this)}
+                  onClick={() => this.submit_login(this)}
                 >
                   Login
                 </div>
