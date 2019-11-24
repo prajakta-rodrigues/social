@@ -75,8 +75,8 @@ class SignUp extends React.Component {
 
     const newUserForm = (
       <Row>
-        <Col xs={2} />
-        <Col xs={8}>
+        <Col xs={3} />
+        <Col xs={6}>
           <Form>
             <Form.Group as={Row} controlId="user-name">
               <Form.Label column sm={2}>
@@ -158,7 +158,7 @@ class SignUp extends React.Component {
             </div>
           </Form>
         </Col>
-        <Col xs={2} />
+        <Col xs={3} />
       </Row>
     );
 
