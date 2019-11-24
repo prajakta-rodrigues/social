@@ -3,16 +3,17 @@ import { connect } from "react-redux";
 import { Row, Col, Form, Button, Alert } from "react-bootstrap";
 import { Redirect } from "react-router";
 import { newUser } from "../ajax";
+import logo from "../../static/logo.png";
 
 class SignUp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-			redirect: null,
-			showAlert: true
+      redirect: null,
+      showAlert: true
     };
-		this.redirect = this.redirect.bind(this);
-		this.setAlertVisibility = this.setAlertVisibility.bind(this);
+    this.redirect = this.redirect.bind(this);
+    this.setAlertVisibility = this.setAlertVisibility.bind(this);
   }
 
   changed(data) {
@@ -26,13 +27,13 @@ class SignUp extends React.Component {
     this.setState({
       redirect: path
     });
-	}
-	
-	setAlertVisibility(showAlert) {
-		this.setState({
-			showAlert
-		})
-	}
+  }
+
+  setAlertVisibility(showAlert) {
+    this.setState({
+      showAlert
+    });
+  }
 
   render() {
     if (this.state.redirect) {
@@ -42,19 +43,35 @@ class SignUp extends React.Component {
     let { name, email, dob, username, password, errors } = this.props;
     let error_msg = "";
     if (errors) {
-			const { showAlert } = this.state;
+      const { showAlert } = this.state;
       error_msg = showAlert ? (
         <Row style={{ textAlign: "center" }}>
           <Col xs={2} />
           <Col xs={8}>
-            <Alert variant="danger" onClose={() => this.setAlertVisibility(false)} dismissible>
+            <Alert
+              variant="danger"
+              onClose={() => this.setAlertVisibility(false)}
+              dismissible
+            >
               {errors}
             </Alert>
           </Col>
           <Col xs={2} />
         </Row>
-      ) : "";
+      ) : (
+        ""
+      );
     }
+
+    const header = (
+      <Row>
+        <div className="header-container">
+          <Col xs={12}>
+            <img src={logo} alt="logo" height="15%" width="15%" />
+          </Col>
+        </div>
+      </Row>
+    );
 
     const newUserForm = (
       <Row>
@@ -67,8 +84,8 @@ class SignUp extends React.Component {
               </Form.Label>
               <Col sm={10}>
                 <Form.Control
-									type="text"
-									value={name}
+                  type="text"
+                  value={name}
                   placeholder="Enter full name"
                   onChange={ev => this.changed({ name: ev.target.value })}
                 />
@@ -81,8 +98,8 @@ class SignUp extends React.Component {
               </Form.Label>
               <Col sm={10}>
                 <Form.Control
-									type="text"
-									value={email}
+                  type="text"
+                  value={email}
                   placeholder="Enter your email"
                   onChange={ev => this.changed({ email: ev.target.value })}
                 />
@@ -109,8 +126,8 @@ class SignUp extends React.Component {
               </Form.Label>
               <Col sm={10}>
                 <Form.Control
-									type="text"
-									value={username}
+                  type="text"
+                  value={username}
                   placeholder="Enter your username"
                   onChange={ev => this.changed({ username: ev.target.value })}
                 />
@@ -123,8 +140,8 @@ class SignUp extends React.Component {
               </Form.Label>
               <Col sm={10}>
                 <Form.Control
-									type="password"
-									value={password}
+                  type="password"
+                  value={password}
                   placeholder="Password"
                   onChange={ev => this.changed({ password: ev.target.value })}
                 />
@@ -132,9 +149,12 @@ class SignUp extends React.Component {
             </Form.Group>
 
             <div style={{ textAlign: "center" }}>
-              <Button variant="outline-success" onClick={() => newUser(this)}>
+              <div
+                className="btn btn-outline-social action-btn"
+                onClick={() => newUser(this)}
+              >
                 Sign Up
-              </Button>
+              </div>
             </div>
           </Form>
         </Col>
@@ -144,6 +164,7 @@ class SignUp extends React.Component {
 
     return (
       <div>
+        {header}
         <h3 style={{ textAlign: "center" }}>
           <span
             style={{

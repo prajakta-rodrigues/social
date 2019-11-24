@@ -138,14 +138,14 @@ class Login extends React.Component {
 
               <div style={{ textAlign: 'center' }}>
                 <div
-                  className="btn btn-outline-success action-btn"
+                  className="btn btn-outline-social action-btn"
                   onClick={() => this.submit_login(this)}
                 >
                   Login
                 </div>
               </div>
               <div
-                  className="btn btn-primary d-block mx-auto action-btn"
+                  className="btn btn-outline-primary d-block mx-auto action-btn"
                   onClick={() => this.continueWithFB()}
                 >
                   Continue with Facebook

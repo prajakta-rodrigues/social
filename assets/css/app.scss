@@ -59,3 +59,21 @@ html, body {
     text-decoration: none;
     font-family: 'Eczar';
 }
+
+.btn-outline-social {
+    color: #db625c;
+    border-color: #db625c;
+}
+
+.btn-outline-social:hover {
+    background-color: #db625c;
+    color: white;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: #db625c;
+}
+
+.navbar-light .navbar-nav .nav-link.active {
+    color: #db625c;
+}
