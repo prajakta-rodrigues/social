@@ -19,6 +19,26 @@ export function post(path, body) {
   }).then(resp => resp.json());
 }
 
+
+export function patch(path, body) {
+	let state = store.getState();
+	let token = "";
+	if (state.session && state.session.token) {
+		token = state.session.token;
+  }
+  return fetch("/ajax" + path, {
+    method: "PATCH",
+    credentials: "same-origin",
+    headers: new Headers({
+      "x-csrf-token": window.csrf_token,
+      "content-type": "application/json; charset=UTF-8",
+      accept: "application/json",
+      "x-auth": token
+    }),
+    body: JSON.stringify(body)
+  }).then(resp => resp.json());
+}
+
 export function get(path) {
   let state = store.getState();
 	let token = "";
@@ -79,3 +99,31 @@ export function newUser(form) {
   });
 }
 
+
+export function get_recommended_users() {
+	let state = store.getState();
+	let session = state.session;
+
+  get('/user/recommended-users/'+ session.user_id)
+    .then((resp) => {
+      console.log("recommended-users", resp);
+      store.dispatch({
+        type: 'GOT_RECOMMENDED_USERS',
+        data: resp.data,
+      });
+    });
+}
+
+export function updateUserLocation(longitude, latitude) {
+	let state = store.getState();
+	let session = state.session;
+
+  patch("/users/" + session.user_id, {id: session.user_id, user: {longitude: longitude, latitude:latitude}}).then(resp => {
+    if (resp && resp.data) {
+      store.dispatch({
+        type: "NEW_USER",
+        data: resp.data
+			});
+    }
+  });
+}

@@ -51,7 +51,7 @@ let Session = connect(({ session }) => ({ session }))(
           type: "LOG_OUT"
         });
       }
-      
+
       // If user is currently logged in, it returns the following links.
       if (session.token) {
         let insta_app_id = process.env.INSTA_APP_ID

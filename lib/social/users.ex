@@ -21,6 +21,11 @@ defmodule Social.Users do
     Repo.all(User)
   end
 
+
+  def get_recommended_users(id) do
+    Repo.all(User)
+  end
+
   @doc """
   Gets a single user.
 
@@ -69,7 +74,7 @@ defmodule Social.Users do
   """
   def update_user(%User{} = user, attrs) do
     user
-    |> User.changeset(attrs)
+    |> User.updateset(attrs)
     |> Repo.update()
   end
 
