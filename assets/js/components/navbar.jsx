@@ -39,29 +39,27 @@ export default function Navigation(props) {
 }
 
 let Session = connect(({ session }) => ({ session }))(
-  ({ session, dispatch }) => {
-    // To log the user out of the app
-    function logout(ev) {
-      ev.preventDefault();
-      // This logs user out of the FB instance too.
-      FB.logout();
-      localStorage.removeItem("session");
-      dispatch({
-        type: "LOG_OUT"
-      });
-    }
-
-    // If user is currently logged in, it returns the following links.
-    if (session.token) {
-      let insta_app_id = process.env.INSTA_APP_ID;
-      let redirect_uri = process.env.INSTA_REDIRECT_URI;
-      let auth_url =
-        "https://api.instagram.com/oauth/authorize" +
-        "?app_id=" +
-        insta_app_id +
-        "&redirect_uri=" +
-        redirect_uri +
-        "&scope=user_profile,user_media&response_type=code";
+    ({ session, dispatch }) => {
+      // To log the user out of the app
+      function logout(ev) {
+        ev.preventDefault();
+        // This logs user out of the FB instance too.
+        if(session.FB_ID)
+          FB.logout()
+        localStorage.removeItem("session");
+        dispatch({
+          type: "LOG_OUT"
+        });
+      }
+      
+      // If user is currently logged in, it returns the following links.
+      if (session.token) {
+        let insta_app_id = process.env.INSTA_APP_ID
+        let redirect_uri = process.env.INSTA_REDIRECT_URI
+        let auth_url = "https://api.instagram.com/oauth/authorize"
+        + "?app_id=" + insta_app_id
+        + "&redirect_uri=" + redirect_uri
+        + "&scope=user_profile,user_media&response_type=code"
 
       return (
         <div style={{ display: "inline-block", float: "right" }}>

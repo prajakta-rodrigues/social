@@ -44,9 +44,10 @@ class Login extends React.Component {
           // using email
           FB.api('/me/', 'get', {fields: ['email','name']}, (resp) => {
             // Set the session from the info obtained.
-
+            
             // Check if the user exists on our database.
             let email = resp.email
+            let FB_ID = resp.id
             post('/user/get_with_token', {email, id: process.env.APP_ID}).then((resp) => {
               this.props.joinChannel(email)
               localStorage.setItem("session", JSON.stringify(resp));
@@ -54,7 +55,7 @@ class Login extends React.Component {
               // the server.
               this.props.dispatch({
                 type: "LOG_IN",
-                data: resp
+                data: {...resp, FB_ID}
               })
               // Then redirect them to their dashboard.
               // THIS IS TEMP ROUTING.
