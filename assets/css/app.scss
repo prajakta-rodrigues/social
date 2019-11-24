@@ -7,8 +7,15 @@
     color: #2c2b2b;
     height: auto;
     text-align: center;
-    margin-top: 2em;
-    padding-bottom: 1em;
+    margin-top: 3em;
+    padding-bottom: 3em;
+}
+
+.navbar-style {
+    background-color: #050505;
+    -webkit-box-shadow: 0 8px 8px -8px gray;
+	-moz-box-shadow: 0 8px 8px -8px gray;
+	box-shadow: 0 8px 8px -8px gray;
 }
 
 .action-btn {
@@ -21,6 +28,7 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
+    background-color: #F5F5F5;
 }
 
 .dropdown-menu {
@@ -56,6 +64,7 @@ html, body {
 .brand-text, .brand-text:hover {
     color: white;
     font-size: 1.5em;
+    letter-spacing: 0.1em;
     text-decoration: none;
     font-family: 'Eczar';
 }
@@ -68,4 +77,13 @@ html, body {
 .btn-outline-social:hover {
     background-color: #db625c;
     color: white;
+}
+
+.card {
+    padding: 3em;
+    border-radius: 15px;
+    background-color: white;
+    -webkit-box-shadow: 0 8px 6px -6px gray;
+    -moz-box-shadow: 0 8px 6px -6px gray;
+    box-shadow: 0 8px 6px -6px gray;
 }

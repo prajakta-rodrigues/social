@@ -20,7 +20,7 @@ export default function Navigation(props) {
   }
 
   return (
-    <div id="navbar" style={{ backgroundColor: '#db625c' ,boxShadow: "0 6px 6px -6px gray" }}>
+    <div id="navbar" className="navbar-style">
       <Navbar variant="dark" expand="lg">
         <Navbar.Brand>
           <NavLink to="/" className="brand-text">
