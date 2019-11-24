@@ -4,18 +4,23 @@ import store from '../store';
 import {Card, Button} from 'react-bootstrap';
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
-import {get_recommended_users} from "../ajax";
+import {get_recommended_users, updateUserLocation} from "../ajax";
 
 
 export default function RecommendedUsers(params){
-
+  if (navigator.geolocation) {
+   navigator.geolocation.getCurrentPosition(savePosition);
+   } else {
+     console.log("Geolocation is not supported by this browser.");
+   }
   return <Req />;
 
 }
 
 let flag = 0;
 
-let Req = connect(({recommendedUsers, session}) => ({recommendedUsers, session}))(({recommendedUsers, session, dispatch}) =>{
+let Req = connect(({recommendedUsers, session}) =>
+({recommendedUsers, session}))(({recommendedUsers, session, dispatch}) =>{
   console.log("in", recommendedUsers);
   let recommend = [];
   if(flag == 0){
@@ -32,7 +37,16 @@ let Req = connect(({recommendedUsers, session}) => ({recommendedUsers, session})
 
 function sendRequest(ev) {
   console.log(ev.target.value);
+  getLocation();
 }
+
+
+function savePosition(position) {
+  console.log("Latitude: " + position.coords.latitude +
+  "<br>Longitude: " + position.coords.longitude);
+  updateUserLocation(position.coords.longitude, position.coords.latitude);
+}
+
 
 function Recommend(params){
   let name = params.name;

@@ -74,7 +74,7 @@ defmodule Social.Users do
   """
   def update_user(%User{} = user, attrs) do
     user
-    |> User.changeset(attrs)
+    |> User.updateset(attrs)
     |> Repo.update()
   end
 
