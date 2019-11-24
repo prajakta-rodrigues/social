@@ -20,8 +20,8 @@ export default function Navigation(props) {
   }
 
   return (
-    <div id="navbar" style={{ borderBottom: "2px solid lightgray" }}>
-      <Navbar bg="light" variant="light" expand="lg">
+    <div id="navbar" style={{ backgroundColor: '#db625c' ,boxShadow: "0 6px 6px -6px gray" }}>
+      <Navbar variant="dark" expand="lg">
         <Navbar.Brand>
           <NavLink to="/" className="brand-text">
             Social

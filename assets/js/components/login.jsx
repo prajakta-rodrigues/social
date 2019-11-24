@@ -108,8 +108,8 @@ class Login extends React.Component {
         {header}
         {error_msg}
         <Row>
-          <Col xs={2} />
-          <Col xs={8}>
+          <Col xs={3} />
+          <Col xs={6}>
             <Form>
               <Form.Group as={Row} controlId="user-email">
                 <Form.Label column sm={2}>
@@ -153,7 +153,7 @@ class Login extends React.Component {
               </div>
             </Form>
           </Col>
-          <Col xs={2} />
+          <Col xs={3} />
         </Row>
       </div>
     );
