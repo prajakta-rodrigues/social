@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Row, Col, Form, Button, Alert } from "react-bootstrap";
 import { Redirect } from "react-router";
 import { newUser } from "../ajax";
+
 import logo from "../../static/logo.png";
 
 class SignUp extends React.Component {
