@@ -23,7 +23,13 @@ defmodule Social.Users do
 
 
   def get_recommended_users(id) do
-    Repo.all(User)
+    user = get_user!(id)
+    query = from u in User,
+            where: u.id != ^id and u.longitude < ^(user.longitude + 0.5)
+            and u.longitude > ^(user.longitude - 0.5)
+            and u.latitude < ^(user.latitude + 0.5)
+            and u.latitude > ^(user.latitude - 0.5)
+    Repo.all(query)
   end
 
   @doc """
