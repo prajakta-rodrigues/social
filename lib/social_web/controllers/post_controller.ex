@@ -40,4 +40,9 @@ defmodule SocialWeb.PostController do
       send_resp(conn, :no_content, "")
     end
   end
+
+  def get_ig_posts(conn, %{"user_id" => id}) do
+    posts = Posts.get_posts(id)
+    render(conn, "index.json", posts: posts)
+  end
 end

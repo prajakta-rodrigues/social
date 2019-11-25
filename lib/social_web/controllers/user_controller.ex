@@ -71,7 +71,7 @@ defmodule SocialWeb.UserController do
 
   end
   # To get the posts from instagram.
-  def get_ig_posts(conn, %{"code" => code, "id" => id, "channel" => channel}) do
+  def connect_with_ig(conn, %{"code" => code, "id" => id, "channel" => channel}) do
     HTTPoison.start
     body = URI.encode_query(%{
       "app_id" => System.get_env("INSTA_APP_ID"),
@@ -94,7 +94,16 @@ defmodule SocialWeb.UserController do
           x
         end
       end)
-      IO.inspect id
+      Enum.each(posts, fn post ->
+        new_post = %{
+          media_id: post["id"],
+          media_type: post["media_type"],
+          media_url: post["media_url"],
+          user_id: id
+        }
+        IO.inspect new_post
+        Social.Posts.create_post(new_post)
+      end)
       # Broadcast the message through genserver.
       Social.UserGenServer.broadcast_posts(channel, %{data: posts})
       send_resp(conn, 200, Jason.encode!(%{message: "Got posts successfully."}))
@@ -106,7 +115,6 @@ defmodule SocialWeb.UserController do
 
 
   def get_recommended_users(conn, _params) do
-    IO.inspect(_params)
     users = Users.get_recommended_users(1)
     render(conn, "index.json", users: users)
   end

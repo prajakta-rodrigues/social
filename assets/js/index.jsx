@@ -60,7 +60,7 @@ class Index extends React.Component {
         <Navbar channel={this.state.channel} joinChannel={this.joinChannel}/>
         <Switch>
           <Route exact path="/" render={(props) => <Login {...props} channel={this.state.channel} joinChannel={this.joinChannel} />} />
-          <Route exact path="/login" component={Login} />
+          <Route exact path="/login" render={(props) => <Login {...props} channel={this.state.channel} joinChannel={this.joinChannel} />} />
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/insta_auth" component={Insta_auth} />
           <Route exact path="/map" component={MapComponent} />

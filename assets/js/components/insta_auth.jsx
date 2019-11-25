@@ -16,7 +16,7 @@ export default function Insta_auth(props) {
     let code = props.location.search.split("=")[1]
     let session = store.getState().session
     if(session.token) {
-        post("/user/ig_posts", {code, id: session.user_id, channel: session.email}).then(resp => {
+        post("/user/connect_with_ig", {code, id: session.user_id, channel: session.email}).then(resp => {
             window.close()
         })
     }

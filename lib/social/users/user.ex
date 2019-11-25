@@ -12,6 +12,7 @@ defmodule Social.Users.User do
     field :longitude, :float
     field :latitude, :float
 
+    has_many :posts, Social.Posts.Post
     timestamps()
   end
 

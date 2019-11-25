@@ -152,5 +152,12 @@ function root_reducer(st0, action) {
   return deepFreeze(reducer(st0, action));
 }
 
-let store = createStore(root_reducer);
+const reducerWrapper = (state, action) => {
+  if(action.type === "RESET_APP")
+    state = undefined
+
+  return root_reducer(state, action)
+}
+
+let store = createStore(reducerWrapper);
 export default store;

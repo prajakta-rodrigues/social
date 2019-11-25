@@ -101,4 +101,9 @@ defmodule Social.Posts do
   def change_post(%Post{} = post) do
     Post.changeset(post, %{})
   end
+
+  def get_posts(id) do
+    Repo.all from p in Post,
+      where: p.user_id == ^id
+  end
 end

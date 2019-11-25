@@ -18,14 +18,56 @@ const posts = connect(({ ig_posts }) => ({ ig_posts }))(({ ig_posts }) => {
           </div>
       )
   })
-  return(
-      <div className="container">
-          <h1>Instagram Posts</h1>
-          <div className="row">
-            {renderPosts}
-          </div>
-      </div>
-  )
+  if(ig_posts.size == 0) {
+      let insta_app_id = process.env.INSTA_APP_ID
+          let redirect_uri = process.env.INSTA_REDIRECT_URI
+          let auth_url = "https://api.instagram.com/oauth/authorize"
+          + "?app_id=" + insta_app_id
+          + "&redirect_uri=" + redirect_uri
+          + "&scope=user_profile,user_media&response_type=code"
+      return(
+        <div className="btn btn-outline-primary d-block mx-auto action-btn connect-ig">
+            <a
+                href="#"
+                target="popup"
+                onClick={ev => {
+                    ev.preventDefault();
+                    let myWindow = window.open(
+                    auth_url,
+                    "popup",
+                    "width=800, height=600"
+                    );
+                    return false;
+                }}
+                >Connect with Instagram</a>
+        </div>
+      )
+  } else {
+    return(
+        <div className="container">
+            <h1>Instagram Posts</h1>
+            <div className="row">
+              {renderPosts}
+            </div>
+        </div>
+    )
+  }
+//   <div className="btn btn-outline-primary d-block mx-auto action-btn connect-ig">
+//                         <a
+//                             href="#"
+//                             target="popup"
+//                             onClick={ev => {
+//                                 ev.preventDefault();
+//                                 let myWindow = window.open(
+//                                 auth_url,
+//                                 "popup",
+//                                 "width=800, height=600"
+//                                 );
+//                                 return false;
+//                             }}
+//                             >Connect with Instagram</a>
+//                     </div>
+  
 })
 
 export default posts
