@@ -29,7 +29,7 @@ export default class Home extends React.Component {
 						</Card>
 					</Col>
 					<Col xs={4}>
-						<Card title="Chat" style={{ borderTopRightRadius: '0px', borderTopRightRadius: '0px' }}>
+						<Card title="Chat" style={{ borderTopRightRadius: '0px', borderBottomRightRadius: '0px' }}>
 							ADD CHAT COMPONENT HERE
 						</Card>
 					</Col>
