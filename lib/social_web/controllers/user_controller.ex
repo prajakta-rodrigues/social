@@ -57,14 +57,20 @@ defmodule SocialWeb.UserController do
   def get_with_token(conn, %{"email" => email, "id"=>id}) do
     if id == System.get_env("APP_ID") do
       user = Users.get_by_email(email)
-      token = Phoenix.Token.sign(conn, "session", user.id)
-      data = %{
-        user_name: user.name,
-        token: token,
-        user_id: user.id,
-        email: email
-      }
-      send_resp(conn, 200, Jason.encode!(data))
+      IO.inspect user
+      if user do
+        token = Phoenix.Token.sign(conn, "session", user.id)
+        data = %{
+          user_name: user.name,
+          token: token,
+          user_id: user.id,
+          email: email,
+          message: "success"
+        }
+        send_resp(conn, 200, Jason.encode!(data))
+      else
+        send_resp(conn, 404, Jason.encode!(%{"message" => "user not found"}))
+      end
     else
       send_resp(conn, 403, Jason.encode!(%{"error" => "Unauthorized access"}))
     end

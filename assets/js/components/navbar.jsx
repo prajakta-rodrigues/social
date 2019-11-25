@@ -48,13 +48,19 @@ let Session = connect(({ session }) => ({ session }))(
           FB.logout()
         localStorage.removeItem("session");
         dispatch({
+          type: "LOGOUT"
+        })
+        dispatch({
           type: "RESET_APP"
         });
+        return(
+          <Redirect to="/" />
+        )
       }
       
       // If user is currently logged in, it returns the following links.
+      // A bug : It doesnt listen to changes to session on page refresh.
       if (session.token) {
-
       return (
         <div style={{ display: "inline-block", float: "right" }}>
           <Nav>
