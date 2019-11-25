@@ -18,6 +18,8 @@ const posts = connect(({ ig_posts }) => ({ ig_posts }))(({ ig_posts }) => {
           </div>
       )
   })
+  renderPosts = renderPosts.reverse()
+  
   if(ig_posts.size == 0) {
       let insta_app_id = process.env.INSTA_APP_ID
           let redirect_uri = process.env.INSTA_REDIRECT_URI
