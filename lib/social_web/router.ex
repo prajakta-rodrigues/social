@@ -27,6 +27,7 @@ defmodule SocialWeb.Router do
     get "/user/:email", UserController, :get_by_email
     post "/user/ig_posts", UserController, :get_ig_posts
     get "/user/recommended-users/:id", UserController, :get_recommended_users
+    get "/profile/get-user-profile/:id", ProfileController, :get_user_profile
     resources "/users", UserController, except: [:new, :edit]
     resources "/sessions", SessionController, only: [:create], singleton: true
     resources "/connections", ConnectionController, except: [:new, :edit]

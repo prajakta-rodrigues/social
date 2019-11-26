@@ -37,6 +37,12 @@ defmodule Social.Profiles do
   """
   def get_profile!(id), do: Repo.get!(Profile, id)
 
+  def get_profile_by_user_id!(user_id) do
+    profile = Repo.all from p in Profile,
+            where: p.user_id == ^user_id
+    profile |> Enum.at(0)
+  end
+
   @doc """
   Creates a profile.
 

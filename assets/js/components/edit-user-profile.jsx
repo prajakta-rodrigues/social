@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {Form, Button, Alert, Modal} from 'react-bootstrap';
 import store from '../store'
-import { post } from "../ajax";
+import { post, getUserProfile, patch } from "../ajax";
 import _ from 'lodash';
 
 class EditUserProfile extends React.Component {
@@ -17,6 +17,7 @@ class EditUserProfile extends React.Component {
     };
     let state = store.getState();
     this.session = state.session;
+    getUserProfile();
 
 }
 
@@ -38,29 +39,58 @@ class EditUserProfile extends React.Component {
     let data = state.forms.user_profile;
     let session = state.session;
     console.log(session.user_id);
-    let profile =  Object.assign({}, data, {user_id:session.user_id})
-    post("/profiles", {profile: profile}).then(resp => {
-      if (resp && resp.data) {
-        store.dispatch({
-          type: "NEW_USER_PROFILE",
-          data: resp.data
-        });
-        console.log("Success");
-        let stateCpy = _.cloneDeep(this.state);
-        stateCpy.show = true;
-        this.setState(stateCpy);
-        store.dispatch({
-          type: "CHANGE_USER_PROFILE",
-          data: { errors: null }
-        });
-        // form.redirect("/login");
-      } else {
-        store.dispatch({
-          type: "CHANGE_USER_PROFILE",
-          data: { errors: JSON.stringify(resp.errors) }
-        });
-      }
-    });
+
+    if(data.id) {
+      let profile =  Object.assign({}, data, {user_id:session.user_id})
+      patch("/profiles/"+ data.id, {profile: profile}).then(resp => {
+        if (resp && resp.data) {
+          store.dispatch({
+            type: "NEW_USER_PROFILE",
+            data: resp.data
+          });
+          console.log("Success");
+          let stateCpy = _.cloneDeep(this.state);
+          stateCpy.show = true;
+          this.setState(stateCpy);
+          store.dispatch({
+            type: "CHANGE_USER_PROFILE",
+            data: { errors: null }
+          });
+          // form.redirect("/login");
+        } else {
+          store.dispatch({
+            type: "CHANGE_USER_PROFILE",
+            data: { errors: JSON.stringify(resp.errors) }
+          });
+        }
+      });
+    }
+    else {
+      let profile =  Object.assign({}, data, {user_id:session.user_id})
+      post("/profiles", {profile: profile}).then(resp => {
+        if (resp && resp.data) {
+          store.dispatch({
+            type: "NEW_USER_PROFILE",
+            data: resp.data
+          });
+          console.log("Success");
+          let stateCpy = _.cloneDeep(this.state);
+          stateCpy.show = true;
+          this.setState(stateCpy);
+          store.dispatch({
+            type: "CHANGE_USER_PROFILE",
+            data: { errors: null }
+          });
+          // form.redirect("/login");
+        } else {
+          store.dispatch({
+            type: "CHANGE_USER_PROFILE",
+            data: { errors: JSON.stringify(resp.errors) }
+          });
+        }
+      });
+    }
+
 
   }
 
