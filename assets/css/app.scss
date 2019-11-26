@@ -130,3 +130,25 @@ html, body {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+
+#user-profile .header {
+    height: 200px;
+    margin-top: 20px;
+}
+.dp, .dp img {
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+#user-profile .header .details {
+    display: inline-block;
+    margin-left: 40px;
+    font-size: 20px;
+}
+
+.nav-tabs {
+    margin-top: 30px !important;
+}

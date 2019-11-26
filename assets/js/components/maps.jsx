@@ -1,7 +1,5 @@
 import React from 'react'
-import {Polygon, Map, GoogleApiWrapper, Marker} from 'google-maps-react'
 let mapboxgl = require('mapbox-gl/dist/mapbox-gl')
-import logo from "../../static/logo.png";
 
 class MapComponent extends React.Component {
   constructor(props) {
@@ -80,6 +78,4 @@ class MapComponent extends React.Component {
   }
 } 
 
-export default GoogleApiWrapper({
-  apiKey: process.env.GOOGLE_API_KEY
-})(MapComponent)
+export default MapComponent
