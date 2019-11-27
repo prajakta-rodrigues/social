@@ -64,7 +64,7 @@ export function submitLogin(form) {
 
   post("/sessions", data).then(resp => {
     if (resp.token) {
-      localStorage.setItem("session", JSON.stringify(resp));
+      
       store.dispatch({
         type: "LOG_IN",
         data: resp
@@ -146,13 +146,6 @@ export function getUserProfile() {
 					data: resp.data
 				});
 			}
-			else {
-				store.dispatch({
-					type: "CLEAR_USER_PROFILE",
-					data: {}
-				});
-			}
-
 		});
 }
 

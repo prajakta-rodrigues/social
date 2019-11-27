@@ -65,7 +65,6 @@ class Login extends React.Component {
             // If user exists, login them to our app and get a token from
             // the server.
             this.props.joinChannel(email);
-            localStorage.setItem("session", JSON.stringify(resp));
             this.props.dispatch({
             type: "LOG_IN",
             data: { ...resp, FB_ID }

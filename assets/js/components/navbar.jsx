@@ -45,45 +45,45 @@ let Session = connect(({ session }) => ({ session }))(
   ({ session, dispatch }) => {
     // To log the user out of the app
     function logout(ev) {
-    ev.preventDefault();
-    // This logs user out of the FB instance too.
-    if(session.FB_ID)
-      FB.logout()
-    localStorage.removeItem("session");
-    dispatch({
-      type: "LOGOUT"
-    })
-    dispatch({
-      type: "RESET_APP"
-    });
-    return(
-      <Redirect to="/" />
-    )
+      ev.preventDefault();
+      // This logs user out of the FB instance too.
+      if(session.FB_ID)
+        FB.logout()
+      
+      dispatch({
+        type: "LOG_OUT"
+      })
+      dispatch({
+        type: "RESET_APP"
+      });
+      return(
+        <Redirect to="/" />
+      )
     }
 
     // If user is currently logged in, it returns the following links.
     // A bug : It doesnt listen to changes to session on page refresh.
+    console.log(session)
     if (session.token) {
     return (
-    <div>
-      <div style={{ display: "inline-block"}}>
-        <SearchUser></SearchUser>
+      <div>
+        <div style={{ display: "inline-block"}}>
+          <SearchUser></SearchUser>
+        </div>
+        <div style={{ display: "inline-block", float: "right" }}>
+          <Nav>
+          <NavDropdown title={session.user_name} id="basic-nav-dropdown">
+            <div className="dropdown-link">
+            <NavLink to="/profile">My Profile</NavLink>
+            </div>
+            <NavDropdown.Divider />
+            <div onClick={logout} className="dropdown-link">
+            <NavLink to="/">Logout</NavLink>
+            </div>
+          </NavDropdown>
+          </Nav>
+        </div>
       </div>
-      <div style={{ display: "inline-block", float: "right" }}>
-        <Nav>
-        <NavDropdown title={session.user_name} id="basic-nav-dropdown">
-          <div className="dropdown-link">
-          <NavLink to="/profile">My Profile</NavLink>
-          </div>
-          <NavDropdown.Divider />
-          <div onClick={logout} className="dropdown-link">
-          <NavLink to="/">Logout</NavLink>
-          </div>
-        </NavDropdown>
-        </Nav>
-      </div>
-    </div>
-
     );
   } else {
     // If user is logged out, it returns the following links

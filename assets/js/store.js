@@ -58,9 +58,6 @@ qualities: [], request_setting_allow: "", user_id: null, errors: ""}, action) {
     case "CHANGE_USER_PROFILE":
     console.log(action.data);
       return Object.assign({}, st0, action.data);
-    case "CLEAR_USER_PROFILE":
-      return {id: null, behavior: "", description: "", interests: "",
-      qualities: [], request_setting_allow: "", user_id: null, errors: ""}
     default:
       return st0;
   }
@@ -93,11 +90,19 @@ function session(st0 = session0, action) {
   switch (action.type) {
     case "LOG_IN": {
       let st1 = {...st0, ...action.data}
+      localStorage.setItem("session", JSON.stringify(st1));
       return st1
     }
     case "LOG_OUT":{
-      let st1 = session0
-      return st1
+      localStorage.removeItem("session")
+      session0 = {
+        token: null,
+        user_name: null,
+        user_id: null,
+        email: null,
+        profile_picture: null,
+      }
+      return session0
     }
     default:
       return st0;
@@ -189,5 +194,5 @@ const reducerWrapper = (state, action) => {
   return root_reducer(state, action)
 }
 
-let store = createStore(reducerWrapper);
+let store = createStore(reducerWrapper, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 export default store;
