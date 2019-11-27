@@ -9,8 +9,8 @@ defmodule Social.Users.User do
     field :password, :string
     field :username, :string
     field :password_hash, :string
-    field :longitude, :float, default: 9999
-    field :latitude, :float,  default: 9999
+    field :longitude, :float, default: 9999.9
+    field :latitude, :float,  default: 9999.9
 
     timestamps()
   end
