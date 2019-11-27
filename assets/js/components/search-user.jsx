@@ -2,6 +2,8 @@ import React from "react";
 import { connect } from 'react-redux';
 import { Row, Col, Form, Button, Alert } from "react-bootstrap";
 import { searchUsers } from "../ajax";
+import { Link } from 'react-router-dom';
+
 
 
 let Result = connect(({searchresults, session}) =>
@@ -10,7 +12,9 @@ let Result = connect(({searchresults, session}) =>
   let results = [];
 
   searchresults.forEach((tt) => {
-    results.push(<div key={"row" + tt.id} className="row"><p key={"ele" + tt.id}>{tt.name}</p></div>)
+    results.push(<div key={"row" + tt.id} className="row p-3 search-row">
+    <Link to="#" key={"ele" + tt.id}>
+    {tt.name}</Link></div>)
 });
   return <div className="container-fluid search-results">
     {results}

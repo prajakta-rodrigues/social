@@ -33,9 +33,7 @@ export default function Navigation(props) {
     <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
       {/* Based on the status of authentication of current user, the
         navbar will render appropriate links to visit. */}
-        <div style={{ display: "inline-block"}}>
-          <SearchUser></SearchUser>
-        </div>
+
       <Session />
     </Navbar.Collapse>
     </Navbar>
@@ -68,7 +66,9 @@ let Session = connect(({ session }) => ({ session }))(
     if (session.token) {
     return (
     <div>
-
+      <div style={{ display: "inline-block"}}>
+        <SearchUser></SearchUser>
+      </div>
       <div style={{ display: "inline-block", float: "right" }}>
         <Nav>
         <NavDropdown title={session.user_name} id="basic-nav-dropdown">

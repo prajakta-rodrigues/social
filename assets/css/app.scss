@@ -163,3 +163,19 @@ html, body {
   position: absolute;
   background: cadetblue;
 }
+
+.search-row a {
+    color: white;
+}
+
+.search-row {
+  border: 1px solid white;
+}
+
+.search-row:hover {
+    background-color: #f8f9fa;
+}
+
+.search-row:hover a {
+    color: cadetblue;
+}
