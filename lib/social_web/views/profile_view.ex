@@ -14,6 +14,7 @@ defmodule SocialWeb.ProfileView do
     %{id: profile.id,
       request_setting_allow: profile.request_setting_allow,
       interests: profile.interests,
+      user_id: profile.user_id,
       description: profile.description,
       qualities: profile.qualities,
       behavior: profile.behavior}

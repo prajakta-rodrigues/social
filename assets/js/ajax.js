@@ -127,3 +127,31 @@ export function updateUserLocation(longitude, latitude) {
     }
   });
 }
+
+export function getUserProfile() {
+	let state = store.getState();
+	let session = state.session;
+
+	get('/profile/get-user-profile/'+ session.user_id)
+		.then((resp) => {
+			console.log("get-user-profile", resp);
+			if(resp.data) {
+				console.log("profile found");
+				store.dispatch({
+					type: "NEW_USER_PROFILE",
+					data: resp.data
+				});
+				store.dispatch({
+					type: "CHANGE_USER_PROFILE",
+					data: resp.data
+				});
+			}
+			else {
+				store.dispatch({
+					type: "CLEAR_USER_PROFILE",
+					data: {}
+				});
+			}
+
+		});
+}

@@ -37,7 +37,6 @@ let Req = connect(({recommendedUsers, session}) =>
 
 function sendRequest(ev) {
   console.log(ev.target.value);
-  getLocation();
 }
 
 

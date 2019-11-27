@@ -7,6 +7,10 @@ defmodule Social.Users do
   alias Social.Repo
 
   alias Social.Users.User
+  alias Social.Profiles.Profile
+  alias SocialWeb.ProfileView
+
+
 
   @doc """
   Returns the list of users.
@@ -21,9 +25,58 @@ defmodule Social.Users do
     Repo.all(User)
   end
 
+  def isMatch(a, b) do
+    if(length(a -- b) == length(a)) do
+      false
+    else
+      true
+    end
+  end
+
+
+  def get_profile_matches(id) do
+    users = []
+    query1 = from p in Profile,
+             where: p.user_id == ^id
+    user_profile = Repo.all(query1)
+    if(length(user_profile)!= 0) do
+       user_profile = user_profile |> Enum.at(0)
+       query2 = from p in Profile,
+                where: p.user_id != ^id
+       profiles = Repo.all(query2)
+
+      selected = Enum.filter(profiles, fn p ->
+      isMatch(p.qualities, user_profile.qualities) end)
+      selectedBehavior = Enum.filter(profiles, fn p ->
+      isMatch(p.qualities, user_profile.behavior) end)
+
+      ping = ProfileView.render("index.json", %{profiles: selected ++ selectedBehavior})
+      IO.inspect(ping)
+      ids = ping.data |> Enum.map(fn x -> x.user_id end)
+      IO.inspect(ids)
+      IO.puts("random")
+      IO.inspect(selected)
+      query3 = from u in User,
+                where: u.id in ^ids
+      users = Repo.all(query3)
+      IO.puts("users")
+      IO.inspect(users)
+       users
+    else
+      users
+    end
+  end
 
   def get_recommended_users(id) do
-    Repo.all(User)
+    user = get_user!(id)
+
+    profile_users = get_profile_matches(id)
+    query = from u in User,
+            where: u.id != ^id and u.longitude < ^(user.longitude + 0.5)
+            and u.longitude > ^(user.longitude - 0.5)
+            and u.latitude < ^(user.latitude + 0.5)
+            and u.latitude > ^(user.latitude - 0.5)
+    Repo.all(query) ++ profile_users
   end
 
   @doc """

@@ -120,9 +120,10 @@ defmodule SocialWeb.UserController do
   end
 
 
-  def get_recommended_users(conn, _params) do
-  users = Users.get_recommended_users(1)
-  render(conn, "index.json", users: users)
+  def get_recommended_users(conn,  __params) do
+    IO.inspect(__params)
+    users = Users.get_recommended_users(__params["id"])
+    render(conn, "index.json", users: users)
   end
 
 end
