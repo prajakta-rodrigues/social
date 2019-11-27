@@ -104,24 +104,15 @@ function session(st0 = session0, action) {
       return st1
     }
     case "LOG_OUT":{
-<<<<<<< Updated upstream
       localStorage.removeItem("session")
       session0 = {
-=======
-      localStorage.removeItem("session");
-      let st1 = {
->>>>>>> Stashed changes
         token: null,
         user_name: null,
         user_id: null,
         email: null,
         profile_picture: null,
       }
-<<<<<<< Updated upstream
       return session0
-=======
-      return st1
->>>>>>> Stashed changes
     }
     default:
       return st0;
