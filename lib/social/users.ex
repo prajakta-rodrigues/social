@@ -80,8 +80,10 @@ defmodule Social.Users do
   end
 
   def get_search_users(id, q) do
+    s = q <> "%"
+    IO.puts(s)
     query = from u in User,
-            where: u.id != ^id and like(u.name, "Tes%")
+            where: u.id != ^id and like(u.name, ^s)
     Repo.all(query)
   end
 

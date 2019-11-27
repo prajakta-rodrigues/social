@@ -118,7 +118,8 @@ function users(st0 = new Map(), action) {
 function searchresults(st0 = new Map(), action) {
   switch(action.type) {
     case "GOT_SEARCH_RESULTS": {
-      let st1 = new Map(st0)
+      let st1 = new Map()
+      console.log(action.data);
       action.data.forEach((el) => st1.set(el.id, el))
       return st1
     }
