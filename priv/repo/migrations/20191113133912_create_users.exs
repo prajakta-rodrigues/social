@@ -11,6 +11,7 @@ defmodule Social.Repo.Migrations.CreateUsers do
       add :password_hash, :string
       add :longitude, :float
       add :latitude, :float
+      add :profile_picture, :text
       timestamps()
     end
 

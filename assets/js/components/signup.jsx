@@ -36,12 +36,21 @@ class SignUp extends React.Component {
     });
   }
 
+  file_changed(ev) {
+    let img = ev.target.files[0]
+    let reader = new FileReader()
+    reader.readAsDataURL(img)
+    reader.addEventListener('load', () => {
+        this.changed({profile_picture: reader.result})
+    })
+  }
+
   render() {
     if (this.state.redirect) {
       return <Redirect to={this.state.redirect} />;
     }
 
-    let { name, email, dob, username, password, errors } = this.props;
+    let { name, email, dob, username, password, profile_picture, errors } = this.props;
     let error_msg = "";
     if (errors) {
       const { showAlert } = this.state;
@@ -145,6 +154,19 @@ class SignUp extends React.Component {
                   value={password}
                   placeholder="Password"
                   onChange={ev => this.changed({ password: ev.target.value })}
+                />
+              </Col>
+            </Form.Group>
+
+            <Form.Group as={Row} controlId="user-picture">
+              <Form.Label column sm={2}>
+                Profile Picture
+              </Form.Label>
+              <Col sm={10}>
+                <Form.Control
+                  type="file"
+                  placeholder="Profile Picture"
+                  onChange={ev => this.file_changed(ev)}
                 />
               </Col>
             </Form.Group>

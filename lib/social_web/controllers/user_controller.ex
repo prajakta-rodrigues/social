@@ -65,7 +65,8 @@ defmodule SocialWeb.UserController do
       token: token,
       user_id: user.id,
       email: email,
-      message: "success"
+      message: "success",
+      profile_picture: user.profile_picture,
     }
     send_resp(conn, 200, Jason.encode!(data))
     else

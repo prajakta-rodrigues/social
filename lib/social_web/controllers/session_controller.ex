@@ -9,7 +9,13 @@ defmodule SocialWeb.SessionController do
 		user = Users.authenticate(email, password)
 		if user do
 			token = Phoenix.Token.sign(conn, "session", user.id)
-			resp = %{token: token, user_id: user.id, user_name: user.name, email: user.email}
+			resp = %{
+				token: token,
+				user_id: user.id,
+				user_name: user.name,
+				email: user.email,
+				profile_picture: user.profile_picture
+			}
 			conn
 			|> put_resp_header("content-type", "application/json; charset=UTF-8")
 			|> send_resp(:created, Jason.encode!(resp))

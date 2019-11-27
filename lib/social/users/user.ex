@@ -10,7 +10,8 @@ defmodule Social.Users.User do
     field :username, :string
     field :password_hash, :string
     field :longitude, :float, default: 9999
-    field :latitude, :float,  default: 9999
+    field :latitude, :float, default: 9999
+    field :profile_picture, :string
 
     has_many :posts, Social.Posts.Post
     timestamps()
@@ -19,7 +20,7 @@ defmodule Social.Users.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:name, :username, :email, :password, :dob, :longitude, :latitude])
+    |> cast(attrs, [:name, :username, :email, :password, :dob, :longitude, :latitude, :profile_picture])
     |> hash_password()
     |> validate_required([:name, :username, :email, :dob, :password_hash])
   end

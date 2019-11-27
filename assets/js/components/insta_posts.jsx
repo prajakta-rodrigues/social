@@ -47,28 +47,12 @@ const posts = connect(({ ig_posts }) => ({ ig_posts }))(({ ig_posts }) => {
   } else {
     return(
         <div className="container">
-            <h1>Instagram Posts</h1>
             <div className="row">
               {renderPosts}
             </div>
         </div>
     )
   }
-//   <div className="btn btn-outline-primary d-block mx-auto action-btn connect-ig">
-//                         <a
-//                             href="#"
-//                             target="popup"
-//                             onClick={ev => {
-//                                 ev.preventDefault();
-//                                 let myWindow = window.open(
-//                                 auth_url,
-//                                 "popup",
-//                                 "width=800, height=600"
-//                                 );
-//                                 return false;
-//                             }}
-//                             >Connect with Instagram</a>
-//                     </div>
   
 })
 
