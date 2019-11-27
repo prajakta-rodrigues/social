@@ -29,7 +29,8 @@ function new_user(
     dob: "",
     username: "",
     password: "",
-    FB_ID: ""
+    FB_ID: "",
+    profile_picture: "",
   },
   action
 ) {
@@ -74,6 +75,7 @@ if (localStorage.getItem("session")) {
     user_name: null,
     user_id: null,
     email: null,
+    profile_picture: null,
   }
 }
 function session(st0 = session0, action) {

@@ -1,5 +1,7 @@
 import React from 'react'
 let mapboxgl = require('mapbox-gl/dist/mapbox-gl')
+import store from '../store'
+import placeholder from '../../static/placeholder.png'
 
 class MapComponent extends React.Component {
   constructor(props) {
@@ -27,7 +29,9 @@ class MapComponent extends React.Component {
     let el = document.createElement('div');
     el.className = 'marker'
     //replace url with the profile photo
-    el.style.backgroundImage = "url('https://scontent.xx.fbcdn.net/v/t51.2885-15/70663288_1203736696487156_3419353749570991582_n.jpg?_nc_cat=104&_nc_ohc=Xh2ya6Fjoi4AQn1uHwdkholp8uLiFGsUzb3T4vXAowP1e2Wy36uMrA8Cw&_nc_ht=scontent.xx&oh=d11d2dd3b1c2c33a985b3c507fc97e3c&oe=5E48B907')"
+    let dp = store.getState().session.profile_picture
+    dp = dp ? dp : placeholder
+    el.style.backgroundImage = "url('" + dp + "')"
     this.state.map.flyTo({
       center: [lng, lat],
       zoom: 14

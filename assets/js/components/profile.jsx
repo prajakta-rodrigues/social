@@ -4,6 +4,8 @@ import { post } from '../ajax'
 import store from '../store'
 import { Tabs, Tab } from 'react-bootstrap'
 import EditUserProfile from './edit-user-profile'
+import UploadComponent from './uploadComponent'
+import placeholder from '../../static/placeholder.png'
 
 /**
  * This is a profile page for the specific user. Here they can perform various
@@ -21,8 +23,6 @@ export default class Profile extends React.Component {
 
   getPosts() {
     let session = store.getState().session
-    console.log(session.user_id)
-      
     post('/user/get_ig_posts', {user_id: session.user_id}).then(resp => {
       if(resp.data.length > 0) {
         this.setState({noPosts: false})
@@ -34,11 +34,13 @@ export default class Profile extends React.Component {
     })
   }
   render() {
+    let dp = store.getState().session.profile_picture
+    dp = dp ? dp : placeholder
     return (
       <div id="user-profile" className="container">
         <div className="header">
           <div className="dp">
-            <img src="https://scontent.xx.fbcdn.net/v/t51.2885-15/70663288_1203736696487156_3419353749570991582_n.jpg?_nc_cat=104&_nc_ohc=Xh2ya6Fjoi4AQn1uHwdkholp8uLiFGsUzb3T4vXAowP1e2Wy36uMrA8Cw&_nc_ht=scontent.xx&oh=d11d2dd3b1c2c33a985b3c507fc97e3c&oe=5E48B907" alt=""/>
+            <img src={dp} alt="profile_picture"/>
           </div>
           <div className="details">
             <h4>{store.getState().session.user_name}</h4>
@@ -51,6 +53,9 @@ export default class Profile extends React.Component {
           </Tab>
           <Tab eventKey="posts" title="IG Posts">
             <Posts />
+          </Tab>
+          <Tab eventKey="upload" title="Upload">
+            <UploadComponent />
           </Tab>
         </Tabs>
       </div>
