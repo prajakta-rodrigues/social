@@ -79,6 +79,12 @@ defmodule Social.Users do
     Repo.all(query) ++ profile_users
   end
 
+  def get_search_users(id, q) do
+    query = from u in User,
+            where: u.id != ^id and like(u.name, "Tes%")
+    Repo.all(query)
+  end
+
   @doc """
   Gets a single user.
 

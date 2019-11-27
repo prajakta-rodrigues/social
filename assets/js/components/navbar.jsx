@@ -3,6 +3,8 @@ import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import { Redirect } from "react-router";
 import { connect } from "react-redux";
+import SearchUser from './search-user';
+
 import store from "../store";
 
 export default function Navigation(props) {
@@ -31,6 +33,9 @@ export default function Navigation(props) {
     <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
       {/* Based on the status of authentication of current user, the
         navbar will render appropriate links to visit. */}
+        <div style={{ display: "inline-block"}}>
+          <SearchUser></SearchUser>
+        </div>
       <Session />
     </Navbar.Collapse>
     </Navbar>
@@ -57,24 +62,28 @@ let Session = connect(({ session }) => ({ session }))(
       <Redirect to="/" />
     )
     }
-    
+
     // If user is currently logged in, it returns the following links.
     // A bug : It doesnt listen to changes to session on page refresh.
     if (session.token) {
     return (
-    <div style={{ display: "inline-block", float: "right" }}>
-      <Nav>
-      <NavDropdown title={session.user_name} id="basic-nav-dropdown">
-        <div className="dropdown-link">
-        <NavLink to="/profile">My Profile</NavLink>
-        </div>
-        <NavDropdown.Divider />
-        <div onClick={logout} className="dropdown-link">
-        <NavLink to="/">Logout</NavLink>
-        </div>
-      </NavDropdown>
-      </Nav>
+    <div>
+
+      <div style={{ display: "inline-block", float: "right" }}>
+        <Nav>
+        <NavDropdown title={session.user_name} id="basic-nav-dropdown">
+          <div className="dropdown-link">
+          <NavLink to="/profile">My Profile</NavLink>
+          </div>
+          <NavDropdown.Divider />
+          <div onClick={logout} className="dropdown-link">
+          <NavLink to="/">Logout</NavLink>
+          </div>
+        </NavDropdown>
+        </Nav>
+      </div>
     </div>
+
     );
   } else {
     // If user is logged out, it returns the following links

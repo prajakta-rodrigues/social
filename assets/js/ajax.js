@@ -155,3 +155,19 @@ export function getUserProfile() {
 
 		});
 }
+
+
+export function searchUsers() {
+	let state = store.getState();
+	let session = state.session;
+	let text = state.forms.search.text;
+
+  get('/user/search-users/'+ session.user_id + '/' + text)
+    .then((resp) => {
+      console.log("search-users", resp);
+      store.dispatch({
+        type: 'GOT_SEARCH_RESULTS',
+        data: resp.data,
+      });
+    });
+}

@@ -127,4 +127,10 @@ defmodule SocialWeb.UserController do
     render(conn, "index.json", users: users)
   end
 
+  def get_search_users(conn,  __params) do
+    IO.inspect(__params)
+    users = Users.get_search_users(__params["id"], __params["query"])
+    render(conn, "index.json", users: users)
+  end
+
 end

@@ -22,6 +22,16 @@ function login(
   }
 }
 
+function search(st0 ={text:""}, action) {
+  switch (action.type) {
+    case "CHANGE_SEARCH":
+      return Object.assign({}, st0, action.data);
+    default:
+      return st0;
+  }
+}
+
+
 function new_user(
   st0 = {
     name: "",
@@ -61,7 +71,8 @@ function forms(st0, action) {
   let reducer = combineReducers({
     login,
     new_user,
-    user_profile
+    user_profile,
+    search
   });
   return reducer(st0, action);
 }
@@ -101,6 +112,20 @@ function users(st0 = new Map(), action) {
       return st1;
     default:
       return st0;
+  }
+}
+
+function searchresults(st0 = new Map(), action) {
+  switch(action.type) {
+    case "GOT_SEARCH_RESULTS": {
+      let st1 = new Map(st0)
+      action.data.forEach((el) => st1.set(el.id, el))
+      return st1
+    }
+    case "CLEAR_RESULTS":
+      return new Map()
+    default:
+      return st0
   }
 }
 
@@ -150,7 +175,8 @@ function root_reducer(st0, action) {
     session,
     user_profiles,
     ig_posts,
-    recommendedUsers
+    recommendedUsers,
+    searchresults
   });
   return deepFreeze(reducer(st0, action));
 }
