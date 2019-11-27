@@ -20,6 +20,11 @@ defmodule SocialWeb.NotificationController do
     end
   end
 
+  def list_notifications(conn, %{"receiver_id" => receiver_id}) do
+    notifications = Notifications.list_notifications(receiver_id)
+    render(conn, "index.json", notifications: notifications)
+  end
+
   def show(conn, %{"id" => id}) do
     notification = Notifications.get_notification!(id)
     render(conn, "show.json", notification: notification)

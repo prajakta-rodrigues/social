@@ -10,7 +10,6 @@ class EditUserProfile extends React.Component {
   constructor(props) {
     super(props);
     this.props = props;
-    console.log(this.props);
     this.state = {
       redirect: null,
       show:false
@@ -24,7 +23,6 @@ class EditUserProfile extends React.Component {
   changed(ev) {
 
   let target = $(ev.target);
-  console.log(target.val());
   let data = {};
   data[target.attr('name')] = target.val();
   let action = {

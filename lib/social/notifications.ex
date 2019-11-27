@@ -17,8 +17,14 @@ defmodule Social.Notifications do
       [%Notification{}, ...]
 
   """
-  def list_notifications do
-    Repo.all(Notification)
+  # def list_notifications do
+  #   Repo.all(Notification)
+  # end
+
+  def list_notifications(receiver_id) do
+    query = from(m in Notification, where: m.receiver_id == ^receiver_id and m.status == "UNREAD")
+    Repo.all(query)
+    # Repo.all(Message)
   end
 
   @doc """
@@ -50,6 +56,7 @@ defmodule Social.Notifications do
 
   """
   def create_notification(attrs \\ %{}) do
+    IO.inspect(attrs)
     %Notification{}
     |> Notification.changeset(attrs)
     |> Repo.insert()

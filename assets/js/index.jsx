@@ -52,7 +52,7 @@ class Index extends React.Component {
     userChannel.join().receive("ok", (resp) => console.log(resp))
     this.setState({channel: userChannel})
   }
-
+  
   render() {
     // Check whether the user is logged into the app or not.
     return (

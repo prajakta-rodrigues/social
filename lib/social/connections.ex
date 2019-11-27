@@ -50,6 +50,7 @@ defmodule Social.Connections do
 
   """
   def create_connection(attrs \\ %{}) do
+    IO.inspect(attrs)
     %Connection{}
     |> Connection.changeset(attrs)
     |> Repo.insert()

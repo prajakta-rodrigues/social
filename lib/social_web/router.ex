@@ -38,6 +38,11 @@ defmodule SocialWeb.Router do
     resources "/notifications", NotificationController, except: [:new, :edit]
     resources "/posts", PostController, except: [:edit]
     resources "/profiles", ProfileController, except: [:new, :edit]
+
+    post "/messages/:room", MessageController, :list_messages
+    post "/notifications/:receiver_id", NotificationController, :list_notifications
+    post "/notifications/update/:id", NotificationController, :update
+    
   end
 
   scope "/", SocialWeb do
