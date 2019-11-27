@@ -11,9 +11,11 @@ defmodule SocialWeb.NotificationView do
   end
 
   def render("notification.json", %{notification: notification}) do
-    %{id: notification.id,
+    %{associated_sender_id: notification.associated_sender_id,
+      receiver_id: notification.receiver_id,
+      status: notification.status,
       text: notification.text,
-      date: notification.date,
-      type: notification.type}
+      type: notification.type,
+      id: notification.id}
   end
 end

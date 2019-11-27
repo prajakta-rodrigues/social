@@ -61,6 +61,16 @@ qualities: [], request_setting_allow: "", user_id: null, errors: ""}, action) {
     case "CLEAR_USER_PROFILE":
       return {id: null, behavior: "", description: "", interests: "",
       qualities: [], request_setting_allow: "", user_id: null, errors: ""}
+    default: return st0;
+  }
+}
+
+function messages(st0 = [], action) {
+  switch(action.type) {
+    case "NEW_MESSAGE":
+      return [...st0, action.data];
+    case "ADD_MESSAGE":
+      return action.data
     default:
       return st0;
   }
@@ -167,6 +177,28 @@ function user_profiles(st0 = new Map(), action) {
   }
 }
 
+function notifications(st0 = [], action) {
+  switch(action.type) {
+    case "NEW_NOTIF":
+      return [...st0, action.data];
+    case "ADD_NOTIF":
+      return action.data
+    case "REMOVE_NOTIF":
+      return action.data
+    default:
+      return st0;
+  }
+}
+
+function channels(st0 = [], action) {
+  switch(action.type) {
+    case "NEW_CHANNEL": {
+      return [...st0, action.data];
+    }
+    default:
+      return st0
+  }
+}
 
 function root_reducer(st0, action) {
   console.log("root reducer", st0, action);
@@ -177,7 +209,10 @@ function root_reducer(st0, action) {
     user_profiles,
     ig_posts,
     recommendedUsers,
-    searchresults
+    searchresults,
+    messages,
+    notifications,
+    channels,
   });
   return deepFreeze(reducer(st0, action));
 }
@@ -189,5 +224,6 @@ const reducerWrapper = (state, action) => {
   return root_reducer(state, action)
 }
 
-let store = createStore(reducerWrapper);
+let store = createStore(reducerWrapper, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+// let store = createStore(root_reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 export default store;

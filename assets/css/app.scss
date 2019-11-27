@@ -88,6 +88,10 @@ html, body {
     text-decoration: none;
 }
 
+.button_margin {
+    margin: 10px;
+}
+
 .ig_post img {
     max-height: 300px;
     padding: 10px;
@@ -178,4 +182,44 @@ html, body {
 
 .search-row:hover a {
     color: cadetblue;
+}
+.chat-box {
+    // right: 0;
+    // position: absolute;
+    // bottom: 50px;
+    // height: 200px;
+    width:300px;
+    // border: 1px solid #4d4c4c
+    
+    // scroll-behavior: auto;
+    background: rgb(239, 241, 241);
+}
+.chat-ele {
+    float: right;
+    padding: 20px
+}
+
+.chats {
+    right: 0;
+    bottom: 0;
+    // position: absolute;
+    position: fixed;
+}
+
+.chat-header {
+    background-color: black;
+    width:300px;
+    color:rgb(248, 247, 252);
+    padding: 2%;
+}
+
+  
+.chat-messages {
+    bottom: 50px;
+    height: 200px;
+    width:300px;
+    // color:rgb(248, 247, 252);
+    // height: 167px;
+    scroll-behavior: auto;
+    overflow-y: scroll;
 }

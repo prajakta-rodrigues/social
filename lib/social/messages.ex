@@ -17,8 +17,10 @@ defmodule Social.Messages do
       [%Message{}, ...]
 
   """
-  def list_messages do
-    Repo.all(Message)
+  def list_messages(room) do
+    query = from(m in Message, where: m.room == ^room)
+    Repo.all(query)
+    # Repo.all(Message)
   end
 
   @doc """

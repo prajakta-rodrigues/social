@@ -5,7 +5,10 @@ import { Redirect } from "react-router";
 import { connect } from "react-redux";
 import SearchUser from './search-user';
 
+import { listNotifications } from "../ajax";
 import store from "../store";
+import { Badge } from 'react-bootstrap';
+import Notifications from "./notifications";
 
 export default function Navigation(props) {
   // If user is logged in then a channel will be created and if a channel
@@ -71,6 +74,7 @@ let Session = connect(({ session }) => ({ session }))(
       </div>
       <div style={{ display: "inline-block", float: "right" }}>
         <Nav>
+        <Notifications />
         <NavDropdown title={session.user_name} id="basic-nav-dropdown">
           <div className="dropdown-link">
           <NavLink to="/profile">My Profile</NavLink>

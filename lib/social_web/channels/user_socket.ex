@@ -4,6 +4,8 @@ defmodule SocialWeb.UserSocket do
   ## Channels
   # channel "room:*", SocialWeb.RoomChannel
   channel "user:*", SocialWeb.UserChannel
+  channel "users:*", SocialWeb.ChatChannel
+  channel "notif:*", SocialWeb.NotifChannel
 
   # Socket params are passed from the client and can
   # be used to verify and authenticate a user. After
