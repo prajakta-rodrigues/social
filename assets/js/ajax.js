@@ -138,8 +138,18 @@ export function getUserProfile() {
 			if(resp.data) {
 				console.log("profile found");
 				store.dispatch({
+					type: "NEW_USER_PROFILE",
+					data: resp.data
+				});
+				store.dispatch({
 					type: "CHANGE_USER_PROFILE",
 					data: resp.data
+				});
+			}
+			else {
+				store.dispatch({
+					type: "CLEAR_USER_PROFILE",
+					data: {}
 				});
 			}
 
