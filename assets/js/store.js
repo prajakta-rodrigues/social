@@ -104,15 +104,24 @@ function session(st0 = session0, action) {
       return st1
     }
     case "LOG_OUT":{
+<<<<<<< Updated upstream
       localStorage.removeItem("session")
       session0 = {
+=======
+      localStorage.removeItem("session");
+      let st1 = {
+>>>>>>> Stashed changes
         token: null,
         user_name: null,
         user_id: null,
         email: null,
         profile_picture: null,
       }
+<<<<<<< Updated upstream
       return session0
+=======
+      return st1
+>>>>>>> Stashed changes
     }
     default:
       return st0;
@@ -205,6 +214,16 @@ function channels(st0 = [], action) {
   }
 }
 
+function chat_list(st0 = [], action) {
+  switch(action.type) {
+    case "CHAT_LIST": {
+      return [...st0, action.data]
+    }
+    default:
+      return st0
+  }
+}
+
 function root_reducer(st0, action) {
   console.log("root reducer", st0, action);
   let reducer = combineReducers({
@@ -218,6 +237,7 @@ function root_reducer(st0, action) {
     messages,
     notifications,
     channels,
+    chat_list,
   });
   return deepFreeze(reducer(st0, action));
 }

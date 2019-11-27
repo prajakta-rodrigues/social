@@ -1,8 +1,10 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
 import Card from "./card";
+import Chat from './chat';
+import { connect } from 'react-redux';
 
-export default class Home extends React.Component {
+class Home extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -30,7 +32,15 @@ export default class Home extends React.Component {
 					</Col>
 					<Col xs={4}>
 						<Card title="Chat" style={{ borderTopRightRadius: '0px', borderBottomRightRadius: '0px' }}>
-							ADD CHAT COMPONENT HERE
+							{/* ADD CHAT COMPONENT HERE */}
+							<Row>
+								<Col xs={4}>
+									Friend list here
+								</Col>
+								<Col xs={6}>
+									Active chats here
+								</Col>
+							</Row>
 						</Card>
 					</Col>
 				</Row>
@@ -38,3 +48,9 @@ export default class Home extends React.Component {
     );
   }
 }
+
+function stateToProps(state) {
+	return state;
+  }
+
+export default connect(stateToProps)(Home)

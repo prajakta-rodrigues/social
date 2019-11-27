@@ -48,6 +48,7 @@ let Session = connect(({ session }) => ({ session }))(
   ({ session, dispatch }) => {
     // To log the user out of the app
     function logout(ev) {
+<<<<<<< Updated upstream
       ev.preventDefault();
       // This logs user out of the FB instance too.
       if(session.FB_ID)
@@ -62,6 +63,22 @@ let Session = connect(({ session }) => ({ session }))(
       return(
         <Redirect to="/" />
       )
+=======
+    ev.preventDefault();
+    // This logs user out of the FB instance too.
+    if(session.FB_ID)
+      FB.logout()
+    
+    dispatch({
+      type: "LOG_OUT"
+    })
+    dispatch({
+      type: "RESET_APP"
+    });
+    return(
+      <Redirect to="/" />
+    )
+>>>>>>> Stashed changes
     }
 
     // If user is currently logged in, it returns the following links.

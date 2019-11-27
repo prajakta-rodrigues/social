@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from "react-router-dom";
 import { Badge } from 'react-bootstrap';
-import { listNotifications, changeStatus } from "../ajax";
+import { listNotifications, changeStatus, get_user_data } from "../ajax";
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 // import Badge from '@material-ui/core/Badge';
 // import { sendRequest, listNotifications, createNotification, changeStatus, 
@@ -26,8 +26,6 @@ class Notifications extends React.Component {
               notification = notif
           }
       })
-      console.log(notification)
-      console.log("index", idx)
       if (idx >= 0) {
           // remove the alert from the array
           const new_alerts = [...alerts.slice(0, idx), ...alerts.slice(idx + 1)]
@@ -47,6 +45,7 @@ class Notifications extends React.Component {
               type: "NEW_CHANNEL",
               data: ch
           })
+          get_user_data(notification.associated_sender_id)
           }
       }
       changeStatus(notification)
@@ -64,7 +63,7 @@ class Notifications extends React.Component {
           console.log("notif here", list)
         return(
           <div>
-          <Badge pill variant="danger">{list.length}</Badge> 
+          {list.length > 0 ? <Badge pill variant="danger">{list.length}</Badge>: null}
          <NavDropdown title="Notifications" id="basic-nav-dropdown"> 
         {list}
             </NavDropdown> 

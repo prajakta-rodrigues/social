@@ -264,6 +264,17 @@ export function get_recommended_users() {
     });
 }
 
+export function get_user_data(id) {
+  get('/user/' + id)
+  .then((resp) => {
+    console.log("get user data", resp)
+    store.dispatch({
+      type: 'CHAT_LIST',
+      data: resp.data 
+    })
+  })
+}
+
 export function updateUserLocation(longitude, latitude) {
 	let state = store.getState();
 	let session = state.session;

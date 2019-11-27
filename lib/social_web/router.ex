@@ -42,6 +42,7 @@ defmodule SocialWeb.Router do
     post "/messages/:room", MessageController, :list_messages
     post "/notifications/:receiver_id", NotificationController, :list_notifications
     post "/notifications/update/:id", NotificationController, :update
+    get "/user/:id", UserController, :show
     
   end
 

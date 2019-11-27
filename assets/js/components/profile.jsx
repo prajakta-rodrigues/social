@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import Chat from "./chat";
 import socket from '../socket';
 import { sendRequest, listNotifications, createNotification, changeStatus, 
-changeConnectionStatus } from "../ajax";
+changeConnectionStatus, get_user_data } from "../ajax";
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import { AlertList } from 'react-bs-notifier';
 import { Button } from 'react-bootstrap';
@@ -67,6 +67,7 @@ class Profile extends React.Component {
             })
             console.log(resp)})
         this.setState({chatChannel: chatChannel, openChat: true});
+        get_user_data(sender_id)
     }
 
   getPosts() {
@@ -120,16 +121,18 @@ class Profile extends React.Component {
             <Posts />
           </Tab>
         </Tabs>
-        {/* <button onClick={() => sendRequest(1, 2)}>Send Request</button> */}
-        {/* <button onClick={() => this.startChat(2)}>start chat</button> */}
-        {/* <div className="chats"> */}
-        {/* <div className="col-sm" > */}
+        <button onClick={() => sendRequest(1, 2)}>Send Request</button> 
+        <button onClick={() => this.startChat(2)}>start chat</button>
+        <div className="chats">
+        <div className="row">
+        <div className="col-sm" >
           
-          {/* <Chat channel={socket.channel("users:12", {})}></Chat></div> */}
-        {/* <div className="col-sm"> */}
-          {/* <Chat channel={socket.channel("users:22", {})}></Chat></div> */}
-          {/* {chats} */}
-        {/* </div>         */}
+          <Chat channel={socket.channel("users:12", {})}></Chat></div>
+        <div className="col-sm">
+          <Chat channel={socket.channel("users:22", {})}></Chat></div>
+          {chats}
+          </div>
+        </div>        
       </div>
     )
   }
