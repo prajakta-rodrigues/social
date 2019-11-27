@@ -4,7 +4,6 @@ import { post } from '../ajax'
 import store from '../store'
 import { Tabs, Tab } from 'react-bootstrap'
 import EditUserProfile from './edit-user-profile'
-import UploadComponent from './uploadComponent'
 import placeholder from '../../static/placeholder.png'
 
 /**
@@ -53,9 +52,6 @@ export default class Profile extends React.Component {
           </Tab>
           <Tab eventKey="posts" title="IG Posts">
             <Posts />
-          </Tab>
-          <Tab eventKey="upload" title="Upload">
-            <UploadComponent />
           </Tab>
         </Tabs>
       </div>
