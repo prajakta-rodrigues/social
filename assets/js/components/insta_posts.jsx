@@ -13,7 +13,7 @@ const posts = connect(({ ig_posts }) => ({ ig_posts }))(({ ig_posts }) => {
    */
   let renderPosts = Array.from(ig_posts, ([key, post]) => {
       return(
-          <div key={key} className="ig_post col-sm-4">
+          <div key={key} className="ig_post">
               <img src={post.media_url} alt={post.id} className="post-img img-fluid" />
           </div>
       )
@@ -28,26 +28,28 @@ const posts = connect(({ ig_posts }) => ({ ig_posts }))(({ ig_posts }) => {
           + "&redirect_uri=" + redirect_uri
           + "&scope=user_profile,user_media&response_type=code"
       return(
-        <div className="btn btn-outline-primary d-block mx-auto action-btn connect-ig">
-            <a
-                href="#"
-                target="popup"
-                onClick={ev => {
-                    ev.preventDefault();
-                    let myWindow = window.open(
-                    auth_url,
-                    "popup",
-                    "width=800, height=600"
-                    );
-                    return false;
-                }}
-                >Connect with Instagram</a>
+        <div className="ig-placeholder-container">
+            <div className="btn btn-outline-primary action-btn connect-ig">
+                <a
+                    href="#"
+                    target="popup"
+                    onClick={ev => {
+                        ev.preventDefault();
+                        let myWindow = window.open(
+                        auth_url,
+                        "popup",
+                        "width=800, height=600"
+                        );
+                        return false;
+                    }}
+                    >Connect with Instagram</a>
+            </div>
         </div>
       )
   } else {
     return(
-        <div className="container">
-            <div className="row">
+        <div className="ig-placeholder-container">
+            <div className="posts">
               {renderPosts}
             </div>
         </div>

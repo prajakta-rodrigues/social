@@ -50,7 +50,7 @@ html, body {
   height: 50px;
   border-radius: 50%;
   cursor: pointer;
-  box-shadow: 0 0 6px 3px #656565;
+  box-shadow: 0 0 4px 2px #656565;
 }
 
 .mapboxgl-popup {
@@ -77,10 +77,11 @@ html, body {
 }
 
 .ig_post {
-    height: 300px;
-    // border-radius: 5px;
+    height: 200px;
+    width: 200px;
     border: 1px solid #aaaaaa;
-    // margin: 2px;
+    margin: 2px;
+    display: inline-block;
 }
 
 .connect-ig:hover a {
@@ -93,12 +94,8 @@ html, body {
 }
 
 .ig_post img {
-    max-height: 300px;
-    padding: 10px;
-    position: relative;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%)
+    height: 200px;
+    width: 200px;
 }
 
 .brand-text, .brand-text:hover {
@@ -239,4 +236,19 @@ html, body {
     display: inline-block;
     margin-left: 10px;
     font-size: 20px;
+}
+
+.ig-placeholder-container {
+    margin-top: 20px;
+    height: 500px;
+    width: 100%;
+    border-radius: 5px;
+    border: 3px dashed #050505;
+    text-align: center;
+    overflow: scroll;
+}
+
+.connect-ig {
+    position: relative;
+    top: 50%;
 }
