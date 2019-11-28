@@ -20,7 +20,7 @@ defmodule Social.Users.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:name, :username, :email, :password, :dob, :longitude, :latitude, :profile_picture])
+    |> cast(attrs, [:name, :username, :email, :password_hash, :password, :dob, :longitude, :latitude, :profile_picture])
     |> hash_password()
     |> validate_required([:name, :username, :email, :dob, :password_hash])
   end

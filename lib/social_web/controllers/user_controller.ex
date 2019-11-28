@@ -133,4 +133,17 @@ defmodule SocialWeb.UserController do
     render(conn, "index.json", users: users)
   end
 
+  def get_friends(conn, %{"id" => id}) do
+    friends = Social.Connections.get_friends(id)
+    |> Enum.map(fn connection ->
+      if connection.user1_id == id do
+        Social.Users.get_user!(connection.user1_id)
+      else
+        Social.Users.get_user!(connection.user2_id)
+      end
+    end)
+
+    IO.inspect friends
+    render(conn, "index.json", users: friends)
+  end
 end

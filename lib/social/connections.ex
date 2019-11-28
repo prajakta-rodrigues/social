@@ -102,4 +102,10 @@ defmodule Social.Connections do
   def change_connection(%Connection{} = connection) do
     Connection.changeset(connection, %{})
   end
+
+  def get_friends(id) do
+    Repo.all from c in Connection,
+      where: c.user1_id == ^id or c.user2_id == ^id,
+      where: c.status == "ACCEPTED"
+  end
 end

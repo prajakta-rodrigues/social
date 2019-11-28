@@ -16,6 +16,7 @@ import { Button } from 'react-bootstrap';
 import { Notifier, AlertContainer } from "react-bs-notifier";
 import { Widget } from 'react-chat-widget';
 import 'react-chat-widget/lib/styles.css';
+import FriendsComponent from './friendsComponent'
 
 /**
  * This is a profile page for the specific user. Here they can perform various
@@ -119,6 +120,9 @@ class Profile extends React.Component {
           </Tab>
           <Tab eventKey="posts" title="IG Posts">
             <Posts />
+          </Tab>
+          <Tab eventKey="friends" title="Friends">
+            <FriendsComponent />
           </Tab>
         </Tabs>
         <button onClick={() => sendRequest(1, 2)}>Send Request</button> 
