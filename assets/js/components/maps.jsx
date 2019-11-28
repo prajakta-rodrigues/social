@@ -2,6 +2,7 @@ import React from 'react'
 let mapboxgl = require('mapbox-gl/dist/mapbox-gl')
 import store from '../store'
 import placeholder from '../../static/placeholder.png'
+import { get } from '../ajax'
 
 class MapComponent extends React.Component {
   constructor(props) {
@@ -21,27 +22,42 @@ class MapComponent extends React.Component {
     navigator.geolocation.getCurrentPosition(this.getLatLong)
   }
 
+  getFriends() {
+    get('/user/friends/' + store.getState().session.user_id).then(resp => {
+      resp.data.forEach(friend => {
+        this.createMarker(friend.latitude, friend.longitude, friend.profile_picture, friend.name)
+      })
+    })
+  }
+
+  createMarker(lat, lng, dp, name) {
+    console.log("lat" + lat)
+    console.log("lng" + lng)
+    let el = document.createElement('div')
+    el.className = 'marker'
+    dp = dp ? dp : placeholder
+    el.style.backgroundImage = "url('" + dp + "')"
+    new mapboxgl.Marker(el)
+        .setLngLat({lng, lat})
+        .setPopup(new mapboxgl.Popup({ offset: 25 })
+            .setHTML('<h6 className=\"popup-text\">' + name + '</h6>'))
+        .addTo(this.state.map)
+  }
+
   getLatLong(position) {
     console.log(position)
     let lat = position.coords.latitude
     let lng = position.coords.longitude
     this.setState({position: {lat, lng}})
-    let el = document.createElement('div');
-    el.className = 'marker'
-    //replace url with the profile photo
-    let dp = store.getState().session.profile_picture
-    dp = dp ? dp : placeholder
-    el.style.backgroundImage = "url('" + dp + "')"
     this.state.map.flyTo({
       center: [lng, lat],
       zoom: 14
     })
 
-    new mapboxgl.Marker(el)
-        .setLngLat({lng, lat})
-        .setPopup(new mapboxgl.Popup({ offset: 25 })
-            .setHTML('<h6 className=\"popup-text\">Me</h6>'))
-        .addTo(this.state.map)
+    let dp = store.getState().session.profile_picture
+    let name = store.getState().session.user_name
+
+    this.createMarker(lat, lng, dp, name)
         
   }
 
@@ -66,6 +82,7 @@ class MapComponent extends React.Component {
   render() {
     if(navigator.geolocation) {       
       this.getPosition()
+      this.getFriends()
       return (
         <div ref={el => this.mapContainer = el} id="map"></div>
       )

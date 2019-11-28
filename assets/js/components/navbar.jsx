@@ -77,11 +77,14 @@ let Session = connect(({ session }) => ({ session }))(
           <Nav>
           <NavDropdown title={session.user_name} id="basic-nav-dropdown">
             <div className="dropdown-link">
-            <NavLink to="/profile">My Profile</NavLink>
+              <NavLink to="/profile">My Profile</NavLink>
+            </div>
+            <div className="dropdown-link">
+              <NavLink to="/map">Map</NavLink>
             </div>
             <NavDropdown.Divider />
             <div onClick={logout} className="dropdown-link">
-            <NavLink to="/">Logout</NavLink>
+              <NavLink to="/">Logout</NavLink>
             </div>
           </NavDropdown>
           </Nav>

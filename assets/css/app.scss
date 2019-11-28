@@ -223,3 +223,20 @@ html, body {
     scroll-behavior: auto;
     overflow-y: scroll;
 }
+
+.friend {
+    margin: 5px;
+    padding: 5px;
+}
+
+.friend img {
+    display: inline-block;
+    height: 50px;
+    width: 50px;
+}
+
+.friend span {
+    display: inline-block;
+    margin-left: 10px;
+    font-size: 20px;
+}
