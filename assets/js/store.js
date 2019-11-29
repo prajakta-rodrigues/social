@@ -52,15 +52,17 @@ function new_user(
   }
 }
 
-function user_profile(st0 = {id: null, behavior: "", description: "", interests: "",
-qualities: [], request_setting_allow: "", user_id: null, errors: ""}, action) {
+function user_profile(st0 = {id: null, description: "",
+interests:[], sports:[],movies:[],
+request_setting_allow: "", user_id: null, errors: ""}, action) {
   switch (action.type) {
     case "CHANGE_USER_PROFILE":
     console.log(action.data);
       return Object.assign({}, st0, action.data);
     case "CLEAR_USER_PROFILE":
-      return {id: null, behavior: "", description: "", interests: "",
-      qualities: [], request_setting_allow: "", user_id: null, errors: ""}
+      return {id: null, description: "", interests: "",
+      qualities: [], interests:[], sports:[],movies:[],
+      request_setting_allow: "", user_id: null, errors: ""}
     default:
       return st0;
   }
@@ -156,6 +158,18 @@ function ig_posts(st0 = new Map(), action) {
   }
 }
 
+function configs(st0 = new Map(), action) {
+  switch (action.type) {
+    case "GOT_CONFIG": {
+      let st1 = new Map(st0)
+      action.data.forEach((el) => st1.set(el.id, el))
+      return st1
+    }
+    default:
+      return st0
+  }
+}
+
 function user_profiles(st0 = new Map(), action) {
   switch (action.type) {
     case "NEW_USER_PROFILE":
@@ -177,7 +191,8 @@ function root_reducer(st0, action) {
     user_profiles,
     ig_posts,
     recommendedUsers,
-    searchresults
+    searchresults,
+    configs
   });
   return deepFreeze(reducer(st0, action));
 }

@@ -56,18 +56,18 @@ defmodule Social.Profiles do
 
   """
   def create_profile(attrs \\ %{}) do
-    user = Repo.get!(User, attrs["user_id"])
-    resp = HTTPoison.get!("https://api.crystalknows.com/v1/personality_assessments/"
-    <> "find?token=1a613c04defd06c13683629d55d91b3c&email=" <> user.email)
-    IO.inspect(resp.body)
-    {:ok, body} = Jason.decode(resp.body)
-    IO.inspect(body["content"]["behavior"]["phrases"])
-    IO.inspect(body["content"]["profile"]["qualities"])
-    behavior = body["content"]["behavior"]["phrases"] || []
-    qualities = body["content"]["profile"]["qualities"] || []
-    IO.inspect(attrs)
-    attrs = Map.put(attrs, "behavior", behavior)
-    attrs = Map.put(attrs, "qualities", qualities)
+    # user = Repo.get!(User, attrs["user_id"])
+    # resp = HTTPoison.get!("https://api.crystalknows.com/v1/personality_assessments/"
+    # <> "find?token=1a613c04defd06c13683629d55d91b3c&email=" <> user.email)
+    # IO.inspect(resp.body)
+    # {:ok, body} = Jason.decode(resp.body)
+    # IO.inspect(body["content"]["behavior"]["phrases"])
+    # IO.inspect(body["content"]["profile"]["qualities"])
+    # behavior = body["content"]["behavior"]["phrases"] || []
+    # qualities = body["content"]["profile"]["qualities"] || []
+    # IO.inspect(attrs)
+    # attrs = Map.put(attrs, "behavior", behavior)
+    # attrs = Map.put(attrs, "qualities", qualities)
     IO.inspect(attrs)
     %Profile{}
     |> Profile.changeset(attrs)

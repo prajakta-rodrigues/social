@@ -45,17 +45,24 @@ defmodule Social.Users do
                 where: p.user_id != ^id
        profiles = Repo.all(query2)
 
-      selected = Enum.filter(profiles, fn p ->
-      isMatch(p.qualities, user_profile.qualities) end)
-      selectedBehavior = Enum.filter(profiles, fn p ->
-      isMatch(p.qualities, user_profile.behavior) end)
+      selectedSports = Enum.filter(profiles, fn p ->
+      isMatch(p.sports, user_profile.sports) end)
 
-      ping = ProfileView.render("index.json", %{profiles: selected ++ selectedBehavior})
+      selectedInterests = Enum.filter(profiles, fn p ->
+      isMatch(p.interests, user_profile.interests) end)
+
+      selectedMovies = Enum.filter(profiles, fn p ->
+      isMatch(p.movies, user_profile.movies) end)
+
+
+
+
+      ping = ProfileView.render("index.json", %{profiles:
+      selectedSports ++ selectedInterests ++ selectedMovies})
       IO.inspect(ping)
       ids = ping.data |> Enum.map(fn x -> x.user_id end)
       IO.inspect(ids)
       IO.puts("random")
-      IO.inspect(selected)
       query3 = from u in User,
                 where: u.id in ^ids
       users = Repo.all(query3)

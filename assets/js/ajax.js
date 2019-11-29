@@ -171,3 +171,17 @@ export function searchUsers() {
       });
     });
 }
+
+
+export function getConfigs() {
+	let state = store.getState();
+
+  get('/get-configs')
+    .then((resp) => {
+      console.log("configs", resp);
+      store.dispatch({
+        type: 'GOT_CONFIG',
+        data: resp.data,
+      });
+    });
+}

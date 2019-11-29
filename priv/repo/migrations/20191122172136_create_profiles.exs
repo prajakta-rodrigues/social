@@ -4,10 +4,11 @@ defmodule Social.Repo.Migrations.CreateProfiles do
   def change do
     create table(:profiles) do
       add :request_setting_allow, :string
-      add :interests, :string
+      add :sports, {:array, :string}
+      add :interests, {:array, :string}
+      add :movies, {:array, :string}
       add :description, :string
       add :qualities, {:array, :string}
-      add :behavior, {:array, :string}
       add :user_id, references(:users, on_delete: :nothing)
 
       timestamps()

@@ -17,6 +17,7 @@ defmodule SocialWeb.ProfileView do
       user_id: profile.user_id,
       description: profile.description,
       qualities: profile.qualities,
-      behavior: profile.behavior}
+      sports: profile.sports,
+      movies: profile.movies}
   end
 end
