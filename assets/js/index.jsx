@@ -53,7 +53,7 @@ class Index extends React.Component {
     userChannel.join().receive("ok", (resp) => console.log(resp))
     this.setState({channel: userChannel})
   }
-  
+
   render() {
     // Check whether the user is logged into the app or not.
     return (
@@ -70,6 +70,8 @@ class Index extends React.Component {
           <Route exact path="/edit_profile" component={EditUserProfile} />
           <Route exact path="/recommended-users" component={RecommendedUsers} />
           <Route exact path="/user-profile/:id" component={ShowUserProfile} />
+          <Route exact path="/user-profile/:id" component={ShowUserProfile} />
+          PopularInterests
         </Switch>
       </Router>
     )
