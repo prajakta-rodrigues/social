@@ -346,6 +346,11 @@ html, body {
 .nav-icon {
     height: 30px;
     margin: 10px;
+    transition: all 0.3s ease-out;
+}
+
+.nav-icon:hover {
+    transform: scale(1.2);
 }
 
 .change-photo {

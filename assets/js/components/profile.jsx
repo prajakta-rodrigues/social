@@ -19,6 +19,7 @@ import 'react-chat-widget/lib/styles.css';
 import FriendsComponent from './friendsComponent'
 import { Form} from "react-bootstrap";
 
+// Icon made by https://www.flaticon.com/authors/kiranshastry from www.flaticon.com
 import editLogo from '../../static/edit-logo.png'
 
 
