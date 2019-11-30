@@ -8,7 +8,7 @@ import placeholder from '../../static/placeholder.png'
 import { connect } from 'react-redux';
 import Chat from "./chat";
 import socket from '../socket';
-import { sendRequest, listNotifications, createNotification, changeStatus, 
+import { sendRequest, listNotifications, createNotification, changeStatus,
 changeConnectionStatus, get_user_data } from "../ajax";
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import { AlertList } from 'react-bs-notifier';
@@ -24,7 +24,7 @@ import FriendsComponent from './friendsComponent'
  */
 class Profile extends React.Component {
     constructor(props) {
-        super(props)    
+        super(props)
         this.props = props;
         this.state = {
             noPosts: store.getState().ig_posts.size == 0 ? true : false,
@@ -45,12 +45,12 @@ class Profile extends React.Component {
             this.props.dispatch({
                 type: "NEW_NOTIF",
                 data: notif
-              });   
+              });
         }
         });
         if(store.getState().ig_posts.size == 0)
         this.getPosts();
-    }   
+    }
 
     joinChat(sender_id, receiver_id) {
         let channel = "users:";
@@ -125,18 +125,18 @@ class Profile extends React.Component {
             <FriendsComponent />
           </Tab>
         </Tabs>
-        <button onClick={() => sendRequest(1, 2)}>Send Request</button> 
+        <button onClick={() => sendRequest(1, 2)}>Send Request</button>
         <button onClick={() => this.startChat(2)}>start chat</button>
         <div className="chats">
         <div className="row">
         <div className="col-sm" >
-          
+
           <Chat channel={socket.channel("users:12", {})}></Chat></div>
         <div className="col-sm">
           <Chat channel={socket.channel("users:22", {})}></Chat></div>
           {chats}
           </div>
-        </div>        
+        </div>
       </div>
     )
   }

@@ -52,12 +52,17 @@ function new_user(
   }
 }
 
-function user_profile(st0 = {id: null, behavior: "", description: "", interests: "",
-qualities: [], request_setting_allow: "", user_id: null, errors: ""}, action) {
+function user_profile(st0 = {id: null, description: "",
+interests:[], sports:[],movies:[],
+request_setting_allow: "", user_id: null, errors: ""}, action) {
   switch (action.type) {
     case "CHANGE_USER_PROFILE":
     console.log(action.data);
       return Object.assign({}, st0, action.data);
+      case "CLEAR_USER_PROFILE":
+        return {id: null, description: "", interests: "",
+        qualities: [], interests:[], sports:[],movies:[],
+        request_setting_allow: "", user_id: null, errors: ""}
     default: return st0;
   }
 }
@@ -130,6 +135,23 @@ function users(st0 = new Map(), action) {
   }
 }
 
+function showUserProfile(st0 = null, action) {
+  switch (action.type) {
+    case "NEW_SHOW_USER_PROFILE":
+      console.log(action);
+      let st1 = action.data;
+      return st1;
+    case "ERROR_SHOW_USER_PROFILE":
+      let st2 = {
+        "error" : action.data
+      }
+      console.log(st2);
+      return st2;
+    default:
+      return st0;
+  }
+}
+
 function searchresults(st0 = new Map(), action) {
   switch(action.type) {
     case "GOT_SEARCH_RESULTS": {
@@ -162,6 +184,18 @@ function recommendedUsers(st0 = new Map(), action) {
 function ig_posts(st0 = new Map(), action) {
   switch(action.type) {
     case "GOT_POSTS": {
+      let st1 = new Map(st0)
+      action.data.forEach((el) => st1.set(el.id, el))
+      return st1
+    }
+    default:
+      return st0
+  }
+}
+
+function configs(st0 = new Map(), action) {
+  switch (action.type) {
+    case "GOT_CONFIG": {
       let st1 = new Map(st0)
       action.data.forEach((el) => st1.set(el.id, el))
       return st1
@@ -229,6 +263,8 @@ function root_reducer(st0, action) {
     notifications,
     channels,
     chat_list,
+    configs,
+    showUserProfile
   });
   return deepFreeze(reducer(st0, action));
 }

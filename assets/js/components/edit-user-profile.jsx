@@ -2,8 +2,54 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {Form, Button, Alert, Modal} from 'react-bootstrap';
 import store from '../store'
-import { post, getUserProfile, patch } from "../ajax";
+import { post, getUserProfile, patch, getConfigs } from "../ajax";
 import _ from 'lodash';
+
+function createSelectItems(property_values) {
+  let items = [];
+     for (let i = 0; i <= property_values.length; i++) {
+          items.push(<option key={i}
+            value={property_values[i]}>{property_values[i]}</option>);
+     }
+     return items;
+}
+
+function changedSelect(ev) {
+  console.log(ev.target.id);
+  let options = ev.target.options;
+  var value = [];
+  for (var i = 0; i < options.length; i++) {
+    if (options[i].selected) {
+      value.push(options[i].value);
+    }
+  }
+  console.log(value);
+  let data = {};
+  data[ev.target.id] = value;
+  let action = {
+    type: 'CHANGE_USER_PROFILE',
+    data: data,
+  };
+  store.dispatch(action);
+}
+
+let Config = connect(({configs, forms}) =>
+({configs, forms}))(({configs, forms, dispatch}) =>{
+  console.log("in", configs);
+  let config = []
+  configs.forEach((tt) => {
+    config.push(<Form.Group key={"formgrp" + tt.id}>
+      <Form.Label>Select {tt.property}</Form.Label>
+      <Form.Control id = {tt.property} as="select" multiple
+        onChange={(ev) => changedSelect(ev)} value={forms.user_profile[tt.property]}>
+        {createSelectItems(tt.property_values)}
+      </Form.Control>
+    </Form.Group>)
+});
+  return <div>{config}</div>;
+});
+
+
 
 class EditUserProfile extends React.Component {
 
@@ -17,6 +63,7 @@ class EditUserProfile extends React.Component {
     let state = store.getState();
     this.session = state.session;
     getUserProfile();
+    getConfigs();
 
 }
 
@@ -35,6 +82,8 @@ class EditUserProfile extends React.Component {
   onSubmit() {
     let state = store.getState();
     let data = state.forms.user_profile;
+    console.log("just checking here");
+    console.log(data);
     let session = state.session;
     console.log(session.user_id);
 
@@ -92,11 +141,6 @@ class EditUserProfile extends React.Component {
 
   }
 
-  redirectToPersonality() {
-    window
-    .open('https://app.crystalknows.com/assessment?api_customer_id=12156111-3417-4c5d-91d5-953c82641103&api_company_name=Northeastern%20University&api_user_email=' + this.session.email,
-    'Personality Test', 'width=600, height=400');
-  }
 
   closeAlert() {
     store.dispatch({
@@ -145,21 +189,12 @@ class EditUserProfile extends React.Component {
                   <option>Friends of Friends</option>
                 </Form.Control>
               </Form.Group>
-                <Form.Group controlId="profileForm.interests">
-                  <Form.Label>Mention your interests:(eg.: dancing, singing)</Form.Label>
-                  <Form.Control as="textarea" rows="3" placeholder="Enter your interests"
-                  name="interests" value = {this.props.interests}
-                  onChange={this.changed.bind(this)}/>
-                </Form.Group>
                 <Form.Group controlId="profileForm.description">
                   <Form.Label>Describe yourself in few words:</Form.Label>
                   <Form.Control as="textarea" rows="3" value = {this.props.description}
                   name="description" onChange={this.changed.bind(this)}/>
                 </Form.Group>
-                <a target="popup"
-                  onClick = {this.redirectToPersonality.bind(this)}
-                  alt="Take Personality Test"
-                  href={"https://app.crystalknows.com/assessment?api_customer_id=12156111-3417-4c5d-91d5-953c82641103&api_company_name=Northeastern%20University&api_user_email=" + this.session.email}><img height="32" width="185" src= "https://cdn2.hubspot.net/hubfs/1716276/API/take_personality_test.png" /></a>
+                <Config />
                 <Button variant="primary" onClick={this.onSubmit.bind(this)}>Save</Button>
           </Form>
         </div>

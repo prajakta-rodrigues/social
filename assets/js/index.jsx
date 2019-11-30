@@ -19,6 +19,7 @@ import Profile from "./components/profile";
 import EditUserProfile from "./components/edit-user-profile";
 import RecommendedUsers from "./components/recommended-users";
 import Home from "./components/home";
+import ShowUserProfile from "./components/show-user-profile";
 
 export default function init_page(root) {
   let tree = (
@@ -68,6 +69,7 @@ class Index extends React.Component {
           <Route exact path="/home" component={Home} />
           <Route exact path="/edit_profile" component={EditUserProfile} />
           <Route exact path="/recommended-users" component={RecommendedUsers} />
+          <Route exact path="/user-profile/:id" component={ShowUserProfile} />
         </Switch>
       </Router>
     )

@@ -13,6 +13,7 @@
 alias Social.Repo
 alias Social.Users.User
 alias Social.Connections.Connection
+alias Social.Configs.Config
 
 pw = Argon2.hash_pwd_salt("password")
 date = ~D[1999-05-18]
@@ -26,4 +27,6 @@ Repo.insert!(%Connection{status: "ACCEPTED", user1_id: 1, user2_id: 3, requester
 Repo.insert!(%Connection{status: "ACCEPTED", user1_id: 2, user2_id: 3, requester_id: 1})
 Repo.insert!(%Connection{status: "ACCEPTED", user1_id: 2, user2_id: 4, requester_id: 1})
 Repo.insert!(%Connection{status: "PENDING", user1_id: 1, user2_id: 4, requester_id: 1})
-
+Repo.insert!(%Config{property: "interests", property_values: ["Dancing", "Music", "Singing", "Movies", "Sports", "Computers"]})
+Repo.insert!(%Config{property: "sports", property_values: ["Soccer", "Chess", "Badminton", "Baseball", "Swimming"]})
+Repo.insert!(%Config{property: "movies", property_values: ["Thriller", "RomCom", "SciFic"]})

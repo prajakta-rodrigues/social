@@ -27,9 +27,13 @@ let Req = connect(({recommendedUsers, session}) =>
     get_recommended_users();
     flag = 1;
   }
+
   recommendedUsers.forEach((tt) => {
     recommend.push(<Recommend key={tt.id} id= {tt.id} name={tt.name} session={session}/>)
 });
+  if(recommend.length == 0) {
+    recommend.push(<h2 key="nodatarec">No recommendations available</h2>)
+  }
   return <div className="container-fluid">
     {recommend}
   </div>;

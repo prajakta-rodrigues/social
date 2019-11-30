@@ -30,8 +30,10 @@ defmodule SocialWeb.Router do
     post "/user/get_ig_posts", PostController, :get_ig_posts
     get "/user/recommended-users/:id", UserController, :get_recommended_users
     get "/user/search-users/:id/:query", UserController, :get_search_users
+    get "/user/get-user-show-profile-by-id/:id", UserController, :get_user_show_profile
     get "/profile/get-user-profile/:id", ProfileController, :get_user_profile
     get "/user/friends/:id", UserController, :get_friends
+    get "/get-configs", ConfigController, :index
     resources "/users", UserController, except: [:new, :edit]
     resources "/sessions", SessionController, only: [:create], singleton: true
     resources "/connections", ConnectionController, except: [:new, :edit]
@@ -39,6 +41,7 @@ defmodule SocialWeb.Router do
     resources "/notifications", NotificationController, except: [:new, :edit]
     resources "/posts", PostController, except: [:edit]
     resources "/profiles", ProfileController, except: [:new, :edit]
+    resources "/configs", ConfigController, except: [:new, :edit]
 
     post "/messages/:room", MessageController, :list_messages
     post "/notifications/:receiver_id", NotificationController, :list_notifications

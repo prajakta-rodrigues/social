@@ -3,6 +3,7 @@ defmodule SocialWeb.UserController do
 
   alias Social.Users
   alias Social.Users.User
+  alias Social.Profiles
 
   action_fallback SocialWeb.FallbackController
 
@@ -121,29 +122,16 @@ defmodule SocialWeb.UserController do
   end
 
 
-  def get_recommended_users(conn,  __params) do
-    IO.inspect(__params)
-    users = Users.get_recommended_users(__params["id"])
+  def get_recommended_users(conn,  params) do
+    IO.inspect(params)
+    users = Users.get_recommended_users(params["id"])
     render(conn, "index.json", users: users)
   end
 
-  def get_search_users(conn,  __params) do
-    IO.inspect(__params)
-    users = Users.get_search_users(__params["id"], __params["query"])
+  def get_search_users(conn,  params) do
+    IO.inspect(params)
+    users = Users.get_search_users(params["id"], params["query"])
     render(conn, "index.json", users: users)
   end
 
-  def get_friends(conn, %{"id" => id}) do
-    friends = Social.Connections.get_friends(id)
-    |> Enum.map(fn connection ->
-      if connection.user1_id == id do
-        Social.Users.get_user!(connection.user1_id)
-      else
-        Social.Users.get_user!(connection.user2_id)
-      end
-    end)
-
-    IO.inspect friends
-    render(conn, "index.json", users: friends)
-  end
 end
