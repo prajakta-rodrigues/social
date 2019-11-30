@@ -117,6 +117,23 @@ function users(st0 = new Map(), action) {
   }
 }
 
+function showUserProfile(st0 = null, action) {
+  switch (action.type) {
+    case "NEW_SHOW_USER_PROFILE":
+      console.log(action);
+      let st1 = action.data;
+      return st1;
+    case "ERROR_SHOW_USER_PROFILE":
+      let st2 = {
+        "error" : action.data
+      }
+      console.log(st2);
+      return st2;
+    default:
+      return st0;
+  }
+}
+
 function searchresults(st0 = new Map(), action) {
   switch(action.type) {
     case "GOT_SEARCH_RESULTS": {
@@ -192,7 +209,8 @@ function root_reducer(st0, action) {
     ig_posts,
     recommendedUsers,
     searchresults,
-    configs
+    configs,
+    showUserProfile
   });
   return deepFreeze(reducer(st0, action));
 }

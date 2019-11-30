@@ -90,7 +90,7 @@ defmodule Social.Users do
     s = q <> "%"
     IO.puts(s)
     query = from u in User,
-            where: u.id != ^id and like(u.name, ^s)
+            where: u.id != ^id and ilike(u.name, ^s)
     Repo.all(query)
   end
 

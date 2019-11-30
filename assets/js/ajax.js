@@ -185,3 +185,24 @@ export function getConfigs() {
       });
     });
 }
+
+export function getUserShowProfileById(user_id) {
+
+  get('/user/get-user-show-profile-by-id/'+ user_id)
+    .then((resp) => {
+      console.log("current user prof received", resp);
+			if(resp.data) {
+				store.dispatch({
+	        type: 'NEW_SHOW_USER_PROFILE',
+	        data: resp.data,
+	      });
+			}
+			else{
+				store.dispatch({
+	        type: 'ERROR_SHOW_USER_PROFILE',
+	        data: resp.error,
+	      });
+			}
+
+    });
+}
