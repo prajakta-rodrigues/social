@@ -134,4 +134,39 @@ defmodule SocialWeb.UserController do
     render(conn, "index.json", users: users)
   end
 
+  def get_user_show_profile(conn,  params) do
+      IO.inspect(params)
+      user = Users.get_user!(params["id"])
+      profile = Profiles.get_profile_by_user_id!(params["id"])
+      if(user != nil and profile != nil) do
+        send_resp(conn, 200, Jason.encode!(%{data: %{
+          id: user.id,
+          name: user.name,
+          dob: user.dob,
+          email: user.email,
+          profile_picture: user.profile_picture,
+          description: profile.description,
+          interests: profile.interests,
+          movies: profile.movies,
+          sports: profile.sports
+          }}))
+      else if(user != nil) do
+        send_resp(conn, 200, Jason.encode!(%{data: %{
+          id: user.id,
+          name: user.name,
+          dob: user.dob,
+          email: user.email,
+          profile_picture: user.profile_picture,
+          description: "",
+          interests: [],
+          movies: [],
+          sports: []
+          }}))
+        else
+          send_resp(conn, 500, Jason.encode!(%{error: "No user found"}))
+        end
+      end
+
+    end
+
 end
