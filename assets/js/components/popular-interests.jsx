@@ -519,6 +519,7 @@ class PopularInterests extends React.Component {
       },
     ];
 
+
     return (
       <div style={{height: 400, width: 600}}>
            <ReactWordcloud words={w} />
@@ -527,7 +528,6 @@ class PopularInterests extends React.Component {
 );
   }
 }
-
 
 
 export default PopularInterests;

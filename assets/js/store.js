@@ -229,6 +229,15 @@ function user_profiles(st0 = new Map(), action) {
   }
 }
 
+function popularInterests(st0 = [], action) {
+  switch(action.type) {
+    case "NEW_INTERESTS":
+      return [...st0, action.data];
+    default:
+      return st0;
+  }
+}
+
 function notifications(st0 = [], action) {
   switch(action.type) {
     case "NEW_NOTIF":
@@ -276,6 +285,7 @@ function root_reducer(st0, action) {
     notifications,
     channels,
     chat_list,
+    popularInterests,
     configs,
     showUserProfile
   });
