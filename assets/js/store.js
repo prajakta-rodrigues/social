@@ -181,6 +181,12 @@ function recommendedUsers(st0 = new Map(), action) {
       action.data.forEach((el) => st1.set(el.id, el))
       return st1
     }
+    case "REQUEST_SENT": {
+      let st2 = new Map(st0)
+      console.log(st2.get(action.data));
+      console.log(action.data);
+      return st2;
+    }
     default:
       return st0
   }

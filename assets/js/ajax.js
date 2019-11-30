@@ -285,6 +285,10 @@ export function updateUserLocation(longitude, latitude) {
         type: "NEW_USER",
         data: resp.data
 			});
+			store.dispatch({
+        type: "UPDATE",
+        data: resp.data
+			});
     }
   });
 }

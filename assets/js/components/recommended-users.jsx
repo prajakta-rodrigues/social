@@ -41,13 +41,22 @@ let Req = connect(({recommendedUsers, session}) =>
 
 function sendRequest(ev) {
   console.log(ev.target.value);
+  store.dispatch({
+    type: "REQUEST_SENT",
+    data: ev.target.value
+  });
 }
 
 
 function savePosition(position) {
-  console.log("Latitude: " + position.coords.latitude +
-  "<br>Longitude: " + position.coords.longitude);
-  updateUserLocation(position.coords.longitude, position.coords.latitude);
+  let session = store.getState().session;
+  console.log("sess", session.longitude);
+  console.log("poss", position.coords.longitude);
+  if(session.longitude!= position.coords.longitude
+    || session.latitude!= position.coords.latitude ) {
+        updateUserLocation(position.coords.longitude, position.coords.latitude);
+    }
+
 }
 
 
@@ -57,10 +66,10 @@ function Recommend(params){
   let id = params.id;
 
 
-  return <Card key={"card" + id}>
+  return <Card key={"card" + id} className="margin-bottom">
         <Card.Body  key={"body" + id}>
           <Card.Title key={"title" + id}>
-            <Link to="#" >
+            <Link to={"/user-profile/" + id} >
             {name}</Link>
 
           </Card.Title>

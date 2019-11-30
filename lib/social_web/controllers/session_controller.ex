@@ -14,7 +14,9 @@ defmodule SocialWeb.SessionController do
 				user_id: user.id,
 				user_name: user.name,
 				email: user.email,
-				profile_picture: user.profile_picture
+				profile_picture: user.profile_picture,
+				longitude: user.longitude,
+				latitude: user.latitude
 			}
 			conn
 			|> put_resp_header("content-type", "application/json; charset=UTF-8")

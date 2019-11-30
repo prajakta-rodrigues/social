@@ -19,11 +19,6 @@ import 'react-chat-widget/lib/styles.css';
 import FriendsComponent from './friendsComponent'
 import { Form} from "react-bootstrap";
 
-let Profil = connect(({session}) =>
-({session}))(({session, dispatch}) =>{
-  console.log("in", session);
-  return <h2>ping</h2>
-});
 
 /**
  * This is a profile page for the specific user. Here they can perform various
@@ -139,7 +134,6 @@ class Profile extends React.Component {
           <div className="details">
             <h4>{store.getState().session.user_name}</h4>
             <h5>Friends: 330</h5>
-            <Profil />
           </div>
         </div>
         <Tabs defaultActiveKey="profile">

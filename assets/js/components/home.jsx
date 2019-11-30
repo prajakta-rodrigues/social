@@ -3,6 +3,7 @@ import { Row, Col } from "react-bootstrap";
 import Card from "./card";
 import Chat from './chat';
 import { connect } from 'react-redux';
+import RecommendedUsers from './recommended-users'
 
 class Home extends React.Component {
   constructor(props) {
@@ -27,7 +28,7 @@ class Home extends React.Component {
 					</Col>
 					<Col xs={4}>
 						<Card title="Recommended Users">
-							ADD RECOMMENDED USERS HERE
+							<RecommendedUsers />
 						</Card>
 					</Col>
 					<Col xs={4}>
