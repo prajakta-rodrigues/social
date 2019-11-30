@@ -5,6 +5,21 @@ import { Redirect } from "react-router";
 import { connect } from "react-redux";
 import SearchUser from './search-user';
 
+// Icon made by https://www.flaticon.com/authors/smashicons from www.flaticon.com
+import userLogo from '../../static/user-logo.png'
+
+// Icon made by https://www.flaticon.com/authors/freepik from www.flaticon.com
+import powerLogo from '../../static/power-logo.png'
+
+// Icon made by https://www.flaticon.com/authors/freepik from www.flaticon.com
+import mapLogo from '../../static/map-logo.png'
+
+// Icon made by https://www.flaticon.com/authors/freepik from www.flaticon.com
+import homeLogo from '../../static/home-logo.png'
+
+// Icon made by https://www.flaticon.com/authors/google from www.flaticon.com
+import notificationLogo from '../../static/notification-logo.png'
+
 import { listNotifications } from "../ajax";
 import store from "../store";
 import { Badge } from 'react-bootstrap';
@@ -48,7 +63,7 @@ let Session = connect(({ session }) => ({ session }))(
   ({ session, dispatch }) => {
     // To log the user out of the app
     function logout(ev) {
-      ev.preventDefault();
+      // ev.preventDefault();
       // This logs user out of the FB instance too.
       if(session.FB_ID)
         FB.logout()
@@ -66,16 +81,30 @@ let Session = connect(({ session }) => ({ session }))(
 
     // If user is currently logged in, it returns the following links.
     // A bug : It doesnt listen to changes to session on page refresh.
-    console.log(session)
     if (session.token) {
     return (
       <div>
-        <div style={{ display: "inline-block"}}>
+        <div className="search-bar">
           <SearchUser></SearchUser>
         </div>
         <div style={{ display: "inline-block", float: "right" }}>
           <Nav>
-          <NavDropdown title={session.user_name} id="basic-nav-dropdown">
+            <NavLink to="/home">
+              <img src={homeLogo} alt="home-logo" className="nav-icon" />
+            </NavLink>
+            <NavLink to="#">
+              <img src={notificationLogo} alt="notification-logo" className="nav-icon" />
+            </NavLink>
+            <NavLink to="/map">
+              <img src={mapLogo} alt="map-logo" className="nav-icon" />
+            </NavLink>
+            <NavLink to="/profile">
+              <img src={userLogo} alt="user-logo" className="nav-icon" />
+            </NavLink>
+            <NavLink to="/" onClick={logout}>
+              <img src={powerLogo} alt="power-logo" className="nav-icon" />
+            </NavLink>
+          {/* <NavDropdown title={session.user_name} id="basic-nav-dropdown">
             <div className="dropdown-link">
               <NavLink to="/profile">My Profile</NavLink>
             </div>
@@ -86,7 +115,7 @@ let Session = connect(({ session }) => ({ session }))(
             <div onClick={logout} className="dropdown-link">
               <NavLink to="/">Logout</NavLink>
             </div>
-          </NavDropdown>
+          </NavDropdown> */}
           </Nav>
         </div>
       </div>

@@ -1,8 +1,11 @@
 import React from "react";
 import { connect } from 'react-redux';
-import { Row, Col, Form, Button, Alert } from "react-bootstrap";
+import { Row, Col, Form, Button, Alert, InputGroup } from "react-bootstrap";
 import { searchUsers } from "../ajax";
 import { Link } from 'react-router-dom';
+
+// Icon made by https://www.flaticon.com/authors/freepik from www.flaticon.com
+import searchLogo from '../../static/search-logo.png'
 
 
 
@@ -55,21 +58,18 @@ class SearchUser extends React.Component {
   render() {
     return (
       <div>
-          <Form>
-          <Form.Group as={Row} controlId="user-email">
-            <Form.Label column className="seach-title" sm={2}>
-            Search
-            </Form.Label>
-            <Col sm={10}>
-            <Form.Control
+        <div className="search">
+          <Form.Control
+              className="search-input"
               type="text"
               placeholder="Enter name here"
               value={this.props.text}
               onChange={ev => this.changed({ text: ev.target.value })}
             />
-            </Col>
-          </Form.Group>
-        </Form>
+          <div className="search-logo">
+            <img src={searchLogo} alt="search-logo" /> 
+          </div>
+        </div>
         <Result />
       </div>
 
