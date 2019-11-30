@@ -7,19 +7,19 @@ import SearchUser from './search-user';
 import { OverlayTrigger } from 'react-bootstrap'
 
 // Icon made by https://www.flaticon.com/authors/smashicons from www.flaticon.com
-import userLogo from '../../static/user-logo.png'
+import userLogo from '../../static/user-logo.svg'
 
 // Icon made by https://www.flaticon.com/authors/freepik from www.flaticon.com
-import powerLogo from '../../static/power-logo.png'
+import powerLogo from '../../static/power-logo.svg'
 
 // Icon made by https://www.flaticon.com/authors/freepik from www.flaticon.com
-import mapLogo from '../../static/map-logo.png'
+import mapLogo from '../../static/map-logo.svg'
 
 // Icon made by https://www.flaticon.com/authors/freepik from www.flaticon.com
-import homeLogo from '../../static/home-logo.png'
+import homeLogo from '../../static/home-logo.svg'
 
 // Icon made by https://www.flaticon.com/authors/google from www.flaticon.com
-import notificationLogo from '../../static/notification-logo.png'
+import notificationLogo from '../../static/notification-logo.svg'
 
 import { listNotifications } from "../ajax";
 import store from "../store";
