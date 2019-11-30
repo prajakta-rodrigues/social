@@ -108,6 +108,13 @@ function session(st0 = session0, action) {
       localStorage.setItem("session", JSON.stringify(st1));
       return st1
     }
+    case "UPDATE": {
+      console.log(st0);
+      console.log(action.data);
+      let changed = Object.assign({}, st0, action.data);
+      localStorage.setItem("session", JSON.stringify(changed));
+      return changed;
+    }
     case "LOG_OUT":{
       localStorage.removeItem("session")
       session0 = {

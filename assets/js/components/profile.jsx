@@ -1,6 +1,6 @@
 import React from 'react'
 import Posts from './insta_posts'
-import { post } from '../ajax'
+import { post, updateUserProfilePicture } from '../ajax'
 import store from '../store'
 import { Tabs, Tab } from 'react-bootstrap'
 import EditUserProfile from './edit-user-profile'
@@ -17,6 +17,13 @@ import { Notifier, AlertContainer } from "react-bs-notifier";
 import { Widget } from 'react-chat-widget';
 import 'react-chat-widget/lib/styles.css';
 import FriendsComponent from './friendsComponent'
+import { Form} from "react-bootstrap";
+
+let Profil = connect(({session}) =>
+({session}))(({session, dispatch}) =>{
+  console.log("in", session);
+  return <h2>ping</h2>
+});
 
 /**
  * This is a profile page for the specific user. Here they can perform various
@@ -84,6 +91,16 @@ class Profile extends React.Component {
     })
   }
 
+  file_changed(ev) {
+    let img = ev.target.files[0]
+    let reader = new FileReader()
+    reader.readAsDataURL(img)
+    reader.addEventListener('load', () => {
+        console.log("changed pic");
+        updateUserProfilePicture(reader.result)
+    })
+  }
+
   startChat(receiver_id) {
     //send chat notification to the receiver
     console.log(receiver_id)
@@ -97,6 +114,8 @@ class Profile extends React.Component {
   render() {
     let dp = store.getState().session.profile_picture
     dp = dp ? dp : placeholder
+
+
     let chats = [];
     let channel = store.getState().channels
     for(let i = 0; i < channel.length; i++) {
@@ -106,12 +125,21 @@ class Profile extends React.Component {
     return (
       <div id="user-profile" className="container">
         <div className="header">
-          <div className="dp">
-            <img src={dp} alt="profile_picture"/>
+          <div className="dp pic_wrapper">
+            <img src={dp} alt="profile_picture" />
+            <div className="outer-box">
+                <div className="enclosing"><Form.Control
+                  type="file"
+                  placeholder="Profile Picture"
+                  onChange={ev => this.file_changed(ev)}
+                /></div>
+            </div>
+
           </div>
           <div className="details">
             <h4>{store.getState().session.user_name}</h4>
             <h5>Friends: 330</h5>
+            <Profil />
           </div>
         </div>
         <Tabs defaultActiveKey="profile">

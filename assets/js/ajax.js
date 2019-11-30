@@ -65,7 +65,7 @@ export function submitLogin(form) {
 
   post("/sessions", data).then(resp => {
     if (resp.token) {
-      
+
       store.dispatch({
         type: "LOG_IN",
         data: resp
@@ -204,7 +204,7 @@ export function changeStatus(notification) {
   })
 }
 
-export function changeConnectionStatus(notif, status) { 
+export function changeConnectionStatus(notif, status) {
   // post('/connections/update/' + )
 }
 
@@ -270,7 +270,7 @@ export function get_user_data(id) {
     console.log("get user data", resp)
     store.dispatch({
       type: 'CHAT_LIST',
-      data: resp.data 
+      data: resp.data
     })
   })
 }
@@ -359,4 +359,18 @@ export function getUserShowProfileById(user_id) {
 			}
 
     });
+}
+
+export function updateUserProfilePicture(picture) {
+	let state = store.getState();
+	let session = state.session;
+
+  patch("/users/" + session.user_id, {id: session.user_id, user: {profile_picture: picture}}).then(resp => {
+    if (resp && resp.data) {
+      store.dispatch({
+        type: "UPDATE",
+        data: resp.data
+			});
+    }
+  });
 }

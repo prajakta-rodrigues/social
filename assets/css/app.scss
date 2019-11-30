@@ -274,3 +274,37 @@ html, body {
 .word-wrap {
   word-wrap: break-word;
 }
+
+
+.pic_wrapper {
+  position: relative;
+}
+
+.outer-box {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: inherit;
+  width: inherit;
+  background: rgba(29, 106, 154, 0.72);
+  color: #fff;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity .2s, visibility .2s;
+}
+
+.pic_wrapper:hover .outer-box {
+  visibility: visible;
+  opacity: 1;
+  border-radius: 50%
+}
+
+
+.change-pic-link {
+  color: white;
+}
+
+.enclosing {
+  top:50%;
+  position: relative;
+}

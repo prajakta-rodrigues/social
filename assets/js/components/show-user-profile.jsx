@@ -46,6 +46,7 @@ let Profile = connect(({showUserProfile}) =>
     if(showUserProfile.movies) {
       movies = showUserProfile.movies.toString();
     }
+    
     let dp = showUserProfile.profile_picture
     dp = dp ? dp : placeholder
 

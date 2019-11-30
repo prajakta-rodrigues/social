@@ -27,7 +27,7 @@ defmodule Social.Users.User do
 
   def updateset(user, attrs) do
     user = user
-     |> cast(attrs, [:name, :username, :email, :password_hash, :dob, :longitude, :latitude])
+     |> cast(attrs, [:name, :username, :email, :password_hash, :dob, :longitude, :latitude, :profile_picture])
     if(Map.has_key?(user, :password)) do
       user = user |> hash_password()
     else
