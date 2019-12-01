@@ -120,4 +120,18 @@ defmodule Social.Profiles do
   def change_profile(%Profile{} = profile) do
     Profile.changeset(profile, %{})
   end
+
+  def get_popular_interests() do
+    user_interests = Repo.all from p in Profile,
+                limit: 40,
+                select: p.interests
+    IO.inspect(user_interests)
+    interests = Enum.reduce(user_interests, [] , fn(item, acc) -> acc ++ item end)
+
+    counts = Enum.reduce(interests, %{}, fn(item, acc) ->  acc |>
+    Map.put(item, Enum.count(interests, &(&1 == item))) end )
+
+    Enum.reduce(counts, [],  fn ({k,v}, acc)
+    -> acc ++ [%{value: k , count: v}] end)
+  end
 end

@@ -232,11 +232,13 @@ function user_profiles(st0 = new Map(), action) {
 function popularInterests(st0 = [], action) {
   switch(action.type) {
     case "NEW_INTERESTS":
-      return [...st0, action.data];
+      console.log(typeof st0);
+      return st0.concat(action.data);
     default:
       return st0;
   }
 }
+
 
 function notifications(st0 = [], action) {
   switch(action.type) {
@@ -273,10 +275,10 @@ function chat_list(st0 = [], action) {
 
 function friends(st0 = [], action) {
   switch(action.type) {
-    case "GOT_FRIENDS": 
-      let st1 =  st0.concat(action.data) 
+    case "GOT_FRIENDS":
+      let st1 =  st0.concat(action.data)
       return st1
-    default: 
+    default:
       return st0
   }
 }

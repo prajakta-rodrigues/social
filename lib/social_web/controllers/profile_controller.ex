@@ -55,4 +55,10 @@ defmodule SocialWeb.ProfileController do
     render(conn, "show.json", profile: profile)
   end
 
+  def get_popular_interests(conn, __params) do
+    popular_interests = Profiles.get_popular_interests()
+    IO.inspect(popular_interests)
+    send_resp(conn, 200, Jason.encode!(%{data: popular_interests}))
+  end
+
 end

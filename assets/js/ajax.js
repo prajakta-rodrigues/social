@@ -344,6 +344,20 @@ export function getConfigs() {
     });
 }
 
+
+export function getPopularInterests() {
+
+  get('/profiles/get-popular-interests')
+    .then((resp) => {
+      console.log("NEW_INTERESTS", resp);
+      store.dispatch({
+        type: 'NEW_INTERESTS',
+        data: resp.data,
+      });
+    });
+}
+
+
 export function getUserShowProfileById(user_id) {
 
   get('/user/get-user-show-profile-by-id/'+ user_id)

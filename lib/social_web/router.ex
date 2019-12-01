@@ -32,6 +32,7 @@ defmodule SocialWeb.Router do
     get "/user/search-users/:id/:query", UserController, :get_search_users
     get "/user/get-user-show-profile-by-id/:id", UserController, :get_user_show_profile
     get "/profile/get-user-profile/:id", ProfileController, :get_user_profile
+    get "/profiles/get-popular-interests", ProfileController, :get_popular_interests
     get "/user/friends/:id", UserController, :get_friends
     get "/get-configs", ConfigController, :index
     resources "/users", UserController, except: [:new, :edit]
