@@ -7,15 +7,10 @@ defmodule SocialWeb.NotifChannel do
       {:ok, %{"message" => "Channel Joined"}, socket}
     end
 
-    # def handle_in("send_request", %{"id" => id, "type" => type, "message" => message}, socket) do
-    #   broadcast!(socket, "send_request", %{id: id, type: type, message: message})
-    #   {:noreply, socket}
-    # end
-
     def handle_in("send_request", %{"associated_sender_id" => associated_sender_id, 
-    "receiver_id" => receiver_id, "status" => status, "text" => text, "type" => type}, socket) do
+    "receiver_id" => receiver_id, "status" => status, "text" => text, "type" => type, "id" => id}, socket) do
       broadcast!(socket, "send_request", %{associated_sender_id: associated_sender_id, receiver_id: 
-      receiver_id, status: status, text: text, type: type})
+      receiver_id, status: status, text: text, type: type, id: id})
       {:noreply, socket}
     end
 

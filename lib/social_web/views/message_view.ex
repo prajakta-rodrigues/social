@@ -14,6 +14,7 @@ defmodule SocialWeb.MessageView do
     %{id: message.id,
       text: message.text,
       date: message.date,
+      sender_id: message.sender_id,
       sender_name: message.sender_name}
   end
 end

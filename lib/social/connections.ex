@@ -21,6 +21,12 @@ defmodule Social.Connections do
     Repo.all(Connection)
   end
 
+  def list_requests(user_id) do
+    query = from(c in Connection, where: (c.user1_id == ^user_id or c.user2_id == ^user_id) and 
+    c.requester_id != ^user_id and c.status == "PENDING")
+    Repo.all(query)
+  end
+
   @doc """
   Gets a single connection.
 
