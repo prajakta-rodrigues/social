@@ -13,7 +13,7 @@ class Home extends React.Component {
 
   render() {
     return (
-      <div style={{ marginLeft: '1.8em' }}>
+      <div className="home-main">
         <Row>
           <Col xs={12} style={{ textAlign: 'center', padding: "1em" }}>
             <h1>

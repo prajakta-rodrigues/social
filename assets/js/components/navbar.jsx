@@ -68,7 +68,7 @@ let Session = connect(({ session }) => ({ session }))(
       // This logs user out of the FB instance too.
       if(session.FB_ID)
         FB.logout()
-      
+
       dispatch({
         type: "LOG_OUT"
       })
@@ -85,9 +85,12 @@ let Session = connect(({ session }) => ({ session }))(
     if (session.token) {
     return (
       <div>
-        <div className="search-bar">
-          <SearchUser></SearchUser>
-        </div>
+        <OverlayTrigger placement="bottom" overlay={<Tooltip>Search</Tooltip>}>
+          <div className="search-bar">
+            <SearchUser></SearchUser>
+          </div>
+        </OverlayTrigger>
+
         <div style={{ display: "inline-block", float: "right" }}>
           <Nav>
             <NavLink to="/home">
