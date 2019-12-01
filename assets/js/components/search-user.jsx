@@ -5,7 +5,7 @@ import { searchUsers } from "../ajax";
 import { Link } from 'react-router-dom';
 import store from '../store';
 import { Redirect } from 'react-router';
-import placeholder from '../../static/placeholder.png'
+import placeholder from '../../static/placeholder.svg'
 
 
 
