@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import store from '../store'
 import { getUserShowProfileById } from "../ajax";
 import { Tabs, Tab } from 'react-bootstrap'
-import placeholder from '../../static/placeholder.png'
+import placeholder from '../../static/placeholder.svg'
 
 class ShowUserProfile extends React.Component {
 
