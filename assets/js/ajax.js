@@ -80,6 +80,36 @@ export function submitLogin(form) {
   });
 }
 
+export function changeRequest(request_id, status) {
+  post('/connections/update/'+ request_id, {id: request_id, connection : {status: status}})
+  .then((resp) => {
+    console.log('connection changes', resp)
+  })
+}
+
+export function listRequests(user_id) {
+  let state = store.getState();
+  console.log(state);
+  post('/connections/' + user_id, {user_id: user_id})
+  .then((resp) => {
+    console.log("all requests", resp)
+    for(let i = 0; i < resp.data.length; i++) {
+      let id = resp.data[i].user1_id;
+      if(resp.data[i].user1_id == user_id) {
+        id = resp.data[i].user2_id;
+    }
+    let request_id = resp.data[i].id;
+    post('/user/' + id, {id: id})
+      .then((resp) => {
+        resp.data["request_id"] = request_id
+        store.dispatch({
+          type: "NEW_REQUEST",
+          data: resp.data
+        })
+      });
+    }});
+}
+
 export function sendRequest(user1_id, user2_id) {
   /* user1_id is always the requester
     user1_id is always smaller than user2_id
@@ -91,7 +121,7 @@ export function sendRequest(user1_id, user2_id) {
     user2_id = temp;
   }
   post('/connections', {connection: {
-    status: "Pending",
+    status: "PENDING",
     user1_id: user1_id,
     user2_id: user2_id,
     requester_id: user1_id
@@ -100,18 +130,25 @@ export function sendRequest(user1_id, user2_id) {
     const text = state.session.user_name + " has sent you connection request"
     createNotification(user1_id, user2_id, type, text, resp.id);
     console.log("request sent", resp)
+    let id = user1_id;
+    if(resp.data.user1_id == state.session.user_id) {
+      id = user2_id
+    }
+    post('/user/' + id, {id: id})
+      .then((resp) => {
+        store.dispatch({
+          type: "NEW_REQUEST",
+          data: resp.data
+        })
+      });
   });
+  console.log("new request")
 }
 
 export function createNotification(sender_id, receiver_id, type, text, id) {
   //create channel for notification
   let channel = socket.channel("notif:" + receiver_id);
   channel.join().receive("ok", (resp) => {
-    const data = "notif:" + receiver_id
-    this.props.dispatch({
-      type: "NEW_CHANNEL",
-      data: data
-  })
     console.log("notif joined", resp)})
 
   let state = store.getState();
@@ -127,71 +164,80 @@ export function createNotification(sender_id, receiver_id, type, text, id) {
     status: "UNREAD"
   }}).then((resp) => {
     let notif = {text: resp.data.text, associated_sender_id: resp.data.associated_sender_id, receiver_id: resp.data.receiver_id,
-    status: resp.data.status, type: resp.data.type, id: id}
+    status: resp.data.status, type: resp.data.type, id: resp.data.id}
     console.log("resp",resp)
-    // let push = {id: resp.data.id, type: "success", message: resp.data.text};
+    console.log("notif", notif)
       store.dispatch({
       type: "NEW_NOTIF",
       data: notif
     });
-    //console.log("notification sent", resp)
-    //console.log(notif);
-    //console.log(resp)
-    //console.log("push",push)
+    
     channel.push("send_request", notif)
     .receive("ok", console.log("received"));
   });
 }
 
-// export function list_messages(room) {
-//   let msgs = [];
-//   post('/messages/' + room, {room: room})
-//     .then((resp) => {
-//       // const messages = resp.data.map((msg) => {return {author: 'them', type: 'text', data: msg.text}});
-//       //const data = {author: 'them', type: 'text', data: resp.data.text};
-//       // console.log("resp list message", messages)
-//       // store.dispatch({
-//       //   type: 'ADD_MESSAGE',
-//       //   data: resp.data,
-//       // });
-//       msgs = resp.data;
-//     });
-// }
+export function startChat(receiver_id, action) {
+  let sender_id = store.getState().session.user_id;
+  let channel = "users:";
+  if(sender_id > receiver_id) {
+      channel = channel + receiver_id + sender_id;
+  }else {
+      channel = channel + sender_id + receiver_id;
+  }
+  //check if channel already exists
+  if(!store.getState().channels.includes(channel)) {
+      //send chat notification to the receiver
+      console.log(receiver_id)
+      if(action == "send action") {
+          const text = store.getState().session.user_name + " sent you a message";
+          createNotification(sender_id, receiver_id, "CHAT", text, null)
+      }
+      console.log("start chat");
+      // const sender_id = this.props.session.user_id;
+      joinChat(sender_id, receiver_id)
+  }
+}
+
+export function joinChat(sender_id, receiver_id) {
+  let channel = "users:";
+  if(sender_id > receiver_id) {
+      channel = channel + receiver_id + sender_id;
+  }else {
+      channel = channel + sender_id + receiver_id;
+  }
+  console.log(channel);
+  let chatChannel = socket.channel(channel);
+  chatChannel.join().receive("ok", (resp) => {
+      store.dispatch({
+          type: "NEW_CHANNEL",
+          data: channel
+      })
+      console.log(resp)})
+  get_user_data(receiver_id, channel)
+}
+
+export function list_messages(room) {
+  
+  post('/messages/' + room, {room: room})
+    .then((resp) => {
+      store.dispatch({
+        type: 'ADD_MESSAGE',
+        data: resp.data,
+      });
+      // msgs = resp.data;
+    });
+}
 
 export function listNotifications(receiver_id) {
   let state = store.getState();
   post('/notifications/' + receiver_id, {receiver_id: receiver_id})
     .then((resp) => {
+      console.log("", resp)
       store.dispatch({
         type: 'ADD_NOTIF',
         data: resp.data
       })
-
-      // console.log("resp data", resp.data)
-      // let channels = state.channels;
-      // // const topics = state.channels.map((channel) => {channel.topic})
-      // // console.log("topics", topics)
-      // for(let i = 0; i < resp.data.length; i++) {
-      //   console.log("inside loop")
-      //   if(resp.data[i].type == 'CHAT') {
-      //     let chat = "users:";
-      //     if(resp.data[i].associated_sender_id > resp.data[i].receiver_id) {
-      //         chat = chat + resp.data[i].receiver_id + resp.data[i].associated_sender_id;
-      //     }else {
-      //         chat = chat + resp.data[i].associated_sender_id + resp.data[i].receiver_id;
-      //     }
-      //     if(!channels.includes(chat)) {
-      //         let chatChannel = socket.channel(chat);
-      //         chatChannel.join().receive("ok", (resp) => {
-      //         store.dispatch({
-      //             type: "NEW_CHANNEL",
-      //             data: chat
-      //         })
-      //         console.log("chat joined", resp)})
-      //         channels = [...channels, chat]
-      //     }
-      // }
-      // }
     })
 }
 
@@ -204,31 +250,28 @@ export function changeStatus(notification) {
   })
 }
 
-export function changeConnectionStatus(notif, status) {
-  // post('/connections/update/' + )
+export function newMessage(message, channel) {
+  let date = new Date();
+  post('/messages', {
+    message: {
+      date: date,
+      sender_id: message.id,
+      text: message.text,
+      room: channel.topic,
+      sender_name: message.name
+    }
+  }).then((resp) => {
+        console.log("response",resp);
+        store.dispatch({
+          type: "NEW_MESSAGE",
+          data: {date: resp.date, sender_name: message.name, id: resp.id, text: message.text,
+          sender_id: message.id}
+        });
+      });
+  channel.join().receive("ok", (resp) => {console.log(resp)})
+  channel.push("send_msg", {text: message.text, sender_name: message.name, id: message.id,
+  room: channel.topic, sender_id: message.id}).receive("ok", console.log("received"));
 }
-
-// export function newMessage(message, channel) {
-//   let date = new Date();
-//   post('/messages', {
-//     message: {
-//       date: date,
-//       sender_id: message.id,
-//       text: message.text,
-//       room: channel.topic,
-//       sender_name: message.name
-//     }
-//   }).then((resp) => {
-//         console.log("response",resp);
-//         store.dispatch({
-//           type: "NEW_MESSAGE",
-//           data: {date: resp.date, sender_name: message.name, id: resp.id, text: message.text}
-//         });
-//       });
-//   channel.join().receive("ok", (resp) => {console.log(resp)})
-//   channel.push("send_msg", {text: message.text, sender_name: message.name, id: message.id,
-//   room: channel.topic}).receive("ok", console.log("received"));
-// }
 
 export function newUser(form) {
 	let state = store.getState();
@@ -264,15 +307,22 @@ export function get_recommended_users() {
     });
 }
 
-export function get_user_data(id) {
-  get('/user/' + id)
+export function get_user_data(id, channel) {
+  post('/user/' + id, {id: id})
   .then((resp) => {
     console.log("get user data", resp)
+    console.log("get user", resp)
+    let data = resp.data
+    console.log("seee channel", channel)
+    data["channel"] = channel
+    console.log("final data", data)
     store.dispatch({
       type: 'CHAT_LIST',
-      data: resp.data
+      data: data
+      // data: resp.data 
     })
-  })
+  });
+
 }
 
 export function updateUserLocation(longitude, latitude) {

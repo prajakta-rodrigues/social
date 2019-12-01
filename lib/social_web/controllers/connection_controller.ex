@@ -20,6 +20,11 @@ defmodule SocialWeb.ConnectionController do
     end
   end
 
+  def list_requests(conn, %{"user_id" => user_id}) do
+    requests = Connections.list_requests(user_id)
+    render(conn, "index.json", connections: requests)
+  end
+
   def show(conn, %{"id" => id}) do
     connection = Connections.get_connection!(id)
     render(conn, "show.json", connection: connection)

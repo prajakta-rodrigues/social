@@ -49,6 +49,10 @@ defmodule SocialWeb.Router do
     post "/notifications/update/:id", NotificationController, :update
     get "/user/:id", UserController, :show
 
+    post "/connections/update/:id", ConnectionController, :update
+    post "/user/:id", UserController, :show
+    post "/connections/:user_id", ConnectionController, :list_requests
+    
   end
 
   scope "/", SocialWeb do

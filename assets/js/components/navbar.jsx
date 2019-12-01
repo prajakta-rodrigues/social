@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { Redirect } from "react-router";
 import { connect } from "react-redux";
 import SearchUser from './search-user';
-import { OverlayTrigger } from 'react-bootstrap'
+import { OverlayTrigger, Glyphicon } from 'react-bootstrap'
 
 // Icon made by https://www.flaticon.com/authors/smashicons from www.flaticon.com
 import userLogo from '../../static/user-logo.svg'
@@ -95,11 +95,7 @@ let Session = connect(({ session }) => ({ session }))(
                 <img src={homeLogo} alt="home-logo" className="nav-icon" />
               </OverlayTrigger>
             </NavLink>
-            <NavLink to="#">
-              <OverlayTrigger placement="bottom" overlay={<Tooltip>Notifications</Tooltip>}>
-                <img src={notificationLogo} alt="notification-logo" className="nav-icon" />
-              </OverlayTrigger>
-            </NavLink>
+            <Notifications />
             <NavLink to="/map">
               <OverlayTrigger placement="bottom" overlay={<Tooltip>Map</Tooltip>}>
                 <img src={mapLogo} alt="map-logo" className="nav-icon" />
@@ -115,18 +111,6 @@ let Session = connect(({ session }) => ({ session }))(
                 <img src={powerLogo} alt="power-logo" className="nav-icon" />
               </OverlayTrigger>
             </NavLink>
-          {/* <NavDropdown title={session.user_name} id="basic-nav-dropdown">
-            <div className="dropdown-link">
-              <NavLink to="/profile">My Profile</NavLink>
-            </div>
-            <div className="dropdown-link">
-              <NavLink to="/map">Map</NavLink>
-            </div>
-            <NavDropdown.Divider />
-            <div onClick={logout} className="dropdown-link">
-              <NavLink to="/">Logout</NavLink>
-            </div>
-          </NavDropdown> */}
           </Nav>
         </div>
       </div>

@@ -20,6 +20,7 @@ import EditUserProfile from "./components/edit-user-profile";
 import RecommendedUsers from "./components/recommended-users";
 import Home from "./components/home";
 import ShowUserProfile from "./components/show-user-profile";
+import Requests from "./components/requests";
 
 export default function init_page(root) {
   let tree = (
@@ -28,6 +29,7 @@ export default function init_page(root) {
     </Provider>
   );
   ReactDOM.render(tree, root);
+  <link rel="stylesheet" href="https://getbootstrap.com/docs/3.3/dist/css/bootstrap.min.css"></link>
 }
 
 
@@ -72,6 +74,7 @@ class Index extends React.Component {
           <Route exact path="/user-profile/:id" component={ShowUserProfile} />
           <Route exact path="/user-profile/:id" component={ShowUserProfile} />
           PopularInterests
+          <Route exact path="/requests" component={Requests} />
         </Switch>
       </Router>
     )
