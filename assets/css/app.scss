@@ -159,30 +159,37 @@ html, body {
 }
 
 .seach-title {
-  color: white;
+  color: black;
   font-size: 1rem;
 }
 
 .search-results {
   position: absolute;
-  background: #c3c3c3;
+  background: white;
   z-index: 100;
+  max-height: 300px;
+  overflow-y: scroll;
+  border-radius: 5px;
 }
 
 .search-row a {
-    color: white;
+    color: black;
+    transition: all 0.2s ease-in;
 }
 
 .search-row {
-  border: 1px solid white;
+  border-bottom: 1px solid #aaaaaa;
+  transition: all 0.2s ease-in;
 }
 
 .search-row:hover {
-    background-color: #f8f9fa;
+    background-color: #dedede;
+    transition: all 0.2s ease-in;
 }
 
 .search-row:hover a {
-    color: cadetblue;
+    color: #db625c;
+    font-weight: bold;
 }
 .chat-box {
     // right: 0;
@@ -454,8 +461,9 @@ html, body {
 }
 
 .rec-user-card .rec-user-dp img {
-    height: 50px !important;
-    width: 50px !important;
+    height: 50px;
+    width: 50px;
+    border-radius: 50px;
 }
 
 .rec-user-card .name {
@@ -490,8 +498,11 @@ html, body {
 }
 
 .search-profile-picture {
-  max-width: 100%;
-  max-height: 100%;
+  width: 30px;
+  height: 30px;
+  border-radius: 50px;
+  margin-left: 10px;
+  margin-top: 2px;
 }
 
 .search-profile-picture-left {

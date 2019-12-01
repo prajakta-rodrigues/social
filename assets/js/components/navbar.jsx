@@ -85,12 +85,9 @@ let Session = connect(({ session }) => ({ session }))(
     if (session.token) {
     return (
       <div>
-        <OverlayTrigger placement="bottom" overlay={<Tooltip>Search</Tooltip>}>
-          <div className="search-bar">
+        <div className="search-bar">
             <SearchUser></SearchUser>
-          </div>
-        </OverlayTrigger>
-
+        </div>
         <div style={{ display: "inline-block", float: "right" }}>
           <Nav>
             <NavLink to="/home">
