@@ -64,6 +64,7 @@ defmodule Social.Users do
       IO.inspect(ids)
       IO.puts("random")
       query3 = from u in User,
+               limit: 5,
                 where: u.id in ^ids
       users = Repo.all(query3)
       IO.puts("users")
@@ -85,6 +86,7 @@ defmodule Social.Users do
     IO.inspect(existing)
     profile_users = get_profile_matches(id)
     query = from u in User,
+            limit: 5,
             where: u.id != ^id and u.longitude < ^(user.longitude + 0.5)
             and u.longitude > ^(user.longitude - 0.5)
             and u.latitude < ^(user.latitude + 0.5)

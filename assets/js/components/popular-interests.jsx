@@ -38,7 +38,7 @@ class PopularInterests extends React.Component {
 
   render() {
     return (
-      <div class="popular-interests">
+      <div class="popular-interests" id="scroll">
         <Pop />
       </div>
 

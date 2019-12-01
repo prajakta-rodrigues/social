@@ -37,7 +37,7 @@ let Req = connect(({recommendedUsers, session}) =>
   if(recommend.length == 0) {
     recommend.push(<Spinner />)
   }
-  return <div className="recommended-users-container">
+  return <div className="recommended-users-container" id="scroll">
     {recommend}
   </div>;
 });
