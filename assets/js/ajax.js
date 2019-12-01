@@ -364,10 +364,15 @@ export function getUserShowProfileById(user_id) {
     .then((resp) => {
       console.log("current user prof received", resp);
 			if(resp.data) {
-				store.dispatch({
-	        type: 'NEW_SHOW_USER_PROFILE',
-	        data: resp.data,
-	      });
+        let profile = resp.data
+        post('/user/get_ig_posts', {user_id}).then(resp => {
+          let posts = resp.data.reverse()
+          let data = {...profile, posts}
+          store.dispatch({
+            type: 'NEW_SHOW_USER_PROFILE',
+            data,
+          });
+        })
 			}
 			else{
 				store.dispatch({

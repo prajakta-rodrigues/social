@@ -141,7 +141,7 @@ movies = ["Thriller", "RomCom", "SciFic"]
 description = ["I am student", "Lorem Ipsum", "Nothing at all", "Today I dont feel like doing anything", "lazy", "Slow Dancing in a burning room", "New Light", "X0X0", "Chillin'"]
 
 Enum.each(usernames, fn username ->
-  deviation = :rand.uniform(10000) / 10000
+  deviation = :rand.uniform(100) / 10000
   resp = Repo.insert!(%User{name: username, username: username, email: username <> "@test.com", dob: date, password_hash: pw, latitude: lat + deviation, longitude: lng + deviation})
   Repo.insert!(%Profile{description: Enum.random(description),
       sports: Enum.take_random(sports, 3),

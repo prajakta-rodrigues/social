@@ -403,7 +403,7 @@ html, body {
 
 .ig-post-container {
     margin-top: 20px;
-    margin-left: 30px;
+    margin-left: 50px;
 }
 
 .tags {
@@ -562,6 +562,9 @@ html, body {
     color: #db625c
 }
 
+#friend-profile .profile {
+    margin-top: 50px;
+}
 .profile img {
     height: 200px;
     width: 200px;
@@ -571,14 +574,56 @@ html, body {
 .profile .contact {
     text-align: center;
     font-size: 24px;
+    color: #db625c;
+    font-weight: bold;
 }
 
 .profile .contact .info {
     margin-top: 5px;
 }
 
-.profile .detail {
+.profile .profile-details {
     font-size: 20px;
-    border: 2px solid #db625c;
+    background: white;
     border-radius: 5px;
+    margin: 10px 0 10px 0;
+    box-shadow: 0 2px 2px #656565;
+}
+
+.profile .profile-details .info {
+    margin-left: 10px;
+    padding: 5px;
+    word-wrap: break-word;;
+}
+
+.profile .profile-details .info .key {
+    font-weight: bold;
+}
+
+.profile .profile-details .info .value {
+    color: #db625c;
+    font-weight: bold;
+}
+.profile-details .info .tag {
+    font-size: 16px;
+}
+
+#friend-profile .ig-post-container{
+    margin-top: 50px;
+    background: white;
+    margin-bottom: 20px;
+    margin-left: 0;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 2px #656565;
+}
+
+#friend-profile .ig-post-container .posts {
+    margin-left: 35px;
+    margin-top: 20px;
+}
+
+.insta-header {
+    color: #db625c;
+    text-align: center;
 }

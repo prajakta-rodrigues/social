@@ -1,9 +1,6 @@
 import React from 'react';
-import Posts from './insta_posts'
 import { connect } from 'react-redux';
-import store from '../store'
 import { getUserShowProfileById } from "../ajax";
-import { Tabs, Tab } from 'react-bootstrap'
 import placeholder from '../../static/placeholder.svg'
 
 class ShowUserProfile extends React.Component {
@@ -14,12 +11,13 @@ class ShowUserProfile extends React.Component {
     console.log(this.props.match.params.id);
     console.log("in show user profile");
     this.state = {
-      redirect: null
+      redirect: null,
     };
   }
 
   render() {
-    getUserShowProfileById(this.props.match.params.id);
+    let id = this.props.match.params.id
+    getUserShowProfileById(id);
     return (
       <Profile />
     );
@@ -29,28 +27,56 @@ class ShowUserProfile extends React.Component {
 
 let Profile = connect(({showUserProfile}) =>
 ({showUserProfile}))(({showUserProfile, dispatch}) =>{
-  console.log("in", showUserProfile);
   let profile = [];
   let interests = "";
   let sports = "";
   let movies = "";
+  let posts = [];
 
   if(showUserProfile) {
     if(showUserProfile.interests) {
-      interests = showUserProfile.interests.toString();
+      interests = showUserProfile.interests.map(interest => {
+        return(
+          <div className="tag selected">{interest}</div>
+        )
+      })
     }
     if(showUserProfile.sports) {
-      sports = showUserProfile.sports.toString();
+      sports = showUserProfile.sports.map(sport => {
+        return(
+          <div className="tag selected">{sport}</div>
+        )
+      });
     }
     if(showUserProfile.movies) {
-      movies = showUserProfile.movies.toString();
+      movies = showUserProfile.movies.map(movie => {
+        return(
+          <div className="tag selected">{movie}</div>
+        )
+      });
+    }
+
+    if(showUserProfile.posts.length > 0) {
+      posts = showUserProfile.posts.map(post => {
+        return(
+          <div key={post.id} className="ig_post">
+              <img src={post.media_url} alt={post.id} className="post-img img-fluid" />
+          </div>
+        )
+      })
     }
 
     let dp = showUserProfile.profile_picture
     dp = dp ? dp : placeholder
 
+    let noPost = (
+      <div class="ig-placeholder-container">
+        <div className="connect-ig"><h3>This user has not linked their Instagram account.</h3></div>
+      </div>
+    )
+
     profile.push(
-      <div id="user-profile">
+      <div id="friend-profile" className="container">
         <div className="header row profile">
           <div className="col-sm-4 contact">
             <img src={dp} alt="profile_picture"/>
@@ -61,27 +87,62 @@ let Profile = connect(({showUserProfile}) =>
               <span>{showUserProfile.email}</span>
             </div>
           </div>
-          <div className="col-sm-8 detail">
-            <div className="info">
-              About me: {showUserProfile.description}
-            </div>
-            <div className="info">
-              Date Of Birth: {showUserProfile.dob}
-            </div>
-            <div className="info">
-              Interests: {interests}
-            </div>
-            <div className="infor">
-              Sports: {sports}
-            </div>
-            <div className="info">
-              Movies: {movies}
+          <div className="col-sm-8">
+            <div className="profile-details">
+              <div className="row">
+                <div className="col-sm-6">
+                  <div className="info">
+                    <div className="key">About me</div>
+                    <div className="value">{showUserProfile.description}</div>
+                  </div>
+                </div>
+                <div className="col-sm-6">
+                  <div className="info">
+                    <div className="key">
+                      Date Of Birth
+                    </div>
+                    <div className="value">
+                      {showUserProfile.dob}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="info">
+                <div className="key">
+                  Interests 
+                </div>
+                <div className="tags">
+                  {interests}
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-sm-6">
+                  <div className="info">
+                    <div className="key">Sports</div>
+                    <div className="tags">
+                      {sports}
+                    </div>
+                  </div>
+                </div>
+                <div className="col-sm-6">
+                  <div className="info">
+                    <div className="key">Movies</div>
+                    <div className="tags">
+                      {movies}
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+        <div className="ig-post-container">
+          <h2 class="insta-header">Instagram Posts</h2>
+          <div className="posts">
+            {posts.length > 0 ? posts : noPost}
+          </div>
+        </div>
       </div>
-
-
       );
 
   }
