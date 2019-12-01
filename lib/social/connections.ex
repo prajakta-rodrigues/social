@@ -108,4 +108,17 @@ defmodule Social.Connections do
       where: c.user1_id == ^id or c.user2_id == ^id,
       where: c.status == "ACCEPTED"
   end
+
+  def get_friends_or_pending_friends(id) do
+    user_id1  = Repo.all from c in Connection,
+      where: c.user1_id == ^id,
+      select: c.user2_id
+
+    user_id2 = Repo.all from c in Connection,
+      where: c.user2_id == ^id,
+      select: c.user1_id
+    user_id1 ++ user_id2
+  end
+
+
 end

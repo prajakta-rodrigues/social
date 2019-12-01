@@ -4,7 +4,7 @@ import store from '../store';
 import {Card, Button} from 'react-bootstrap';
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
-import {get_recommended_users, updateUserLocation} from "../ajax";
+import {get_recommended_users, updateUserLocation, sendRequest} from "../ajax";
 
 
 export default function RecommendedUsers(params){
@@ -39,12 +39,14 @@ let Req = connect(({recommendedUsers, session}) =>
   </div>;
 });
 
-function sendRequest(ev) {
-  console.log(ev.target.value);
+function sendRequestUser(id1, id2) {
+  console.log(id1, id2);
+  // console.log(ev.target.value);
   store.dispatch({
     type: "REQUEST_SENT",
-    data: ev.target.value
+    data: id2
   });
+  sendRequest(id1, id2)
 }
 
 
@@ -75,7 +77,7 @@ function Recommend(params){
           </Card.Title>
           <Card.Text key={"text" + id}>
             <Button key={"btn" + id} value={id} variant="primary"
-              onClick={sendRequest} >Send Request</Button>
+              onClick={() => {sendRequestUser(session.id, id)}} >Send Request</Button>
           </Card.Text>
         </Card.Body>
       </Card>;

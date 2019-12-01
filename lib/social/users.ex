@@ -9,7 +9,7 @@ defmodule Social.Users do
   alias Social.Users.User
   alias Social.Profiles.Profile
   alias SocialWeb.ProfileView
-
+  alias Social.Connections
 
 
   @doc """
@@ -76,14 +76,21 @@ defmodule Social.Users do
 
   def get_recommended_users(id) do
     user = get_user!(id)
+    existing = Connections.get_friends_or_pending_friends(id)
+    query0 = from u in User,
+              where: u.id in ^existing
+    existing_req = Repo.all(query0)
 
+
+    IO.inspect(existing)
     profile_users = get_profile_matches(id)
     query = from u in User,
             where: u.id != ^id and u.longitude < ^(user.longitude + 0.5)
             and u.longitude > ^(user.longitude - 0.5)
             and u.latitude < ^(user.latitude + 0.5)
             and u.latitude > ^(user.latitude - 0.5)
-    Repo.all(query) ++ profile_users
+    matched_users = Repo.all(query) ++ profile_users
+    matched_users -- existing_req
   end
 
   def get_search_users(id, q) do
