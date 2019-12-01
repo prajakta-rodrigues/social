@@ -273,10 +273,10 @@ function chat_list(st0 = [], action) {
 
 function friends(st0 = [], action) {
   switch(action.type) {
-    case "GOT_FRIENDS": 
-      let st1 =  st0.concat(action.data) 
+    case "GOT_FRIENDS":
+      let st1 =  st0.concat(action.data)
       return st1
-    default: 
+    default:
       return st0
   }
 }
