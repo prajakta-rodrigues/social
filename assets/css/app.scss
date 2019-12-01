@@ -162,7 +162,7 @@ html, body {
 
 .search-results {
   position: absolute;
-  background: cadetblue;
+  background: #c3c3c3;
 }
 
 .search-row a {
@@ -328,14 +328,17 @@ html, body {
 }
 
 .search .search-input {
-    position: absolute;
     left: 0;
-    width: 80%;
+}
+
+.seach-box {
+  width: 80%;
+  display: inline-block;
 }
 
 .search .search-logo {
-    position: absolute;
-    left: 82%;
+  display: inline-block;
+  width: 20%
 }
 
 .search-logo img {
@@ -361,7 +364,7 @@ html, body {
 	position: absolute;
 	z-index: -1;
     position: relative;
-    
+
 }
 
 .change-photo + label{

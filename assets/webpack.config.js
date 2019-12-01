@@ -55,7 +55,7 @@ module.exports = (env, options) => ({
           },
         ],
       },
-      { test: /\.txt$/, 
+      { test: /\.txt$/,
         use: 'raw-loader' },
         {
           test: /\.mp3$/,
@@ -77,6 +77,7 @@ module.exports = (env, options) => ({
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery',
+      react: 'react',
       Popper: ['popper.js', 'default'],
     }),
     new CopyWebpackPlugin([{ from: 'static/', to: '../' }])

@@ -4,6 +4,7 @@ import Card from "./card";
 import Chat from './chat';
 import { connect } from 'react-redux';
 import RecommendedUsers from './recommended-users'
+import PopularInterests from './popular-interests'
 
 class Home extends React.Component {
   constructor(props) {
@@ -23,7 +24,7 @@ class Home extends React.Component {
 				<Row>
 					<Col xs={4}>
 						<Card title="Popular Interests">
-							ADD POPULAR INTERESTS HERE
+							<PopularInterests />
 						</Card>
 					</Col>
 					<Col xs={4}>
