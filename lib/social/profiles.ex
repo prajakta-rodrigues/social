@@ -132,6 +132,6 @@ defmodule Social.Profiles do
     Map.put(item, Enum.count(interests, &(&1 == item))) end )
 
     Enum.reduce(counts, [],  fn ({k,v}, acc)
-    -> acc ++ [%{value: k, count: v}] end)
+    -> acc ++ [%{value: k , count: v}] end)
   end
 end
