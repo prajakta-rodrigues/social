@@ -262,6 +262,16 @@ function chat_list(st0 = [], action) {
   }
 }
 
+function friends(st0 = [], action) {
+  switch(action.type) {
+    case "GOT_FRIENDS": 
+      let st1 =  st0.concat(action.data) 
+      return st1
+    default: 
+      return st0
+  }
+}
+
 function root_reducer(st0, action) {
   console.log("root reducer", st0, action);
   let reducer = combineReducers({
@@ -277,7 +287,8 @@ function root_reducer(st0, action) {
     channels,
     chat_list,
     configs,
-    showUserProfile
+    showUserProfile,
+    friends
   });
   return deepFreeze(reducer(st0, action));
 }

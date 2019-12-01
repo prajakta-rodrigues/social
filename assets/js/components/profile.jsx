@@ -141,7 +141,7 @@ class Profile extends React.Component {
           </div>
           <div className="details">
             <h4>{store.getState().session.user_name}</h4>
-            <h5>Friends: 330</h5>
+            <h5>Friends: {store.getState().friends.length}</h5>
           </div>
         </div>
         <Tabs defaultActiveKey="profile">
