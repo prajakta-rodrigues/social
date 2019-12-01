@@ -31,7 +31,7 @@ let Req = connect(({recommendedUsers, session}) =>
   }
 
   recommendedUsers.forEach((tt) => {
-    recommend.push(<Recommend key={tt.id} id= {tt.id} name={tt.name} session={session}/>)
+    recommend.push(<Recommend key={tt.id} id= {tt.id} name={tt.name} session={session} dp={tt.profile_picture}/>)
 });
   if(recommend.length == 0) {
     recommend.push(<h2 key="nodatarec">No recommendations available</h2>)
@@ -68,7 +68,7 @@ function Recommend(params){
   let name = params.name;
   let session = params.session;
   let id = params.id;
-  let dp = session.profile_picture
+  let dp = params.dp
 
   dp = dp ? dp : placeholder
 
