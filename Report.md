@@ -15,7 +15,7 @@ Our application is properly deployed and working. All of the team members have
 contributed to pretty much all aspects and development of the project, 
 including code and presentation.
 
-_What does your project 2 app do?_
+**_What does your project 2 app do?_**
 
 Social is a web based application that helps people connect with other like 
 minded people based on the interests they share. Users can explore new 
@@ -29,8 +29,8 @@ from their instagram accounts. Users can also chat with their friends and view
 their friends on a map. This can be especially helpful in cases when the users 
 want to meet up and socialize.
 
-_How do users interact with your application? What can they accomplish by doing 
-so?_
+**_How do users interact with your application? What can they accomplish by doing 
+so?_**
 
 Users can sign up for a new account and add some relevant information about 
 themselves, including their interests and hobbies such as sports, music, movies 
@@ -47,7 +47,7 @@ selecting the ‘Map’ option available under user options in the header. The
 friends are shown on the map with their profile pictures and clicking on the 
 picture reveals their name.
 
-_For each project requirement, how does your app meet that requirement?_
+**_For each project requirement, how does your app meet that requirement?_**
 
 The server side logic of our application is built using Elixir/Phoenix. Social 
 is significantly ambitious and has more features than any previous assignment. 
@@ -72,8 +72,8 @@ user’s instagram posts. This is all done on the server and once the server get
 the user’s posts from instagram they are saved in the postgres database and 
 shown on the user’s profile.
 
-_What’s the complex part of your app? How did you design that component and 
-why?_
+**_What’s the complex part of your app? How did you design that component and 
+why?_**
 
 Recommending friends for a user is an important part of our application as we 
 want users to consider our application as a way of connecting with people who 
@@ -100,7 +100,7 @@ choices.
 choices.
 - Merging results from all above to present a list of recommended users.
 
-_What additional features did you implement?_
+**_What additional features did you implement?_**
 
 We implemented three additional features besides the project requirements. We 
 have used Phoenix Channels to push real-time updates to users that are 
@@ -113,7 +113,7 @@ We have built our application almost entirely as a Single Page Application with
 Redux and React-Router. We have also used the HTML5 geolocation API to show the 
 friends that are close to a user’s location.
 
-_What interesting stuff does your app include beyond the project requirements?_
+**_What interesting stuff does your app include beyond the project requirements?_**
 
 We created a map for the users to see all of their friends on a map. Users can 
 see their friends on a map with their profile pictures as location pointers. 
@@ -132,5 +132,5 @@ Facebook, this feature helps users bypass the conventional sign up and sign in
 process and lets them sign in directly with their Facebook account credentials, 
 which are verified by Facebook. 
 
-_What was the most significant challenge you encountered and how did you solve 
-it?_
+**_What was the most significant challenge you encountered and how did you solve 
+it?_**
