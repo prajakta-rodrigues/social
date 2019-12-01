@@ -1,13 +1,16 @@
-#### CS5610 - Web Development Project 1
+#### CS5610 - Web Development Project 2
 
 # Social
+<img src="./assets/static/logo.png" width="400" height="200">
+
 
 _Group Members:_ Megharth Lakhataria, Nikhil Nikhil, Prajakta Rodrigues, 
 Sukhada Khatu
-_URL of deployed app:_ [https://social.megharth.site] 
-(https://social.megharth.site)
-_URL of GitHub repository:_ [https://github.com/nikhilj13/social] 
-(https://github.com/nikhilj13/social)
+
+_URL of deployed app:_ https://social.megharth.site
+
+_URL of GitHub repository:_ https://github.com/nikhilj13/social
+
 Our application is properly deployed and working. All of the team members have 
 contributed to pretty much all aspects and development of the project, 
 including code and presentation.
