@@ -171,10 +171,14 @@ defmodule SocialWeb.UserController do
     def get_friends(conn, %{"id" => id}) do
       friends = Social.Connections.get_friends(id)
       |> Enum.map(fn connection ->
+        IO.inspect connection
+        {id, _} = Integer.parse(id)
         if connection.user1_id == id do
-          Social.Users.get_user!(connection.user1_id)
-        else
+          IO.inspect connection.user1_id
           Social.Users.get_user!(connection.user2_id)
+        else
+          IO.inspect connection.user2_id
+          Social.Users.get_user!(connection.user1_id)
         end
       end)
 
