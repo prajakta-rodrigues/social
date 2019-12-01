@@ -5,27 +5,42 @@ import store from '../store'
 import { post, getUserProfile, patch, getConfigs } from "../ajax";
 import _ from 'lodash';
 
-function createSelectItems(property_values) {
+function createSelectItems(property_values, property) {
   let items = [];
-     for (let i = 0; i <= property_values.length; i++) {
-          items.push(<option key={i}
-            value={property_values[i]}>{property_values[i]}</option>);
-     }
-     return items;
+  let selectedProperties = store.getState().forms.user_profile[property]
+  for (let i = 0; i <= property_values.length; i++) {
+      items.push(
+        <div 
+            className={"tag " + (selectedProperties.includes(property_values[i]) ? "selected" : "")} 
+            key={i}
+            onClick={(ev) => changedSelect(ev, property)}
+            >
+          {property_values[i]}
+        </div>
+        // <option 
+        //   key={i}
+        //   value={property_values[i]}>{property_values[i]}
+        // </option>
+      );
+  }
+  return items;
 }
 
-function changedSelect(ev) {
-  console.log(ev.target.id);
-  let options = ev.target.options;
-  var value = [];
-  for (var i = 0; i < options.length; i++) {
-    if (options[i].selected) {
-      value.push(options[i].value);
-    }
-  }
-  console.log(value);
-  let data = {};
-  data[ev.target.id] = value;
+function changedSelect(ev, property) {
+  // console.log(ev.target.innerHTML);
+  let value = ev.target.innerHTML
+  let data = {}
+  let interests = store.getState().forms.user_profile[property]
+  data["interests"] = [...interests, value]
+  // let options = ev.target.options;
+  // var value = [];
+  // for (var i = 0; i < options.length; i++) {
+  //   if (options[i].selected) {
+  //     value.push(options[i].value);
+  //   }
+  // }
+  // let data = {};
+  // data["interests"] = value;
   let action = {
     type: 'CHANGE_USER_PROFILE',
     data: data,
@@ -38,13 +53,18 @@ let Config = connect(({configs, forms}) =>
   console.log("in", configs);
   let config = []
   configs.forEach((tt) => {
-    config.push(<Form.Group key={"formgrp" + tt.id}>
-      <Form.Label>Select {tt.property}</Form.Label>
+    config.push(
+    <div key={"formgrp" + tt.id} className="interests-container">
+      Select {tt.property}
+      <div className="tags">
+        {createSelectItems(tt.property_values, tt.property)}
+      </div>
+      {/* <Form.Label>Select {tt.property}</Form.Label>
       <Form.Control id = {tt.property} as="select" multiple
         onChange={(ev) => changedSelect(ev)} value={forms.user_profile[tt.property]}>
-        {createSelectItems(tt.property_values)}
-      </Form.Control>
-    </Form.Group>)
+        {createSelectItems(tt.property_values, tt.property)}
+      </Form.Control> */}
+    </div>)
 });
   return <div>{config}</div>;
 });
@@ -68,15 +88,28 @@ class EditUserProfile extends React.Component {
 }
 
   changed(ev) {
+    let data = {};
+  
+    if(ev.target.classList.contains("tag")) {
+      Array.from(ev.target.parentNode.children).forEach(child => {
+        child.classList.remove("selected")
+      })
+      ev.target.classList.add("selected")
+      let val = ev.target.getAttribute("value")
+      let key = ev.target.getAttribute("name")
+      data[key] = val
+    }
+    else {
+      let target = $(ev.target);
+      data[target.attr('name')] = target.val();
+    }
+    
+    let action = {
+      type: 'CHANGE_USER_PROFILE',
+      data: data,
+    };
 
-  let target = $(ev.target);
-  let data = {};
-  data[target.attr('name')] = target.val();
-  let action = {
-    type: 'CHANGE_USER_PROFILE',
-    data: data,
-  };
-  this.props.dispatch(action);
+    this.props.dispatch(action);
   }
 
   onSubmit() {
@@ -182,16 +215,20 @@ class EditUserProfile extends React.Component {
           <Form>
             <Form.Group controlId="profileForm.request_setting_allow">
                 <Form.Label>Who can send you requests:</Form.Label>
-                <Form.Control as="select" value = {this.props.request_setting_allow}
+                <div className="tags">
+                  <div className={"tag " + (this.props.request_setting_allow === "Everyone" ? 'selected' : '')} name="request_setting_allow" onClick={this.changed.bind(this)} value="Everyone">Anyone</div>
+                  <div className={"tag " + (this.props.request_setting_allow === "Friends of Friends" ? 'selected' : '')} name="request_setting_allow" onClick={this.changed.bind(this)} value="Friends of Friends">Friends of Friends</div>
+                </div>
+                {/* <Form.Control as="select" value = {this.props.request_setting_allow}
                 name="request_setting_allow" onChange={this.changed.bind(this)}>
                   <option></option>
                   <option>Everyone</option>
                   <option>Friends of Friends</option>
-                </Form.Control>
+                </Form.Control> */}
               </Form.Group>
                 <Form.Group controlId="profileForm.description">
                   <Form.Label>Describe yourself in few words:</Form.Label>
-                  <Form.Control as="textarea" rows="3" value = {this.props.description}
+                  <Form.Control as="textarea" rows="3" value ={this.props.description}
                   name="description" onChange={this.changed.bind(this)}/>
                 </Form.Group>
                 <Config />
