@@ -26,7 +26,7 @@ class Home extends React.Component {
 						</Card>
 					</Col>
 					<Col sm={4}>
-						<Card title="Chat" style={{ borderTopRightRadius: '0px', borderBottomRightRadius: '0px' }}>
+						<Card title="Chat">
 							{/* ADD CHAT COMPONENT HERE */}
 							<Row>
 								<Col xs={4}>

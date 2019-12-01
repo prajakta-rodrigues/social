@@ -3,25 +3,25 @@ import { connect } from 'react-redux';
 import {getPopularInterests} from "../ajax";
 import store from '../store';
 import { render } from 'react-dom';
-import { TagCloud } from 'react-tagcloud'
+import { TagCloud } from 'react-tagcloud';
+import Spinner from './spinner';
 
 
 const Pop = connect(({popularInterests}) =>
 ({popularInterests}))(({popularInterests, dispatch}) =>{
   console.log("in", popularInterests);
-
-  return (<div>
-    <TagCloud
-      minSize={12}
-      maxSize={35}
-      tags={popularInterests}
-      />
-  </div>);
+  if (popularInterests) {
+    return (<div>
+      <TagCloud
+        minSize={12}
+        maxSize={35}
+        tags={popularInterests}
+        />
+    </div>);
+  } else {
+    return <Spinner />;
+  }
 });
-
-
-
-
 
 class PopularInterests extends React.Component {
 
@@ -34,15 +34,13 @@ class PopularInterests extends React.Component {
       data: []
     };
     getPopularInterests();
-
   }
 
   render() {
     return (
-      <div class="popular-interests">
+      <div className="popular-interests" id="scroll">
         <Pop />
       </div>
-
     );
   }
 }

@@ -142,6 +142,7 @@ html, body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    background: transparent;
 }
 
 
@@ -181,6 +182,10 @@ html, body {
   max-height: 300px;
   overflow-y: scroll;
   border-radius: 5px;
+  border-left: 1px solid #050505;
+  border-right: 1px solid #050505;
+  border-bottom: 1px solid #050505;
+  box-shadow: 0 4px 8px 0 gray, 0 6px 20px 0 gray;
 }
 
 .search-row a {
@@ -189,18 +194,18 @@ html, body {
 }
 
 .search-row {
-  border-bottom: 1px solid #aaaaaa;
+    padding: 0.3em;
   transition: all 0.2s ease-in;
 }
 
 .search-row:hover {
-    background-color: #dedede;
+    background-color: #f5f5f5;
     transition: all 0.2s ease-in;
 }
 
 .search-row:hover a {
     color: #db625c;
-    font-weight: bold;
+    text-decoration: none;
 }
 .chat-box {
     // right: 0;
@@ -349,7 +354,6 @@ html, body {
 }
 
 .seach-box {
-  width: 80%;
   display: inline-block;
 }
 
@@ -359,7 +363,7 @@ html, body {
 }
 
 .search-logo img {
-    height: 40px;
+    height: 10px;
     padding: 5px;
 }
 
@@ -404,7 +408,6 @@ html, body {
 
 .tags {
     max-height: 150px;
-    overflow-y: scroll;
 }
 
 .tags-interests {
@@ -445,19 +448,21 @@ html, body {
 
 .popular-interests, .recommended-users-container {
     height: 80vh;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .rec-user-card {
     // background: #db625c;
-    border-radius: 5px;
-    box-shadow: 0 2px 2px #db625c;
-    margin: 10px;
+    margin: 15px;
     position: relative;
+    background-color: #fafafa;
+    border: 1px solid #ced4db;
+    border-radius: 15px;
+    padding: 0.5em;
 }
 
 .rec-user-card a, .rec-user-card a:hover {
-    color: #db625c;
+    color: #22252a;
     text-decoration: none;
 }
 

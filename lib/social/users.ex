@@ -90,6 +90,7 @@ defmodule Social.Users do
             and u.latitude < ^(user.latitude + 0.5)
             and u.latitude > ^(user.latitude - 0.5)
     matched_users = Repo.all(query) ++ profile_users
+    matched_users = matched_users |> Enum.uniq
     matched_users -- existing_req
   end
 

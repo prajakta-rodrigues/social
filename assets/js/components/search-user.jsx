@@ -83,23 +83,23 @@ class SearchUser extends React.Component {
       <div>
         <div className="search">
           <div className="seach-box">
+            <InputGroup>
+            <InputGroup.Prepend>
+              <InputGroup.Text id="inputGroupPrepend"> 🔍 </InputGroup.Text>
+            </InputGroup.Prepend>
             <Form.Control
                 className="search-input"
                 type="text"
-                placeholder="Search a user"
+                placeholder="Search Users"
                 value={this.props.text}
                 onChange={ev => this.changed({ text: ev.target.value })}
               />
-          </div>
-
-          <div className="search-logo">
-            <img src={searchLogo} alt="search-logo" />
+              </InputGroup>
           </div>
         </div>
         <Result current={this}/>
       </div>
-
-            );
+    );
   }
 
 

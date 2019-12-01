@@ -213,10 +213,10 @@ class EditUserProfile extends React.Component {
             <Modal.Header closeButton>
               <Modal.Title>Success</Modal.Title>
             </Modal.Header>
-            <Modal.Body>Your profile was updated</Modal.Body>
+            <Modal.Body>Your profile was successfully updated!</Modal.Body>
             <Modal.Footer>
-              <Button variant="primary" onClick={this.handleClose.bind(this)}>
-                Ok
+              <Button variant="outline-dark" onClick={this.handleClose.bind(this)}>
+                Okay
               </Button>
             </Modal.Footer>
           </Modal>
