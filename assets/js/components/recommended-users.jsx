@@ -4,7 +4,7 @@ import store from '../store';
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
 import {get_recommended_users, updateUserLocation, sendRequest} from "../ajax";
-import placeholder from '../../static/placeholder.png'
+import placeholder from '../../static/placeholder.svg'
 
 // This image is provided by www.flaticon.com
 import addFriendLogo from '../../static/add-friend-logo.svg'

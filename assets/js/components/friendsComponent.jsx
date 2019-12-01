@@ -1,7 +1,7 @@
 import React from 'react'
 import { get } from '../ajax'
 import store from '../store'
-import placeholder from '../../static/placeholder.png'
+import placeholder from '../../static/placeholder.svg'
 export default class FriendsComponent extends React.Component {
     constructor(props) {
         super(props)

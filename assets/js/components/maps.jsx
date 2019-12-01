@@ -1,7 +1,7 @@
 import React from 'react'
 let mapboxgl = require('mapbox-gl/dist/mapbox-gl')
 import store from '../store'
-import placeholder from '../../static/placeholder.png'
+import placeholder from '../../static/placeholder.svg'
 import { get } from '../ajax'
 
 class MapComponent extends React.Component {

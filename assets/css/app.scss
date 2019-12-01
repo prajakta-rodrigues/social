@@ -136,15 +136,16 @@ html, body {
 
 
 #user-profile .header {
-    height: 200px;
+    height: 150px;
     margin-top: 20px;
 }
 .dp, .dp img {
-    height: 200px;
-    width: 200px;
+    height: 150px;
+    width: 150px;
     border-radius: 50%;
     display: inline-block;
-    box-shadow: 0 0 2px 4px #656565;
+    background-color: #fff;
+    box-shadow: 0 0 2px 4px lightgray;
 }
 
 #user-profile .header .details {
@@ -165,6 +166,7 @@ html, body {
 .search-results {
   position: absolute;
   background: #c3c3c3;
+  z-index: 100;
 }
 
 .search-row a {
@@ -245,7 +247,7 @@ html, body {
     height: 500px;
     width: 100%;
     border-radius: 5px;
-    border: 3px dashed #050505;
+    border: 3px dashed #e9a09d;
     text-align: center;
     overflow: scroll;
 }
@@ -428,20 +430,20 @@ html, body {
 }
 
 .popular-interests, .recommended-users-container {
-    height: 500px;
+    height: 80vh;
     overflow-y: scroll;
 }
 
 .rec-user-card {
-    background: #db625c;
+    // background: #db625c;
     border-radius: 5px;
-    box-shadow: 0 2px 2px #656565;
+    box-shadow: 0 2px 2px #db625c;
     margin: 10px;
     position: relative;
 }
 
 .rec-user-card a, .rec-user-card a:hover {
-    color: white;
+    color: #db625c;
     text-decoration: none;
 }
 
@@ -484,4 +486,42 @@ html, body {
 
 .home-container .col-sm-4 {
     margin-top: 20px;
+}
+
+.search-profile-picture {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.search-profile-picture-left {
+  display: inline-block;
+  width: 18%;
+  padding: 1%;
+}
+
+.search-profile-picture-right {
+  display: inline-block;
+  width: 82%;
+  padding: 3%;
+}
+
+.home-main {
+  margin-left: 1.8em;
+  position: relative;
+}
+
+.navbar {
+  z-index: 100;
+}
+
+.nav-tabs .nav-link.active {
+    background-color: #f5f5f5;
+}
+
+.nav-tabs .nav-link {
+    color: #db625c;
+}
+
+.btn-outline-social a {
+    color: #db625c;
 }
