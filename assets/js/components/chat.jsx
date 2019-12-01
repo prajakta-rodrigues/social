@@ -22,13 +22,16 @@ class Chat extends React.Component {
       });
     }
     console.log("state", this.state)
-    this.props.channel.join().receive("ok", (resp) => {
-      console.log("channel joined", resp)
-    })
+    if(this.props.channel.status != "joined") {
+      this.props.channel.join().receive("ok", (resp) => {
+        console.log("chat channel joined", resp)
+      })
+    }
 
     this.list_messages(this.props.channel.topic);
     console.log("check here", this.state.messages)
     this.props.channel.on("send_msg",payload=> {
+        console.log("received heere", payload)
         let msg = this.state.messages;
         msg.push(payload)
         let state = _.cloneDeep(this.state);
@@ -58,6 +61,7 @@ class Chat extends React.Component {
   }
 
   newMessage(message, channel) {
+    addUserMessage(message.text);
     let date = new Date();
     post('/messages', {
       message: {
@@ -82,7 +86,6 @@ class Chat extends React.Component {
         let state = _.cloneDeep(this.state);
           state.messages = msg;
           this.setState(state);
-          addUserMessage(message.text);
         console.log("current state", state)
         });
   }
@@ -103,7 +106,7 @@ class Chat extends React.Component {
   }
 
   render() {
-      //dropMessages()
+      dropMessages()
       console.log(this.state.messages.length)
       for(var i = 0; i < this.state.messages.length; i++) {
       if(this.state.messages[i].sender_id == this.props.session.user_id) {

@@ -73,7 +73,7 @@ startChat(receiver_id) {
             if(this.props.action == "start chat") {
                 return(
                         <div className="friend" key={friend.id} onClick={() => {
-                            this.openChat(friend.id, friend.name)
+                            this.startChat(friend.id, friend.name)
                         }}>
                             <img src={dp} alt="dp" className="friend-img"/>
                             <span className="">{friend.name}</span>
