@@ -14,6 +14,7 @@ alias Social.Repo
 alias Social.Users.User
 alias Social.Connections.Connection
 alias Social.Configs.Config
+alias Social.Profiles.Profile
 
 pw = Argon2.hash_pwd_salt("password")
 date = ~D[1999-05-18]
@@ -35,3 +36,12 @@ Repo.insert!(%Config{property: "interests", property_values: ["Aircraft Spotting
 
 Repo.insert!(%Config{property: "sports", property_values: ["Soccer", "Chess", "Badminton", "Baseball", "Swimming"]})
 Repo.insert!(%Config{property: "movies", property_values: ["Thriller", "RomCom", "SciFic"]})
+
+Repo.insert!(%Profile{description: "I am a student", sports: ["Soccer", "Chess", "Badminton"],
+interests: ["Internet" , "Inventing" , "Jet Engines" , "Jewelry Making", "Rockets" , "Rocking AIDS Babies" , "Roleplaying" , "Running"], movies: ["Thriller", "RomCom"], user_id: 2})
+Repo.insert!(%Profile{description: "I am a student", sports: ["Soccer", "Chess", "Badminton"],
+interests: ["Internet" , "Inventing" , "Jet Engines" , "Jewelry Making", "Rockets" , "Rocking AIDS Babies" , "Roleplaying" , "Running"], movies: ["Thriller", "RomCom"], user_id: 3})
+Repo.insert!(%Profile{description: "I am a student", sports: ["Soccer", "Chess", "Badminton"],
+interests: ["Internet" , "Inventing" , "Jet Engines" , "Jewelry Making", "Ultimate Frisbee" , "Urban Exploration" , "Video Games" , "Violin"], movies: ["Thriller", "RomCom"], user_id: 4})
+Repo.insert!(%Profile{description: "I am a student", sports: ["Soccer", "Chess", "Badminton"],
+interests: ["Internet" , "Inventing" , "Jet Engines" , "Jewelry Making", "Ultimate Frisbee" , "Urban Exploration" , "Video Games" , "Violin"], movies: ["Thriller", "RomCom"], user_id: 5})

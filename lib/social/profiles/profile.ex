@@ -18,6 +18,6 @@ defmodule Social.Profiles.Profile do
   def changeset(profile, attrs) do
     profile
     |> cast(attrs, [:request_setting_allow, :interests, :description, :movies, :sports, :user_id])
-    |> validate_required([:request_setting_allow, :interests, :description, :user_id])
+    |> validate_required([:interests, :description, :user_id])
   end
 end
