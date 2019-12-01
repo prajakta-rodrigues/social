@@ -123,6 +123,7 @@ defmodule Social.Profiles do
 
   def get_popular_interests() do
     user_interests = Repo.all from p in Profile,
+                limit: 40,
                 select: p.interests
     IO.inspect(user_interests)
     interests = Enum.reduce(user_interests, [] , fn(item, acc) -> acc ++ item end)
@@ -131,6 +132,6 @@ defmodule Social.Profiles do
     Map.put(item, Enum.count(interests, &(&1 == item))) end )
 
     Enum.reduce(counts, [],  fn ({k,v}, acc)
-    -> acc ++ [%{text: k, value: v}] end)
+    -> acc ++ [%{value: k, count: v}] end)
   end
 end

@@ -1,9 +1,27 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import ReactWordcloud from 'react-wordcloud';
-import word from './word';
 import {getPopularInterests} from "../ajax";
 import store from '../store';
+import { render } from 'react-dom';
+import { TagCloud } from 'react-tagcloud'
+
+
+    const Pop = connect(({popularInterests}) =>
+    ({popularInterests}))(({popularInterests, dispatch}) =>{
+      console.log("in", popularInterests);
+
+      return (<div>
+        <TagCloud
+          minSize={12}
+          maxSize={35}
+          tags={popularInterests}
+          onClick={tag => alert(`'${tag.value}' was selected!`)}
+        />
+      </div>);
+    });
+
+
+
 
 
 class PopularInterests extends React.Component {
@@ -14,33 +32,17 @@ class PopularInterests extends React.Component {
     console.log(this.props);
     this.state = {
       redirect: null,
+      data: []
     };
     getPopularInterests();
+
   }
 
   render() {
     //just random words for now need to populate actual interests after seeding
 
-    let Pop = connect(({popularInterests}) =>
-    ({popularInterests}))(({popularInterests, dispatch}) =>{
-      console.log("in", popularInterests);
-      let interests = [];
-      // if(flag == 0){
-      //   get_recommended_users();
-      //   flag = 1;
-      // }
-      if(popularInterests.length < 30) {
-        return (
-          <h2>No Popular Interests available</h2>);
-      }
-      return <ReactWordcloud words={popularInterests} />;
-
-    });
-
-
-
     return (
-      <div style={{height: 400, width: 600}}>
+      <div >
           <Pop />
         </div>
 
