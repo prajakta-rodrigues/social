@@ -48,7 +48,7 @@ const posts = connect(({ ig_posts }) => ({ ig_posts }))(({ ig_posts }) => {
       )
   } else {
     return(
-        <div className="ig-placeholder-container">
+        <div className="ig-post-container">
             <div className="posts">
               {renderPosts}
             </div>

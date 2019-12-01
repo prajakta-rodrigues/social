@@ -183,8 +183,8 @@ function recommendedUsers(st0 = new Map(), action) {
     }
     case "REQUEST_SENT": {
       let st2 = new Map(st0)
-      console.log(st2.get(action.data));
-      console.log(action.data);
+      st2.delete(action.data);
+      console.log("after", st2);
       return st2;
     }
     default:
@@ -271,6 +271,16 @@ function chat_list(st0 = [], action) {
   }
 }
 
+function friends(st0 = [], action) {
+  switch(action.type) {
+    case "GOT_FRIENDS": 
+      let st1 =  st0.concat(action.data) 
+      return st1
+    default: 
+      return st0
+  }
+}
+
 function root_reducer(st0, action) {
   console.log("root reducer", st0, action);
   let reducer = combineReducers({
@@ -287,7 +297,8 @@ function root_reducer(st0, action) {
     chat_list,
     popularInterests,
     configs,
-    showUserProfile
+    showUserProfile,
+    friends
   });
   return deepFreeze(reducer(st0, action));
 }

@@ -6,12 +6,22 @@ export default class FriendsComponent extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-           friends: null
+           friends: store.getState().friends
         }
-        get('/user/friends/' + store.getState().session.user_id).then(resp => this.setState({friends: resp.data})) 
+
+        if(this.state.friends.length == 0) {
+            get('/user/friends/' + store.getState().session.user_id).then(resp => {
+                store.dispatch({
+                    type: 'GOT_FRIENDS',
+                    data: resp.data
+                })
+                this.setState({friends: resp.data})
+            }) 
+        }
     }
 
     renderFriends() {
+        console.log(this.state.friends)
         let list = this.state.friends.map(friend => {
             let dp = friend.profile_picture
             dp = dp ? dp : placeholder

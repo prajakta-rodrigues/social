@@ -162,7 +162,7 @@ html, body {
 
 .search-results {
   position: absolute;
-  background: cadetblue;
+  background: #c3c3c3;
 }
 
 .search-row a {
@@ -290,6 +290,7 @@ html, body {
   color: #fff;
   visibility: hidden;
   opacity: 0;
+  border-radius: 50%;
   transition: opacity .2s, visibility .2s;
 }
 
@@ -311,4 +312,75 @@ html, body {
 
 .margin-bottom {
   margin-bottom: 2%;
+}
+
+.search-bar {
+    display: inline-block;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.search {
+    position: relative;
+    width: 300px;
+    margin-top: 5px;
+}
+
+.search .search-input {
+    left: 0;
+}
+
+.seach-box {
+  width: 80%;
+  display: inline-block;
+}
+
+.search .search-logo {
+  display: inline-block;
+  width: 20%
+}
+
+.search-logo img {
+    height: 40px;
+    padding: 5px;
+}
+
+.nav-icon {
+    height: 30px;
+    margin: 10px;
+    transition: all 0.3s ease-out;
+}
+
+.nav-icon:hover {
+    transform: scale(1.2);
+}
+
+.change-photo {
+    width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+    position: relative;
+
+}
+
+.change-photo + label{
+    height: 50px;
+    width: 50px;
+    background: url("../static/edit-logo.png");
+    background-size: cover;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: inline-block;
+    cursor: pointer;
+}
+
+.ig-post-container {
+    margin-top: 20px;
+    margin-left: 30px;
 }

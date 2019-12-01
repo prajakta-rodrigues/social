@@ -10,29 +10,31 @@ class MapComponent extends React.Component {
     this.getLatLong = this.getLatLong.bind(this)
     this.state = {
       position: {
-        lat: 47.444,
-        lng: -122.176
+        lat: 42.338696899999995,
+        lng: -71.08824229999999
       },
-      map: null
+      map: null,
+      friends: store.getState().friends
     }
     mapboxgl.accessToken = "pk.eyJ1IjoibWVnaGFydGgiLCJhIjoiY2szZXh6NnZpMDBmZzNic2EzZ3M5NmxraCJ9.DEgkR_QJ8kwofNnyx_PvzQ"
+    if(this.state.friends.length == 0) {
+      get('/user/friends/' + store.getState().session.user_id).then(resp => {
+        store.dispatch({
+          type: 'GOT_FRIENDS',
+          data: resp.data
+        })
+        this.setState({
+          friends: resp.data
+        })
+      })
+    }
   }
 
   getPosition() {
     navigator.geolocation.getCurrentPosition(this.getLatLong)
   }
 
-  getFriends() {
-    get('/user/friends/' + store.getState().session.user_id).then(resp => {
-      resp.data.forEach(friend => {
-        this.createMarker(friend.latitude, friend.longitude, friend.profile_picture, friend.name)
-      })
-    })
-  }
-
   createMarker(lat, lng, dp, name) {
-    console.log("lat" + lat)
-    console.log("lng" + lng)
     let el = document.createElement('div')
     el.className = 'marker'
     dp = dp ? dp : placeholder
@@ -82,7 +84,11 @@ class MapComponent extends React.Component {
   render() {
     if(navigator.geolocation) {       
       this.getPosition()
-      this.getFriends()
+      if(this.state.friends.length > 0 && this.state.map) {
+        this.state.friends.forEach(friend => {
+          this.createMarker(friend.latitude, friend.longitude, friend.profile_picture, friend.name)
+        })
+      }
       return (
         <div ref={el => this.mapContainer = el} id="map"></div>
       )

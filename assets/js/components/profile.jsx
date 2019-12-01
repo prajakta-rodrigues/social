@@ -19,6 +19,9 @@ import 'react-chat-widget/lib/styles.css';
 import FriendsComponent from './friendsComponent'
 import { Form} from "react-bootstrap";
 
+// Icon made by https://www.flaticon.com/authors/kiranshastry from www.flaticon.com
+import editLogo from '../../static/edit-logo.png'
+
 
 /**
  * This is a profile page for the specific user. Here they can perform various
@@ -123,17 +126,22 @@ class Profile extends React.Component {
           <div className="dp pic_wrapper">
             <img src={dp} alt="profile_picture" />
             <div className="outer-box">
-                <div className="enclosing"><Form.Control
-                  type="file"
-                  placeholder="Profile Picture"
-                  onChange={ev => this.file_changed(ev)}
-                /></div>
+                <div className="enclosing">
+                  <input
+                    type="file"
+                    name="file"
+                    id="profile-photo"
+                    className="change-photo"
+                    onChange={ev => this.file_changed(ev)}
+                  />
+                  <label htmlFor="profile-photo" className="change-photo-label"></label>
+                </div>
             </div>
 
           </div>
           <div className="details">
             <h4>{store.getState().session.user_name}</h4>
-            <h5>Friends: 330</h5>
+            <h5>Friends: {store.getState().friends.length}</h5>
           </div>
         </div>
         <Tabs defaultActiveKey="profile">
