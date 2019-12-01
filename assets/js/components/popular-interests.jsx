@@ -16,6 +16,7 @@ class PopularInterests extends React.Component {
   }
 
   render() {
+    //just random words for now need to populate actual interests after seeding
     let w = [
       {
         text: "told",
