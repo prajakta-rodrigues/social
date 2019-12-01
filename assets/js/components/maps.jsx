@@ -39,6 +39,7 @@ class MapComponent extends React.Component {
     el.className = 'marker'
     dp = dp ? dp : placeholder
     el.style.backgroundImage = "url('" + dp + "')"
+    el.style.backgroundColor = 'white'
     new mapboxgl.Marker(el)
         .setLngLat({lng, lat})
         .setPopup(new mapboxgl.Popup({ offset: 25 })
