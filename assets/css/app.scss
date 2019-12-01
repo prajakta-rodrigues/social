@@ -181,6 +181,10 @@ html, body {
   max-height: 300px;
   overflow-y: scroll;
   border-radius: 5px;
+  border-left: 1px solid #050505;
+  border-right: 1px solid #050505;
+  border-bottom: 1px solid #050505;
+  box-shadow: 0 4px 8px 0 gray, 0 6px 20px 0 gray;
 }
 
 .search-row a {
@@ -189,18 +193,18 @@ html, body {
 }
 
 .search-row {
-  border-bottom: 1px solid #aaaaaa;
+    padding: 0.3em;
   transition: all 0.2s ease-in;
 }
 
 .search-row:hover {
-    background-color: #dedede;
+    background-color: #fafafa;
     transition: all 0.2s ease-in;
 }
 
 .search-row:hover a {
     color: #db625c;
-    font-weight: bold;
+    text-decoration: none;
 }
 .chat-box {
     // right: 0;
