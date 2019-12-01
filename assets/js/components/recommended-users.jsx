@@ -9,29 +9,44 @@ import placeholder from '../../static/placeholder.svg'
 // This image is provided by www.flaticon.com
 import addFriendLogo from '../../static/add-friend-logo.svg'
 
-export default function RecommendedUsers(params){
-  if (navigator.geolocation) {
-   navigator.geolocation.getCurrentPosition(savePosition);
-   } else {
-     console.log("Geolocation is not supported by this browser.");
+
+
+ class RecommendedUsers extends React.Component {
+
+   constructor(props) {
+     super(props);
+     this.props = props;
+     this.state = {
+       redirect: null,
+       data: []
+     };
+     if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(savePosition);
+      } else {
+        console.log("Geolocation is not supported by this browser.");
+      }
+       get_recommended_users();
+
    }
-  return <Req />;
+
+
+   render() {
+
+     return (<div><Req /></div>);
+   }
+
+
 
 }
 
-let flag = 0;
 
 let Req = connect(({recommendedUsers, session}) =>
 ({recommendedUsers, session}))(({recommendedUsers, session, dispatch}) =>{
-  console.log("in", recommendedUsers);
   let recommend = [];
-  if(flag == 0){
-    get_recommended_users();
-    flag = 1;
-  }
 
   recommendedUsers.forEach((tt) => {
-    recommend.push(<Recommend key={tt.id} id= {tt.id} name={tt.name} session={session} dp={tt.profile_picture}/>)
+    recommend.push(<Recommend key={tt.id} id= {tt.id} name={tt.name}
+      session={session} dp={tt.profile_picture}/>)
 });
   if(recommend.length == 0) {
     recommend.push(<h2 key="nodatarec">No recommendations available</h2>)
@@ -80,9 +95,11 @@ function Recommend(params){
       <div className="name">
         <Link to={"/user-profile/" + id}>{name}</Link>
       </div>
-      <button  className="req-btn" onClick={() => {sendRequestUser(session.id, id)}}>
+      <button  className="req-btn" onClick={() => {sendRequestUser(session.user_id, id)}}>
         <img src={addFriendLogo} alt="add-friend-logo" className="img-fluid" />
       </button>
     </div>
   );
 }
+
+export default RecommendedUsers;
