@@ -41,7 +41,6 @@ class PopularInterests extends React.Component {
       <div className="popular-interests" id="scroll">
         <Pop />
       </div>
-
     );
   }
 }
