@@ -147,8 +147,9 @@ html, body {
 
 #user-profile .header {
     height: 150px;
-    margin-top: 20px;
+    margin-top: 50px;
 }
+
 .dp, .dp img {
     height: 150px;
     width: 150px;
@@ -251,12 +252,7 @@ html, body {
     display: inline-block;
     height: 50px;
     width: 50px;
-}
-
-.friend span {
-    display: inline-block;
-    margin-left: 10px;
-    font-size: 20px;
+    border-radius: 50px;
 }
 
 .ig-placeholder-container {
@@ -546,4 +542,38 @@ html, body {
 
 .btn-outline-social a {
     color: #db625c;
+}
+
+.friend-name {
+    color: black;
+    font-size: 20px;
+    margin-left: 15px;
+    display: inline-block;
+    position: relative;
+    top: 5px;
+}
+
+.friend-name:hover {
+    color: #db625c
+}
+
+.profile img {
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+}
+
+.profile .contact {
+    text-align: center;
+    font-size: 24px;
+}
+
+.profile .contact .info {
+    margin-top: 5px;
+}
+
+.profile .detail {
+    font-size: 20px;
+    border: 2px solid #db625c;
+    border-radius: 5px;
 }

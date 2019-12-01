@@ -50,49 +50,35 @@ let Profile = connect(({showUserProfile}) =>
     dp = dp ? dp : placeholder
 
     profile.push(
-      <div id="user-profile" className="container">
-        <div className="header">
-          <div className="dp">
+      <div id="user-profile">
+        <div className="header row profile">
+          <div className="col-sm-4 contact">
             <img src={dp} alt="profile_picture"/>
+            <div className="info">
+              <span>{showUserProfile.name}</span>
+            </div>
+            <div className="info">
+              <span>{showUserProfile.email}</span>
+            </div>
           </div>
-          <div className="details">
-            <h4>{showUserProfile.name}</h4>
-            <h5>Friends: 330</h5>
+          <div className="col-sm-8 detail">
+            <div className="info">
+              About me: {showUserProfile.description}
+            </div>
+            <div className="info">
+              Date Of Birth: {showUserProfile.dob}
+            </div>
+            <div className="info">
+              Interests: {interests}
+            </div>
+            <div className="infor">
+              Sports: {sports}
+            </div>
+            <div className="info">
+              Movies: {movies}
+            </div>
           </div>
         </div>
-        <Tabs defaultActiveKey="profile">
-          <Tab eventKey="profile" title="Profile">
-            <div className="container">
-              <div className="row word-wrap">
-                <div className="padding border col-md-6 col-sm-6 col-xs-6">About me:</div>
-                <div className="padding border col-md-6 col-sm-6 col-xs-6">{showUserProfile.description}</div>
-              </div>
-              <div className="row">
-                <div className="padding border col-md-6 col-sm-6 col-xs-6">Date of Birth:</div>
-                <div className="padding border col-md-6 col-sm-6 col-xs-6">{showUserProfile.dob}</div>
-              </div>
-              <div className="row">
-                <div className="padding border col-md-6 col-sm-6 col-xs-6">Email:</div>
-                <div className="padding border col-md-6 col-sm-6 col-xs-6">{showUserProfile.email}</div>
-              </div>
-              <div className="row word-wrap">
-                <div className="padding border col-md-6 col-sm-6 col-xs-6">Interests:</div>
-                <div className="padding border col-md-6 col-sm-6 col-xs-6">{interests}</div>
-              </div>
-              <div className="row word-wrap">
-                <div className="padding border col-md-6 col-sm-6 col-xs-6">Sports interested in:</div>
-                <div className="padding border col-md-6 col-sm-6 col-xs-6">{sports}</div>
-              </div>
-              <div className="row word-wrap">
-                <div className="padding border col-md-6 col-sm-6 col-xs-6">Movies interested in:</div>
-                <div className="padding border col-md-6 col-sm-6 col-xs-6">{movies}</div>
-              </div>
-          </div>
-          </Tab>
-          <Tab eventKey="posts" title="IG Posts">
-            <Posts />
-          </Tab>
-        </Tabs>
       </div>
 
 
@@ -102,7 +88,7 @@ let Profile = connect(({showUserProfile}) =>
 
 
 
-  return <div className="container center-align">
+  return <div className="container-fluid">
     {profile}
   </div>;
 });

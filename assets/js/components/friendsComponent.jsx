@@ -1,6 +1,7 @@
 import React from 'react'
 import { get } from '../ajax'
 import store from '../store'
+import { Link } from 'react-router-dom'
 import placeholder from '../../static/placeholder.svg'
 export default class FriendsComponent extends React.Component {
     constructor(props) {
@@ -29,7 +30,7 @@ export default class FriendsComponent extends React.Component {
             return(
                 <div className="friend" key={friend.id}>
                     <img src={dp} alt="dp" className="friend-img"/>
-                    <span className="">{friend.name}</span>
+                    <Link to={"/user-profile/" + friend.id} className="friend-name">{friend.name}</Link>
                     <hr/>
                 </div>
             )
