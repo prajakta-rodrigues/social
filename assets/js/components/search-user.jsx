@@ -5,6 +5,7 @@ import { searchUsers } from "../ajax";
 import { Link } from 'react-router-dom';
 import store from '../store';
 import { Redirect } from 'react-router';
+import placeholder from '../../static/placeholder.png'
 
 
 
@@ -64,10 +65,13 @@ class SearchUser extends React.Component {
       let results = [];
 
       searchresults.forEach((tt) => {
+        let dp = tt.profile_picture;
+        dp = dp ? dp : placeholder
         results.push(<div key={"row" + tt.id} className="row p-3 search-row">
-        <Link to={"/user-profile/" + tt.id}
+        <div className="search-profile-picture-left"><img className="search-profile-picture" src={dp} alt="profile_picture" /></div>
+        <div className="search-profile-picture-right"><Link to={"/user-profile/" + tt.id}
           onClick={() => this.userClicked(tt.id)} key={"ele" + tt.id}>
-        {tt.name}</Link></div>)
+        {tt.name}</Link></div></div>)
     });
       return <div className="container-fluid search-results">
         {results}

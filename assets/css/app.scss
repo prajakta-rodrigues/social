@@ -164,6 +164,7 @@ html, body {
 .search-results {
   position: absolute;
   background: #c3c3c3;
+  z-index: 100;
 }
 
 .search-row a {
@@ -425,6 +426,33 @@ html, body {
 
 .interests-container {
     margin-top :20px;
+}
+
+
+.search-profile-picture {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.search-profile-picture-left {
+  display: inline-block;
+  width: 18%;
+  padding: 1%;
+}
+
+.search-profile-picture-right {
+  display: inline-block;
+  width: 82%;
+  padding: 3%;
+}
+
+.home-main {
+  margin-left: 1.8em;
+  position: relative;
+}
+
+.navbar {
+  z-index: 100;
 }
 
 .nav-tabs .nav-link.active {
