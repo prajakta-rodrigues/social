@@ -82,6 +82,7 @@ html, body {
     border: 1px solid #aaaaaa;
     margin: 2px;
     display: inline-block;
+    transition: all 0.2s ease-in;
 }
 
 .connect-ig:hover a {
@@ -96,6 +97,7 @@ html, body {
 .ig_post img {
     height: 200px;
     width: 200px;
+    transition: all 0.2s ease-in;
 }
 
 .brand-text, .brand-text:hover {
