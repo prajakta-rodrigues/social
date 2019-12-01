@@ -31,7 +31,7 @@ function changedSelect(ev, property) {
   let value = ev.target.innerHTML
   let data = {}
   let interests = store.getState().forms.user_profile[property]
-  data["interests"] = [...interests, value]
+  data[property] = [...interests, value]
   // let options = ev.target.options;
   // var value = [];
   // for (var i = 0; i < options.length; i++) {
