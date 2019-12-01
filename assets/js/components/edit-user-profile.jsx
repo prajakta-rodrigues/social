@@ -60,18 +60,33 @@ let Config = connect(({configs, forms}) =>
   console.log("in", configs);
   let config = []
   configs.forEach((tt) => {
-    config.push(
-    <div key={"formgrp" + tt.id} className="interests-container">
-      Select {tt.property}
-      <div className="tags">
-        {createSelectItems(tt.property_values, tt.property)}
-      </div>
-      {/* <Form.Label>Select {tt.property}</Form.Label>
-      <Form.Control id = {tt.property} as="select" multiple
-        onChange={(ev) => changedSelect(ev)} value={forms.user_profile[tt.property]}>
-        {createSelectItems(tt.property_values, tt.property)}
-      </Form.Control> */}
-    </div>)
+    if (tt && tt.property == 'interests') {
+      config.push(
+        <div key={"formgrp" + tt.id} className="interests-container">
+          Select {tt.property}
+          <div className="tags-interests">
+            {createSelectItems(tt.property_values, tt.property)}
+          </div>
+          {/* <Form.Label>Select {tt.property}</Form.Label>
+          <Form.Control id = {tt.property} as="select" multiple
+            onChange={(ev) => changedSelect(ev)} value={forms.user_profile[tt.property]}>
+            {createSelectItems(tt.property_values, tt.property)}
+          </Form.Control> */}
+        </div>)
+    } else {
+      config.push(
+        <div key={"formgrp" + tt.id} className="interests-container">
+          Select {tt.property}
+          <div className="tags">
+            {createSelectItems(tt.property_values, tt.property)}
+          </div>
+          {/* <Form.Label>Select {tt.property}</Form.Label>
+          <Form.Control id = {tt.property} as="select" multiple
+            onChange={(ev) => changedSelect(ev)} value={forms.user_profile[tt.property]}>
+            {createSelectItems(tt.property_values, tt.property)}
+          </Form.Control> */}
+        </div>)
+    }
 });
   return <div>{config}</div>;
 });
@@ -239,7 +254,9 @@ class EditUserProfile extends React.Component {
                   name="description" onChange={this.changed.bind(this)}/>
                 </Form.Group>
                 <Config />
-                <Button variant="primary" onClick={this.onSubmit.bind(this)}>Save</Button>
+                <div style={{ textAlign: 'center', marginTop: '1em' }}>
+                  <Button variant="dark" onClick={this.onSubmit.bind(this)}>Save Changes</Button>
+                </div>
           </Form>
         </div>
     );
