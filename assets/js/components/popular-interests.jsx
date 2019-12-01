@@ -14,7 +14,7 @@ const Pop = connect(({popularInterests}) =>
     <TagCloud
       minSize={12}
       maxSize={35}
-      tags={popularInterests}}
+      tags={popularInterests}
       />
   </div>);
 });
