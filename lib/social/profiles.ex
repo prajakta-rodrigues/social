@@ -123,7 +123,7 @@ defmodule Social.Profiles do
 
   def get_popular_interests() do
     user_interests = Repo.all from p in Profile,
-                limit: 40,
+                limit: 20,
                 select: p.interests
     IO.inspect(user_interests)
     interests = Enum.reduce(user_interests, [] , fn(item, acc) -> acc ++ item end)
