@@ -29,7 +29,7 @@ const posts = connect(({ ig_posts }) => ({ ig_posts }))(({ ig_posts }) => {
           + "&scope=user_profile,user_media&response_type=code"
       return(
         <div className="ig-placeholder-container">
-            <div className="btn btn-outline-primary action-btn connect-ig">
+            <div className="btn btn-outline-social action-btn connect-ig">
                 <a
                     href="#"
                     target="popup"

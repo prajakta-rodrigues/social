@@ -4,7 +4,7 @@ import { post, updateUserProfilePicture } from '../ajax'
 import store from '../store'
 import { Tabs, Tab } from 'react-bootstrap'
 import EditUserProfile from './edit-user-profile'
-import placeholder from '../../static/placeholder.png'
+import placeholder from '../../static/placeholder.svg'
 import { connect } from 'react-redux';
 import Chat from "./chat";
 import socket from '../socket';
