@@ -13,26 +13,19 @@ class Home extends React.Component {
 
   render() {
     return (
-      <div style={{ marginLeft: '1.8em' }}>
-        <Row>
-          <Col xs={12} style={{ textAlign: 'center', padding: "1em" }}>
-            <h1>
-              Home
-            </h1>
-          </Col>
-        </Row>
+      <div class="container-fluid home-container">
 				<Row>
-					<Col xs={4}>
+					<Col sm={4}>
 						<Card title="Popular Interests">
 							<PopularInterests />
 						</Card>
 					</Col>
-					<Col xs={4}>
+					<Col sm={4}>
 						<Card title="Recommended Users">
 							<RecommendedUsers />
 						</Card>
 					</Col>
-					<Col xs={4}>
+					<Col sm={4}>
 						<Card title="Chat" style={{ borderTopRightRadius: '0px', borderBottomRightRadius: '0px' }}>
 							{/* ADD CHAT COMPONENT HERE */}
 							<Row>

@@ -1,11 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import store from '../store';
-import {Card, Button} from 'react-bootstrap';
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
 import {get_recommended_users, updateUserLocation, sendRequest} from "../ajax";
+import placeholder from '../../static/placeholder.png'
 
+// This image is provided by www.flaticon.com
+import addFriendLogo from '../../static/add-friend-logo.svg'
 
 export default function RecommendedUsers(params){
   if (navigator.geolocation) {
@@ -34,7 +36,7 @@ let Req = connect(({recommendedUsers, session}) =>
   if(recommend.length == 0) {
     recommend.push(<h2 key="nodatarec">No recommendations available</h2>)
   }
-  return <div className="container-fluid">
+  return <div className="recommended-users-container">
     {recommend}
   </div>;
 });
@@ -66,19 +68,21 @@ function Recommend(params){
   let name = params.name;
   let session = params.session;
   let id = params.id;
+  let dp = session.profile_picture
 
+  dp = dp ? dp : placeholder
 
-  return <Card key={"card" + id} className="margin-bottom">
-        <Card.Body  key={"body" + id}>
-          <Card.Title key={"title" + id}>
-            <Link to={"/user-profile/" + id} >
-            {name}</Link>
-
-          </Card.Title>
-          <Card.Text key={"text" + id}>
-            <Button key={"btn" + id} value={id} variant="primary"
-              onClick={() => {sendRequestUser(session.id, id)}} >Send Request</Button>
-          </Card.Text>
-        </Card.Body>
-      </Card>;
+  return (
+    <div className="rec-user-card">
+      <div className="rec-user-dp">
+        <img src={dp} alt="dp" />
+      </div>
+      <div className="name">
+        <Link to={"/user-profile/" + id}>{name}</Link>
+      </div>
+      <button  className="req-btn" onClick={() => {sendRequestUser(session.id, id)}}>
+        <img src={addFriendLogo} alt="add-friend-logo" className="img-fluid" />
+      </button>
+    </div>
+  );
 }

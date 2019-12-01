@@ -39,7 +39,7 @@ class PopularInterests extends React.Component {
 
   render() {
     return (
-      <div >
+      <div class="popular-interests">
         <Pop />
       </div>
 

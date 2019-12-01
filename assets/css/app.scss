@@ -426,3 +426,62 @@ html, body {
 .interests-container {
     margin-top :20px;
 }
+
+.popular-interests, .recommended-users-container {
+    height: 500px;
+    overflow-y: scroll;
+}
+
+.rec-user-card {
+    background: #db625c;
+    border-radius: 5px;
+    box-shadow: 0 2px 2px #656565;
+    margin: 10px;
+    position: relative;
+}
+
+.rec-user-card a, .rec-user-card a:hover {
+    color: white;
+    text-decoration: none;
+}
+
+.rec-user-card .rec-user-dp, .rec-user-card .name, .rec-user-card .req-btn {
+    display: inline-block;
+    margin: 5px;
+}
+
+.rec-user-card .rec-user-dp img {
+    height: 50px !important;
+    width: 50px !important;
+}
+
+.rec-user-card .name {
+    font-size: 20px;
+}
+
+.rec-user-card .req-btn {
+    background: transparent;
+    position: absolute;
+    right: 0px;
+    top: 5px;
+    box-shadow: none;
+    border: 0;
+    outline: 0;
+    transition: all 0.2s ease-out;
+}
+
+.req-btn:hover {
+    transform: scale(1.2);
+}
+.rec-user-card .req-btn img {
+    height: 30px;
+    width: 30px;
+}
+
+.home-container {
+    padding-bottom: 10px;
+}
+
+.home-container .col-sm-4 {
+    margin-top: 20px;
+}
