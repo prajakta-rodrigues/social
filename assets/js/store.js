@@ -258,6 +258,9 @@ function channels(st0 = [], action) {
     case "NEW_CHANNEL": {
       return [...st0, action.data];
     }
+    case "ALL_CHANNEL": {
+      return action.data
+    }
     default:
       return st0
   }
@@ -281,6 +284,26 @@ function friends(st0 = [], action) {
     default:
       return st0
   }
+  }
+
+function current_channel(st0 = null, action) {
+  switch(action.type) {
+    case "CHANGE_CURRENT_CHANNEL": {
+      return action.data
+    }
+    default:
+      return st0
+  }
+}
+
+function requests(st0 = [], action) {
+  switch(action.type) {
+    case "NEW_REQUEST": {
+      return [...st0, action.data]
+    }
+    default:
+      return st0
+  }
 }
 
 function root_reducer(st0, action) {
@@ -300,7 +323,9 @@ function root_reducer(st0, action) {
     popularInterests,
     configs,
     showUserProfile,
-    friends
+    friends,
+    requests,
+    current_channel
   });
   return deepFreeze(reducer(st0, action));
 }

@@ -5,6 +5,7 @@ import Chat from './chat';
 import { connect } from 'react-redux';
 import RecommendedUsers from './recommended-users'
 import PopularInterests from './popular-interests'
+import FriendsComponent from './friendsComponent'
 
 class Home extends React.Component {
   constructor(props) {
@@ -25,17 +26,9 @@ class Home extends React.Component {
 							<RecommendedUsers />
 						</Card>
 					</Col>
-					<Col sm={4}>
-						<Card title="Chat">
-							{/* ADD CHAT COMPONENT HERE */}
-							<Row>
-								<Col xs={4}>
-									Friend list here
-								</Col>
-								<Col xs={6}>
-									Active chats here
-								</Col>
-							</Row>
+					<Col xs={4}>
+						<Card title="Chat" style={{ borderTopRightRadius: '0px', borderBottomRightRadius: '0px' }}>
+							<FriendsComponent action={"start chat"}/>
 						</Card>
 					</Col>
 				</Row>

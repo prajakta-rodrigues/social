@@ -2,25 +2,18 @@ import React from 'react'
 import Posts from './insta_posts'
 import { post, updateUserProfilePicture } from '../ajax'
 import store from '../store'
-import { Tabs, Tab } from 'react-bootstrap'
+import { Tabs, Tab, Row, Col } from 'react-bootstrap'
 import EditUserProfile from './edit-user-profile'
 import placeholder from '../../static/placeholder.svg'
 import { connect } from 'react-redux';
 import Chat from "./chat";
 import socket from '../socket';
-import { sendRequest, listNotifications, createNotification, changeStatus,
-changeConnectionStatus, get_user_data } from "../ajax";
-import {NotificationContainer, NotificationManager} from 'react-notifications';
-import { AlertList } from 'react-bs-notifier';
-import { Button } from 'react-bootstrap';
-import { Notifier, AlertContainer } from "react-bs-notifier";
-import { Widget } from 'react-chat-widget';
+import { createNotification, get_user_data } from "../ajax";
 import 'react-chat-widget/lib/styles.css';
 import FriendsComponent from './friendsComponent'
-import { Form} from "react-bootstrap";
 
 // Icon made by https://www.flaticon.com/authors/kiranshastry from www.flaticon.com
-import editLogo from '../../static/edit-logo.png'
+//import editLogo from '../../static/edit-logo.png'
 
 
 /**
@@ -35,7 +28,8 @@ class Profile extends React.Component {
             noPosts: store.getState().ig_posts.size == 0 ? true : false,
             openChat: false,
             channel: null,
-            chatChannel: null
+            chatChannel: null,
+            current_chat: null
         }
 
         let channel = socket.channel("notif:" + this.props.session.user_id);
@@ -55,25 +49,6 @@ class Profile extends React.Component {
         });
         if(store.getState().ig_posts.size == 0)
         this.getPosts();
-    }
-
-    joinChat(sender_id, receiver_id) {
-        let channel = "users:";
-        if(sender_id > receiver_id) {
-            channel = channel + receiver_id + sender_id;
-        }else {
-            channel = channel + sender_id + receiver_id;
-        }
-        console.log(channel);
-        let chatChannel = socket.channel(channel);
-        chatChannel.join().receive("ok", (resp) => {
-            this.props.dispatch({
-                type: "NEW_CHANNEL",
-                data: channel
-            })
-            console.log(resp)})
-        this.setState({chatChannel: chatChannel, openChat: true});
-        get_user_data(sender_id)
     }
 
   getPosts() {
@@ -99,27 +74,32 @@ class Profile extends React.Component {
     })
   }
 
-  startChat(receiver_id) {
-    //send chat notification to the receiver
-    console.log(receiver_id)
-    const text = this.props.session.user_name + " sent you a message";
-    createNotification(this.props.session.user_id, receiver_id, "CHAT", text, null)
-    console.log("start chat");
-    const sender_id = this.props.session.user_id;
-    this.joinChat(sender_id, receiver_id)
+  
+
+setCurrentChat(channel) {
+  this.setState({current_chat: channel})
+  console.log("check", this.state.current_chat)
 }
 
   render() {
     let dp = store.getState().session.profile_picture
     dp = dp ? dp : placeholder
-
-
-    let chats = [];
+    let chats = {};
     let channel = store.getState().channels
     for(let i = 0; i < channel.length; i++) {
-      chats.push(<div className="col-sm">
-        <Chat channel={socket.channel(channel[i], {})}></Chat></div>)
+      console.log("channel id", channel[i])
+      chats[channel[i]] = <div className="col-sm">
+      <Chat channel={socket.channel(channel[i], {})}></Chat></div>
     }
+    console.log("all chatsssss", chats["users:24"])
+    let current_chats = [];
+    for(let i = 0; i < store.getState().chat_list.length; i++) {
+      current_chats.push(<div className="row">
+      <a onClick={() => {this.setCurrentChat(store.getState().chat_list[i].channel)}}>
+      {store.getState().chat_list[i].name}</a></div>)
+    }
+    console.log("current", this.state.current_chat)
+    console.log("current chats", current_chats)
     return (
       <div id="user-profile" className="container">
         <div className="header">
@@ -144,7 +124,9 @@ class Profile extends React.Component {
             <h5>Friends: {store.getState().friends.length}</h5>
           </div>
         </div>
-        <Tabs defaultActiveKey="profile">
+        <Row>
+          <Col sm={8}>
+          <Tabs defaultActiveKey="profile">
           <Tab eventKey="profile" title="Profile">
             <EditUserProfile />
           </Tab>
@@ -152,19 +134,19 @@ class Profile extends React.Component {
             <Posts />
           </Tab>
           <Tab eventKey="friends" title="Friends">
-            <FriendsComponent />
+            <FriendsComponent action={"show profile"}/>
           </Tab>
         </Tabs>
-        <button onClick={() => sendRequest(1, 2)}>Send Request</button>
-        <button onClick={() => this.startChat(2)}>start chat</button>
+        </Col>
+          <Col sm={4}>
+            <h1>Current chats</h1>
+            {current_chats}
+          </Col>
+        </Row>
         <div className="chats">
         <div className="row">
-        <div className="col-sm" >
-
-          <Chat channel={socket.channel("users:12", {})}></Chat></div>
-        <div className="col-sm">
-          <Chat channel={socket.channel("users:22", {})}></Chat></div>
-          {chats}
+        {this.state.current_chat != null ? 
+        <Chat channel={socket.channel(this.state.current_chat)}></Chat> : null}
           </div>
         </div>
       </div>

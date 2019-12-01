@@ -12,6 +12,9 @@ defmodule SocialWeb.ConnectionView do
 
   def render("connection.json", %{connection: connection}) do
     %{id: connection.id,
-      status: connection.status}
+      status: connection.status,
+      user1_id: connection.user1_id,
+      user2_id: connection.user2_id,
+      requester_id: connection.requester_id}
   end
 end
