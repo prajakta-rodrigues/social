@@ -8,21 +8,17 @@ import _ from 'lodash';
 function createSelectItems(property_values, property) {
   let items = [];
   let selectedProperties = store.getState().forms.user_profile[property]
-  for (let i = 0; i <= property_values.length; i++) {
+  property_values.forEach((val, index) => {
       items.push(
         <div 
-            className={"tag " + (selectedProperties.includes(property_values[i]) ? "selected" : "")} 
-            key={i}
+            className={"tag " + (selectedProperties.includes(val) ? "selected" : "")} 
+            key={index}
             onClick={(ev) => changedSelect(ev, property)}
             >
-          {property_values[i]}
+          {val}
         </div>
-        // <option 
-        //   key={i}
-        //   value={property_values[i]}>{property_values[i]}
-        // </option>
       );
-  }
+  });
   return items;
 }
 
@@ -67,11 +63,6 @@ let Config = connect(({configs, forms}) =>
           <div className="tags-interests">
             {createSelectItems(tt.property_values, tt.property)}
           </div>
-          {/* <Form.Label>Select {tt.property}</Form.Label>
-          <Form.Control id = {tt.property} as="select" multiple
-            onChange={(ev) => changedSelect(ev)} value={forms.user_profile[tt.property]}>
-            {createSelectItems(tt.property_values, tt.property)}
-          </Form.Control> */}
         </div>)
     } else {
       config.push(
@@ -80,11 +71,6 @@ let Config = connect(({configs, forms}) =>
           <div className="tags">
             {createSelectItems(tt.property_values, tt.property)}
           </div>
-          {/* <Form.Label>Select {tt.property}</Form.Label>
-          <Form.Control id = {tt.property} as="select" multiple
-            onChange={(ev) => changedSelect(ev)} value={forms.user_profile[tt.property]}>
-            {createSelectItems(tt.property_values, tt.property)}
-          </Form.Control> */}
         </div>)
     }
 });
