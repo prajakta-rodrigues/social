@@ -12,15 +12,14 @@ class ShowUserProfile extends React.Component {
     super(props);
     this.props = props;
     console.log(this.props.match.params.id);
+    console.log("in show user profile");
     this.state = {
       redirect: null
     };
-    getUserShowProfileById(this.props.match.params.id);
   }
 
   render() {
-
-
+    getUserShowProfileById(this.props.match.params.id);
     return (
       <Profile />
     );
@@ -46,7 +45,7 @@ let Profile = connect(({showUserProfile}) =>
     if(showUserProfile.movies) {
       movies = showUserProfile.movies.toString();
     }
-    
+
     let dp = showUserProfile.profile_picture
     dp = dp ? dp : placeholder
 
