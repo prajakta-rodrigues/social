@@ -5,6 +5,7 @@ import _ from 'lodash';
 import { Link } from 'react-router-dom';
 import {get_recommended_users, updateUserLocation, sendRequest} from "../ajax";
 import placeholder from '../../static/placeholder.svg'
+import Spinner from '../components/spinner'
 
 // This image is provided by www.flaticon.com
 import addFriendLogo from '../../static/add-friend-logo.svg'
@@ -34,7 +35,7 @@ let Req = connect(({recommendedUsers, session}) =>
     recommend.push(<Recommend key={tt.id} id= {tt.id} name={tt.name} session={session} dp={tt.profile_picture}/>)
 });
   if(recommend.length == 0) {
-    recommend.push(<h2 key="nodatarec">No recommendations available</h2>)
+    recommend.push(<Spinner />)
   }
   return <div className="recommended-users-container">
     {recommend}

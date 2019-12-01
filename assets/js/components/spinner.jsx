@@ -1,5 +1,5 @@
 import React from "react";
-import spinner from "../../static/spinner.gif";
+import spinner from "../../static/spinner.svg";
 
 function Spinner() {
   return(

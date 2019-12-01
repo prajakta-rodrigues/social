@@ -142,6 +142,7 @@ html, body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    background: transparent;
 }
 
 
@@ -447,14 +448,16 @@ html, body {
 
 .rec-user-card {
     // background: #db625c;
-    border-radius: 5px;
-    box-shadow: 0 2px 2px #db625c;
-    margin: 10px;
+    margin: 15px;
     position: relative;
+    background-color: #fafafa;
+    border: 1px solid #ced4db;
+    border-radius: 15px;
+    padding: 0.5em;
 }
 
 .rec-user-card a, .rec-user-card a:hover {
-    color: #db625c;
+    color: #22252a;
     text-decoration: none;
 }
 
@@ -464,8 +467,8 @@ html, body {
 }
 
 .rec-user-card .rec-user-dp img {
-    height: 50px !important;
-    width: 50px !important;
+    height: 40px !important;
+    width: 40px !important;
 }
 
 .rec-user-card .name {
