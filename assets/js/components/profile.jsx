@@ -13,8 +13,6 @@ import 'react-chat-widget/lib/styles.css';
 import FriendsComponent from './friendsComponent'
 
 // Icon made by https://www.flaticon.com/authors/kiranshastry from www.flaticon.com
-//import editLogo from '../../static/edit-logo.png'
-
 
 /**
  * This is a profile page for the specific user. Here they can perform various
