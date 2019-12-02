@@ -83,7 +83,7 @@ defmodule SocialWeb.UserController do
     "app_id" => System.get_env("INSTA_APP_ID"),
     "app_secret" => System.get_env("INSTA_APP_SECRET"),
     "grant_type" => "authorization_code",
-    "redirect_uri" => "https://localhost:4040/insta_auth",
+    "redirect_uri" => "https://social.megharth.site/insta_auth",
     "code" => code
     })
     # Get the access token by exchanging the code.
