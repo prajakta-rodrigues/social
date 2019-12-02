@@ -301,6 +301,9 @@ function requests(st0 = [], action) {
     case "NEW_REQUEST": {
       return [...st0, action.data]
     }
+    case "REMOVE_REQUEST" : {
+      return action.data
+    }
     default:
       return st0
   }
