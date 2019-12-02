@@ -96,7 +96,7 @@ function Recommend(params){
       <div className="name">
         <Link to={"/user-profile/" + id}>{name}</Link>
       </div>
-      <button  className="req-btn" onClick={() => {sendRequestUser(id, session.user_id)}}>
+      <button  className="req-btn" onClick={() => {sendRequestUser(session.user_id, id)}}>
         <img src={addFriendLogo} alt="add-friend-logo" className="img-fluid" />
       </button>
     </div>
