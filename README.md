@@ -13,3 +13,7 @@ Nikhil Nikhil
 Megharth Lakhataria
 
 Prajakta Rodrigues
+
+### Attribution
+Icons used in this app are taken from www.flaticon.com.
+The logo for this app was created using https://www.wix.com/logo/maker
