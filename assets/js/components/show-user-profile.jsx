@@ -138,9 +138,8 @@ let Profile = connect(({showUserProfile}) =>
         </div>
         <div className="ig-post-container">
           <h2 class="insta-header">Instagram Posts</h2>
-          <div className="posts">
-            {posts.length > 0 ? posts : noPost}
-          </div>
+          {posts.length > 0 ? <div className="posts">{posts}</div> : noPost}
+          
         </div>
       </div>
       );
