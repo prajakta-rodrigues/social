@@ -1,9 +1,9 @@
 # Social
-A web application that helps people connect based on their interests. This application will allow users to:
-- Match with other people (based on location) that have similar interests
-- Send a connection request to people
-- Connect with people who accept the request
-- Chat with connected people
+Social is a web based application that helps people connect with other like minded people based on the interests they share. Users can explore new meaningful friendships using our application by talking to people they match (share similar interests) with. Our application can help users find potential friends by recommending them other users in the area that share similar interests.
+
+Users can view their friend’s profiles and instagram posts that are imported from their instagram accounts. Users can also chat with their friends and view their friends on a map. This can be especially helpful in cases when the users want to meet up and socialize.
+
+You can view the application at https://social.megharth.site/
 
 ## Team Members
 Sukhada Khatu
