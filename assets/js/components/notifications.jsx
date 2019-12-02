@@ -15,9 +15,9 @@ class Notifications extends React.Component {
     this.props = props
 
     let channel = socket.channel("notif:" + this.props.session.user_id);
-        channel.join().receive("ok", (resp) => {
-            console.log("notif joined", resp)
-        })
+      channel.join().receive("ok", (resp) => {
+        console.log("notif joined", resp)
+    })
 
         channel.on("send_request",payload=>
         {   console.log("payload", payload)
