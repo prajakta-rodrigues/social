@@ -50,7 +50,7 @@ let Req = connect(({recommendedUsers, session}) =>
       session={session} dp={tt.profile_picture}/>)
 });
   if(recommend.length == 0) {
-    recommend.push(<Spinner />)
+    recommend.push(<Spinner key="spinner"/>)
   }
   return <div className="recommended-users-container" id="scroll">
     {recommend}

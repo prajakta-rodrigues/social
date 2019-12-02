@@ -4,7 +4,6 @@ import {getPopularInterests} from "../ajax";
 import store from '../store';
 import { render } from 'react-dom';
 import { TagCloud } from 'react-tagcloud';
-import Spinner from './spinner';
 
 
 const Pop = connect(({popularInterests}) =>
@@ -18,8 +17,6 @@ const Pop = connect(({popularInterests}) =>
         tags={popularInterests}
         />
     </div>);
-  } else {
-    return <Spinner />;
   }
 });
 
