@@ -705,3 +705,14 @@ html, body {
 .notification-logo-container .notification-badge {
     position: absolute;
 }
+
+.notification-img, .notification-text {
+    display: inline-block;
+}
+
+.notification-img img {
+    height: 25px;
+    width: 25px;
+    margin-right: 25px;
+    margin-bottom: 5px;
+}

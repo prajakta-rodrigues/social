@@ -8,6 +8,7 @@ import socket from '../socket';
 import Chat from "./chat";
 import notificationLogo from '../../static/notification-logo.svg';
 import store from '../store';
+import addFriendLogo from '../../static/add-friend-logo.svg'
 
 class Notifications extends React.Component {
     constructor(props) {
@@ -109,8 +110,17 @@ closeNotifications() {
             let alert = this.props.notifications[i];
           let notif = <div className="notification" key={i} onClick={() => this.onAlertDismissed(alert)}>
             {this.props.notifications[i].type == 'CONNECTION' ? 
-            <NavLink to="/requests" onClick={() => {this.closeNotifications()}}>{this.props.notifications[i].text}</NavLink> : 
-            <NavLink to="/home" onClick={() => {this.closeNotifications()}}>{this.props.notifications[i].text}</NavLink>}
+            <NavLink to="/requests" onClick={() => {this.closeNotifications()}}>
+              <div className="notification-img">
+                <img src={addFriendLogo} alt="add-friend-logo"/>
+              </div>
+              <div className="notification-text">
+                {this.props.notifications[i].text}
+              </div>
+            </NavLink> : 
+            <NavLink to="/home" onClick={() => {this.closeNotifications()}}>
+              {this.props.notifications[i].text}
+            </NavLink>}
           </div>
           list.push(notif)
           }
