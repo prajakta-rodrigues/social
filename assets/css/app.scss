@@ -595,21 +595,21 @@ html, body {
     box-shadow: 0 2px 2px #656565;
 }
 
-.profile .profile-details .info {
+.info {
     margin-left: 10px;
     padding: 5px;
     word-wrap: break-word;;
 }
 
-.profile .profile-details .info .key {
+.info .key {
     font-weight: bold;
 }
 
-.profile .profile-details .info .value {
+.info .value {
     color: #db625c;
     font-weight: bold;
 }
-.profile-details .info .tag {
+.info .tag {
     font-size: 16px;
 }
 

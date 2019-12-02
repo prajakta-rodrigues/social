@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { getUserShowProfileById } from "../ajax";
-import placeholder from '../../static/placeholder.svg'
+import placeholder from '../../static/placeholder.svg';
+import Card from './card';
 
 class ShowUserProfile extends React.Component {
 
@@ -69,7 +70,11 @@ let Profile = connect(({showUserProfile}) =>
 
     let noPost = (
       <div className="ig-placeholder-container">
-        <div className="connect-ig"><h3>This user has not linked their Instagram account.</h3></div>
+        <div className="connect-ig">
+          <i style={{ color: 'gray' }}>
+            This user has not linked their Instagram account.
+          </i>
+          </div>
       </div>
     )
 
@@ -77,16 +82,16 @@ let Profile = connect(({showUserProfile}) =>
       <div id="friend-profile" className="container">
         <div className="header row profile">
           <div className="col-sm-4 contact">
-            <img src={dp} alt="profile_picture"/>
-            <div className="info">
+            <img src={dp} alt="profile_picture" />
+            <div className="info" style={{ color: '#22252a', fontSize: '0.8em'}}>
               <span>{showUserProfile.name}</span>
             </div>
-            <div className="info">
+            <div className="info" style={{ color: '#22252a', fontSize: '0.8em'}}>
               <span>{showUserProfile.email}</span>
             </div>
           </div>
           <div className="col-sm-8">
-            <div className="profile-details">
+            <Card>
               <div className="row">
                 <div className="col-sm-6">
                   <div className="info">
@@ -131,14 +136,14 @@ let Profile = connect(({showUserProfile}) =>
                   </div>
                 </div>
               </div>
-            </div>
+            </Card>
           </div>
         </div>
-        <div className="ig-post-container">
+        <br />
+        <Card>
           <h2 className="insta-header">Instagram Posts</h2>
           {posts.length > 0 ? <div className="posts">{posts}</div> : noPost}
-          
-        </div>
+        </Card>
       </div>
       );
 
