@@ -128,7 +128,7 @@ closeNotifications() {
               <div className="notifications">
                 <div className="close-btn" onClick={() => {this.closeNotifications()}}>&times;</div>
                 <div className="notification-list">
-                  {list}
+                  {list.length > 0 ? list : <p style={{ color: "gray", textAlign: 'center', marginTop: '20%' }}> <i> No Notifications to show </i> </p>}
                 </div>
               </div>
             </div>
