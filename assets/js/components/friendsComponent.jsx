@@ -36,12 +36,14 @@ export default class FriendsComponent extends React.Component {
         console.log(channel);
         this.setState({current_chat: channel, current_name: ""}) //change this
         let chatChannel = socket.channel(channel);
-        chatChannel.join().receive("ok", (resp) => {
-                store.dispatch({
-                    type: "NEW_CHANNEL",
-                    data: channel
-                })
-            console.log(resp)})
+        if(chatChannel.status != "joined") {
+            chatChannel.join().receive("ok", (resp) => {
+                console.log(resp)})   
+        }
+            store.dispatch({
+                type: "NEW_CHANNEL",
+                data: channel
+            })
         this.setState({chatChannel: chatChannel, openChat: true});
         get_user_data(sender_id)
     }
@@ -76,6 +78,7 @@ startChat(receiver_id) {
         let list = this.state.friends.map(friend => {
             let dp = friend.profile_picture
             dp = dp ? dp : placeholder
+
             if(this.props.action == "start chat") {
                 return(
                         <div className="friend" key={friend.id} onClick={() => {
@@ -110,8 +113,6 @@ startChat(receiver_id) {
             return (
                 <div className="chat-container" id="friend-list">
                     {this.renderFriends()}
-                    {/* <button onClick={() => this.startChat(2)}>start chat</button> */}
-                    {/* <button onClick={() => this.startChat(3)}>start chat</button> */}
                     {chats}
                 </div>
             )

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { post, newMessage } from "../ajax";
+import { post } from "../ajax";
 import { Widget, addResponseMessage, addUserMessage, dropMessages } from 'react-chat-widget';
 import _ from 'lodash';
 
@@ -10,18 +10,16 @@ class Chat extends React.Component {
     super(props);
     this.props = props;
     this.state = {
-      //currentMessage: "",
-      messages: [],
-      //open: true
+      messages: []
     }
-    console.log(this.props.channel)
+    console.log("seeee channel", this.props.channel)
     if(this.props.channel.topic != this.props.current_channel) {
       this.props.dispatch({
         type: "CHANGE_CURRENT_CHANNEL",
         data: this.props.channel.topic
       });
     }
-    if(this.props.channel.status != "joined") {
+    if(this.props.channel.state != "joined") {
       this.props.channel.join().receive("ok", (resp) => {
         console.log("chat channel joined", resp)
       })
@@ -58,12 +56,10 @@ class Chat extends React.Component {
       let state = _.cloneDeep(this.state);
           state.messages = resp.data;
           this.setState(state);
-      // this.setState({messages: resp.data})
     });
   }
 
   newMessage(message, channel) {
-    addUserMessage(message.text);
     let date = new Date();
     post('/messages', {
       message: {
@@ -75,34 +71,22 @@ class Chat extends React.Component {
       }
     }).then((resp) => {
           console.log("herehahha", resp)
-          if(channel.state != "joined") {
-            channel.join().receive("ok", (resp) => {console.log(resp)})
-          }
-        //   let data = {text: message.text, sender_name: message.name, id: message.id,
-        //     room: channel.topic, sender_id: message.id}
-        //   console.log("data", data)
-        //   channel.push("send_msg", data).receive("ok", console.log("received"));
+            if(channel.state != "joined") {
+              channel.join().receive("ok", (resp) => {console.log(resp)})
+            }
+          
+          let data = {text: message.text, sender_name: message.name, id: message.id,
+            room: channel.topic, sender_id: message.id}
+          console.log("data", data)
+          channel.push("send_msg", data).receive("ok", console.log("received"));
 
-        //   let msg = this.state.messages;
-        // msg.push(data)
-        // let state = _.cloneDeep(this.state);
-        //   state.messages = msg;
-        //   this.setState(state);
-        console.log("current state", state)
-        });
-        if(this.props.channel.status != "joined") {
-          channel.join().receive("ok", (resp) => {console.log(resp)})
-        }
-        let data = {text: message.text, sender_name: message.name, id: message.id,
-          room: channel.topic, sender_id: message.id}
-        console.log("data", data)
-        channel.push("send_msg", data).receive("ok", console.log("received"));
-
-        let msg = this.state.messages;
+          let msg = this.state.messages;
         msg.push(data)
         let state = _.cloneDeep(this.state);
-        state.messages = msg;
-        this.setState(state);
+          state.messages = msg;
+          this.setState(state);
+        console.log("current state", state)
+        });
   }
 
   inputChange(e) {
@@ -135,7 +119,7 @@ class Chat extends React.Component {
     {console.log("hereeeee")}
     <Widget title={this.props.channel.topic}
     subtitle={"Let's chat"}
-    handleNewUserMessage={(message) => {newMessage({name: this.props.session.user_name ,
+    handleNewUserMessage={(message) => {this.newMessage({name: this.props.session.user_name ,
         text: message, id: this.props.session.user_id},
           this.props.channel)
     }}></Widget>
