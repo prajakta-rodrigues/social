@@ -123,7 +123,7 @@ setCurrentChat(channel) {
           </div>
         </div>
         <Row>
-          <Col sm={8}>
+          <Col sm={12}>
           <Tabs defaultActiveKey="profile">
           <Tab eventKey="profile" title="Profile">
             <EditUserProfile />
@@ -136,10 +136,6 @@ setCurrentChat(channel) {
           </Tab>
         </Tabs>
         </Col>
-          <Col sm={4}>
-            <h1>Current chats</h1>
-            {current_chats}
-          </Col>
         </Row>
         <div className="chats">
         <div className="row">
