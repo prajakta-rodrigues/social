@@ -67,12 +67,6 @@ startChat(receiver_id) {
     renderFriends() {
         console.log(this.state.friends)
         console.log("sender id", store.getState().session.user_id)
-        const { friends } = this.state;
-        if (friends.length >= 0) {
-            return (
-                <p style={{ color: "gray", textAlign: 'center', marginTop: '20%' }}> <i> No Friends Available </i> </p>
-            );
-        }
         let list = this.state.friends.map(friend => {
             let dp = friend.profile_picture
             dp = dp ? dp : placeholder
@@ -105,11 +99,11 @@ startChat(receiver_id) {
         for(let i = 0; i < channel.length; i++) {
         chats.push(<div className="col-sm">
             <Chat channel={socket.channel(channel[i], {})}></Chat></div>)
-}
+        }
         if(this.state.friends) {
             return (
                 <div className="chat-container" id="friend-list">
-                    {this.renderFriends()}
+                    {this.state.friends.length > 0 ? this.renderFriends() : <p style={{ color: "gray", textAlign: 'center', marginTop: '20%' }}> <i> No Friends Available </i> </p>}
                     {/* <button onClick={() => this.startChat(2)}>start chat</button> */}
                     {/* <button onClick={() => this.startChat(3)}>start chat</button> */}
                     {chats}
