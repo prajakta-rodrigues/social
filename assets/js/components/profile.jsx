@@ -13,8 +13,6 @@ import 'react-chat-widget/lib/styles.css';
 import FriendsComponent from './friendsComponent'
 
 // Icon made by https://www.flaticon.com/authors/kiranshastry from www.flaticon.com
-//import editLogo from '../../static/edit-logo.png'
-
 
 /**
  * This is a profile page for the specific user. Here they can perform various
@@ -125,7 +123,7 @@ setCurrentChat(channel) {
           </div>
         </div>
         <Row>
-          <Col sm={8}>
+          <Col sm={12}>
           <Tabs defaultActiveKey="profile">
           <Tab eventKey="profile" title="Profile">
             <EditUserProfile />
@@ -138,10 +136,6 @@ setCurrentChat(channel) {
           </Tab>
         </Tabs>
         </Col>
-          <Col sm={4}>
-            <h1>Current chats</h1>
-            {current_chats}
-          </Col>
         </Row>
         <div className="chats">
         <div className="row">
