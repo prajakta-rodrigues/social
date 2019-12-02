@@ -19,9 +19,10 @@ class Requests extends React.Component {
     
     render() {
         let request = [];
-        this.props.requests.map((req, index) => {
+        const { requests } = this.props;
+        requests.map((req, index) => {
             request.push(
-                <div className="rec-user-card" style={{ width: '22em' }} key={req.id}>
+                <div className="rec-user-card" style={{ width: '22em' }} key={index}>
                     <Row>
                         <div className="name" style={{ paddingLeft: '1em'}}>
                             <Link to={"/user-profile/" + req.request_id}>{req.name}</Link>
@@ -40,7 +41,7 @@ class Requests extends React.Component {
                 <Row style={{ paddingTop: '1em' }}>
                     <div className="header"><h2>My Requests</h2></div>
                 </Row>
-                {request}
+                {requests.length > 0 ? request : <p style={{ color: "gray", textAlign: 'center', marginTop: '20%' }}> <i> No Requests Available </i> </p>}
             </div>
         );
     }
