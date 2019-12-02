@@ -165,8 +165,10 @@ export function sendRequest(user1_id, user2_id) {
 export function createNotification(sender_id, receiver_id, type, text, id) {
   //create channel for notification
   let channel = socket.channel("notif:" + receiver_id);
-  channel.join().receive("ok", (resp) => {
-    console.log("notif joined", resp)})
+  if(channel.state != "joined") {
+    channel.join().receive("ok", (resp) => {
+      console.log("notif joined", resp)})
+  }
 
   let state = store.getState();
   let sender_name = state.session.user_name
@@ -225,12 +227,14 @@ export function joinChat(sender_id, receiver_id) {
   }
   console.log(channel);
   let chatChannel = socket.channel(channel);
-  chatChannel.join().receive("ok", (resp) => {
+  if(chatChannel.state != "joined") {
+    chatChannel.join().receive("ok", (resp) => {
       store.dispatch({
           type: "NEW_CHANNEL",
           data: channel
       })
       console.log(resp)})
+  }
   get_user_data(receiver_id, channel)
 }
 
@@ -285,7 +289,9 @@ export function newMessage(message, channel) {
           sender_id: message.id}
         });
       });
-  channel.join().receive("ok", (resp) => {console.log(resp)})
+  if(channel.state != "joined") {
+    channel.join().receive("ok", (resp) => {console.log(resp)})
+  }
   channel.push("send_msg", {text: message.text, sender_name: message.name, id: message.id,
   room: channel.topic, sender_id: message.id}).receive("ok", console.log("received"));
 }

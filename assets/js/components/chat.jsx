@@ -122,6 +122,13 @@ class Chat extends React.Component {
     handleNewUserMessage={(message) => {this.newMessage({name: this.props.session.user_name ,
         text: message, id: this.props.session.user_id},
           this.props.channel)
+    }} 
+    handleQuickButtonClicked={()=> {
+      if(this.props.channel.state != "joined") {
+        this.props.channel.join().receive("ok", (resp) => {
+          console.log("chat channel joined", resp)
+        })
+      }
     }}></Widget>
       </div>
     );

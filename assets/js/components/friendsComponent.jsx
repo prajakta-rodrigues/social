@@ -33,7 +33,6 @@ export default class FriendsComponent extends React.Component {
         }else {
             channel = channel + sender_id + receiver_id;
         }
-        console.log(channel);
         this.setState({current_chat: channel, current_name: ""}) //change this
         let chatChannel = socket.channel(channel);
         if(chatChannel.status != "joined") {
@@ -49,7 +48,6 @@ export default class FriendsComponent extends React.Component {
     }
 startChat(receiver_id) {
     //send chat notification to the receiver
-    console.log(receiver_id)
     let channel = "users:";
         if(sender_id > receiver_id) {
             channel = channel + receiver_id + sender_id;
@@ -60,7 +58,6 @@ startChat(receiver_id) {
         const text = store.getState().session.user_name + " sent you a message";
         createNotification(store.getState().session.user_id, receiver_id, "CHAT", text, null)
     }
-    console.log("start chat");
     const sender_id = store.getState().session.user_id;
     this.joinChat(sender_id, receiver_id)
 }
@@ -68,7 +65,6 @@ startChat(receiver_id) {
 
     renderFriends() {
         console.log(this.state.friends)
-        console.log("sender id", store.getState().session.user_id)
         let list = this.state.friends.map(friend => {
             let dp = friend.profile_picture
             dp = dp ? dp : placeholder
@@ -107,8 +103,6 @@ startChat(receiver_id) {
             return (
                 <div className="chat-container" id="friend-list">
                     {this.state.friends.length > 0 ? this.renderFriends() : <p style={{ color: "gray", textAlign: 'center', marginTop: '20%' }}> <i> No Friends Available </i> </p>}
-                    {/* <button onClick={() => this.startChat(2)}>start chat</button> */}
-                    {/* <button onClick={() => this.startChat(3)}>start chat</button> */}
                     {chats}
                 </div>
             )
