@@ -8,13 +8,18 @@ import { TagCloud } from 'react-tagcloud';
 
 const Pop = connect(({popularInterests}) =>
 ({popularInterests}))(({popularInterests, dispatch}) =>{
-  console.log("in", popularInterests);
+  const options = {
+    luminosity: 'medium',
+    hue: '#db625c'
+  }
+
   if (popularInterests) {
     return (<div>
       <TagCloud
         minSize={12}
         maxSize={35}
         tags={popularInterests}
+        colorOptions={options}
         />
     </div>);
   }
