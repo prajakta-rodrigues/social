@@ -132,11 +132,11 @@ export function sendRequest(user1_id, user2_id) {
     user1_id is always smaller than user2_id
   */
  let state = store.getState();
-  if(user1_id > user2_id) {
-    let temp = user1_id;
-    user1_id = user2_id;
-    user2_id = temp;
-  }
+  // if(user1_id > user2_id) {
+  //   let temp = user1_id;
+  //   user1_id = user2_id;
+  //   user2_id = temp;
+  // }
   post('/connections', {connection: {
     status: "PENDING",
     user1_id: user1_id,
@@ -169,7 +169,8 @@ export function createNotification(sender_id, receiver_id, type, text, id) {
     channel.join().receive("ok", (resp) => {
       console.log("notif joined", resp)})
   }
-
+  console.log("sender_id", sender_id)
+  console.log("receiver_id", receiver_id)
   let state = store.getState();
   let sender_name = state.session.user_name
   let current_date = new Date();

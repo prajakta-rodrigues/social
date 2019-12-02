@@ -54,10 +54,10 @@ startChat(receiver_id, name) {
         }else {
             channel = channel + sender_id + receiver_id;
         }
-    if(!store.getState().channels.includes(channel)) {
+    // if(!store.getState().channels.includes(channel)) {
         const text = store.getState().session.user_name + " sent you a message";
         createNotification(store.getState().session.user_id, receiver_id, "CHAT", text, null)
-    }
+    // }
     const sender_id = store.getState().session.user_id;
     this.joinChat(sender_id, receiver_id, name)
 }
