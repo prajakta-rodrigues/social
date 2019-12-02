@@ -15,7 +15,7 @@ Our application is properly deployed and working. All of the team members have
 contributed to pretty much all aspects and development of the project, 
 including code and presentation.
 
-**_For each team member, what work did that person do on the project?**
+**_For each team member, what work did that person do on the project?_**
 1. Megharth Lakhataria: Connect with Facebook, Connect with Instagram , Get Instagram Posts, Profile, Navbar, Styling of all Pages,  Mapbox component
 2. Nikhil Nikhil: Login, Account Creation, Home Page, Navbar, Styling of all pages
 3. Prajakta Rodrigues: Search User Component, Recommended Users, Popular Interests, Edit Profile, Show User Profile
