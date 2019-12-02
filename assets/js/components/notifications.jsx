@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from "react-router-dom";
-import { Badge } from 'react-bootstrap';
+import { Badge, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { listNotifications, changeStatus, get_user_data, startChat, list_messages } from "../ajax";
 import { Navbar, Nav, NavDropdown, Overlay } from "react-bootstrap";
 import socket from '../socket';
@@ -91,12 +91,23 @@ class Notifications extends React.Component {
     get_user_data(sender_id)
 }
 
+openNotification() {
+  let container = document.getElementById('notification-container')
+  container.classList.remove('hide')
+}
+
+closeNotifications() {
+  let container = document.getElementById('notification-container')
+  console.log(container)
+  container.classList.add('hide')
+}
+
     render() {
       let list = []
         for(let i = 0 ; i < this.props.notifications.length; i++) {
           if(this.props.notifications[i].receiver_id == this.props.session.user_id) {
             let alert = this.props.notifications[i];
-          let notif = <div className="dropdown-link" key={i} onClick={() => this.onAlertDismissed(alert)}>
+          let notif = <div className="notification" key={i} onClick={() => this.onAlertDismissed(alert)}>
             {this.props.notifications[i].type == 'CONNECTION' ? 
             <NavLink to="/requests">{this.props.notifications[i].text}</NavLink> : 
             <NavLink to="/home">{this.props.notifications[i].text}</NavLink>}
@@ -106,14 +117,26 @@ class Notifications extends React.Component {
         }
           console.log("notif here", list)
         return(
-         <div>
-        {list.length > 0 ? <Badge pill variant="danger">{list.length}</Badge>: null}
-         <NavDropdown title={<div className="pull-left">
-         <img src={notificationLogo} alt="notification-logo" className="nav-icon" />
+        <div>
+            <NavLink to="#" onClick={() => this.openNotification()}>
+              <OverlayTrigger placement="bottom" overlay={<Tooltip>Notifications</Tooltip>}>
+                <img src={notificationLogo} alt="notification-logo" className="nav-icon" />
+              </OverlayTrigger>
+            </NavLink>
+            <div className="notification-container hide" id="notification-container">
+              <div className="notifications">
+                <div className="close-btn" onClick={() => {this.closeNotifications()}}>&times;</div>
+
+                {list}
+              </div>
+            </div>
+          {/* {list.length > 0 ? <Badge pill variant="danger">{list.length}</Badge>: null}
+          <NavDropdown title={<div className="pull-left">
+          <img src={notificationLogo} alt="notification-logo" className="nav-icon" />
                     </div>} id="basic-nav-dropdown">
             {list}
-          </NavDropdown> 
-          </div>
+          </NavDropdown>  */}
+        </div>
         );
     }
 }

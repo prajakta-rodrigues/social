@@ -14,7 +14,7 @@ class Home extends React.Component {
 
   render() {
     return (
-      <div class="container-fluid home-container">
+      <div className="container-fluid home-container">
 				<Row>
 					<Col sm={4}>
 						<Card title="Popular Interests">

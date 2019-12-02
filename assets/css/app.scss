@@ -2,6 +2,10 @@
 
 @import "~bootstrap/scss/bootstrap";
 
+
+::-webkit-scrollbar {
+    display: none;
+}
 .header-container {
     width: 100%;
     color: #2c2b2b;
@@ -627,4 +631,50 @@ html, body {
 .insta-header {
     color: #db625c;
     text-align: center;
+}
+
+.notification-container {
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    left: 0;
+    top: 0;
+    background: rgba(0, 0, 0, 0.25);
+}
+
+.notification-container .close-btn {
+    color: red;
+    font-weight: bold;
+    position: absolute;
+    right: 10px;
+    top: -10px;
+    font-size: 36px;
+    display: block;
+    cursor: pointer;
+}
+.notifications {
+    position: absolute;
+    top: 50vh;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 600px;
+    width: 600px;
+    background: white;
+    overflow-y: scroll;
+    border-radius: 5px;
+    box-shadow: 0 2px 2px #656565;
+}
+
+.notifications .notification {
+    margin-top: 10px;
+    font-size: 20px;
+    text-align: center;
+}
+
+.notification a {
+    color: #db625c;
+}
+
+.hide {
+    display: none;
 }
