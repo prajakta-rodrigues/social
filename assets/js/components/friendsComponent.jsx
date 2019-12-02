@@ -71,7 +71,7 @@ startChat(receiver_id) {
 
             if(this.props.action == "start chat") {
                 return(
-                        <div className="friend" key={friend.id} onClick={() => {
+                        <div className="friend" style={{ cursor: 'pointer' }} key={friend.id} onClick={() => {
                             this.startChat(friend.id, friend.name)
                         }}>
                             <img src={dp} alt="dp" className="friend-img"/>
