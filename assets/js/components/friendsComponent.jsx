@@ -26,14 +26,14 @@ export default class FriendsComponent extends React.Component {
         }
     }
 
-    joinChat(sender_id, receiver_id) {
+    joinChat(sender_id, receiver_id, name) {
         let channel = "users:";
         if(sender_id > receiver_id) {
             channel = channel + receiver_id + sender_id;
         }else {
             channel = channel + sender_id + receiver_id;
         }
-        this.setState({current_chat: channel, current_name: ""}) //change this
+        this.setState({current_chat: channel, current_name: name}) //change this
         let chatChannel = socket.channel(channel);
         if(chatChannel.status != "joined") {
             chatChannel.join().receive("ok", (resp) => {
@@ -46,7 +46,7 @@ export default class FriendsComponent extends React.Component {
         this.setState({chatChannel: chatChannel, openChat: true});
         get_user_data(sender_id)
     }
-startChat(receiver_id) {
+startChat(receiver_id, name) {
     //send chat notification to the receiver
     let channel = "users:";
         if(sender_id > receiver_id) {
@@ -59,7 +59,7 @@ startChat(receiver_id) {
         createNotification(store.getState().session.user_id, receiver_id, "CHAT", text, null)
     }
     const sender_id = store.getState().session.user_id;
-    this.joinChat(sender_id, receiver_id)
+    this.joinChat(sender_id, receiver_id, name)
 }
 
 
@@ -97,7 +97,7 @@ startChat(receiver_id) {
         let channel = store.getState().channels
         for(let i = 0; i < channel.length; i++) {
         chats.push(<div className="col-sm">
-            <Chat channel={socket.channel(channel[i], {})}></Chat></div>)
+            <Chat channel={socket.channel(channel[i], {})} name={this.state.current_name}></Chat></div>)
         }
         if(this.state.friends) {
             return (

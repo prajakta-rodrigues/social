@@ -117,7 +117,7 @@ class Chat extends React.Component {
     return( 
       <div>   
     {console.log("hereeeee")}
-    <Widget title={this.props.channel.topic}
+    <Widget title={this.props.name}
     subtitle={"Let's chat"}
     handleNewUserMessage={(message) => {this.newMessage({name: this.props.session.user_name ,
         text: message, id: this.props.session.user_id},
