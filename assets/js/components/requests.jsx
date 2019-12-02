@@ -19,7 +19,9 @@ class Requests extends React.Component {
     render() {
 
         let request = [];
+        let idx = -1;
         this.props.requests.map((req) => {
+            idx = idx + 1;
             request.push(<div className="row" key={req.id}>
             {req.name}
             <div className="col">
@@ -29,6 +31,7 @@ class Requests extends React.Component {
             </div>
         </div>);
         });
+
         console.log("res",request);
 
         return(<div className="container">
