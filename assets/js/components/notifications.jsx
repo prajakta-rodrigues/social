@@ -9,7 +9,7 @@ import Chat from "./chat";
 import notificationLogo from '../../static/notification-logo.svg';
 import store from '../store';
 import addFriendLogo from '../../static/add-friend-logo.svg'
-
+import messageLogo from '../../static/message-logo.svg'
 class Notifications extends React.Component {
     constructor(props) {
     super(props)
@@ -119,7 +119,12 @@ closeNotifications() {
               </div>
             </NavLink> : 
             <NavLink to="/home" onClick={() => {this.closeNotifications()}}>
-              {this.props.notifications[i].text}
+              <div className="notification-img">
+                <img src={messageLogo} alt="add-friend-logo"/>
+              </div>
+              <div className="notification-text">
+                {this.props.notifications[i].text}
+              </div>
             </NavLink>}
           </div>
           list.push(notif)
