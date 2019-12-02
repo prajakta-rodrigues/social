@@ -12,7 +12,6 @@ class Requests extends React.Component {
         this.state = {
             requests: []
         }
-        console.log("user_id", this.props.session.user_id);
         listRequests(this.props.session.user_id);
     }
 
@@ -34,7 +33,6 @@ class Requests extends React.Component {
             );
         });
 
-        console.log("res",request);
 
         return(
             <div className="container">

@@ -16,13 +16,13 @@ class Notifications extends React.Component {
     this.props = props
 
     let channel = socket.channel("notif:" + this.props.session.user_id);
+    if(channel.state != "joined") {
       channel.join().receive("ok", (resp) => {
-        console.log("notif joined", resp)
-    })
+      })
+    }
 
         channel.on("send_request",payload=>
-        {   console.log("payload", payload)
-            if(payload.associated_sender_id != this.props.session.user_id) {
+        {   if(payload.associated_sender_id != this.props.session.user_id) {
             this.props.dispatch({
                 type: "NEW_NOTIF",
                 data: payload
@@ -68,7 +68,6 @@ class Notifications extends React.Component {
           this.joinChat(notification.associated_sender_id, notification.receiver_id)
           
           }
-          console.log("see notification", notification);
       }
   }
 
@@ -79,15 +78,16 @@ class Notifications extends React.Component {
     }else {
         channel = channel + sender_id + receiver_id;
     }
-    console.log(channel);
     this.setState({current_chat: channel, current_name: ""}) //change this
     let chatChannel = socket.channel(channel);
-    chatChannel.join().receive("ok", (resp) => {
+    if(chatChannel.state != "joined") {
+      chatChannel.join().receive("ok", (resp) => {
         this.props.dispatch({
             type: "NEW_CHANNEL",
             data: channel
         })
         console.log(resp)})
+    }
     this.setState({chatChannel: chatChannel, openChat: true});
     get_user_data(sender_id)
 }
@@ -130,7 +130,6 @@ closeNotifications() {
           list.push(notif)
           }
         }
-          console.log("notif here", list)
         return(
         <div>
             <NavLink to="#" onClick={() => this.openNotification()} className="notification-logo-container">
@@ -147,12 +146,6 @@ closeNotifications() {
                 </div>
               </div>
             </div>
-          {/* {list.length > 0 ? <Badge pill variant="danger">{list.length}</Badge>: null}
-          <NavDropdown title={<div className="pull-left">
-          <img src={notificationLogo} alt="notification-logo" className="nav-icon" />
-                    </div>} id="basic-nav-dropdown">
-            {list}
-          </NavDropdown>  */}
         </div>
         );
     }

@@ -85,19 +85,15 @@ setCurrentChat(channel) {
     let chats = {};
     let channel = store.getState().channels
     for(let i = 0; i < channel.length; i++) {
-      console.log("channel id", channel[i])
       chats[channel[i]] = <div className="col-sm">
       <Chat channel={socket.channel(channel[i], {})}></Chat></div>
     }
-    console.log("all chatsssss", chats["users:24"])
     let current_chats = [];
     for(let i = 0; i < store.getState().chat_list.length; i++) {
       current_chats.push(<div className="row">
       <a onClick={() => {this.setCurrentChat(store.getState().chat_list[i].channel)}}>
       {store.getState().chat_list[i].name}</a></div>)
     }
-    console.log("current", this.state.current_chat)
-    console.log("current chats", current_chats)
     return (
       <div id="user-profile" className="container">
         <div className="header">
