@@ -119,18 +119,41 @@ We created a map for the users to see all of their friends on a map. Users can
 see their friends on a map with their profile pictures as location pointers. 
 Clicking on the location pointers shows the name for that user. It can be 
 helpful when the users want to meet up with their friends and socialize. 
+This makes use of Mapbox API
 
 We also added the option to connect user profiles with instagram accounts, so 
 users can import their instagram posts to their profile. This feature allows 
 users to see other user’s instagram posts when they visit their profile. 
 Instagram is one of the most popular social media platforms, and having the 
 ability to import instagram posts can help users accurately represent their 
-interests and hobbies.
+interests and hobbies. Instagram API requires app to redirect to their website.
+But in order to maintain SPA status, we made a popup auth window which connects
+to currently logged in user's channel and on receiving the auth token from the
+Instagram API's server, it will push that code through the channel to the server.
+The server will make use of that token to get the user's posts. Once the server
+receives the data, it will store that data in the Postgres database and then 
+that data is sent to the user. We have used genserver to broadcast this data to
+the user so that data can be passed to user as an update. As the request is being
+made from the different session and we had to pass the data to the current session,
+genserver seemed to be suitable option.
 
 Another interesting feature that we have added is the option to log in with 
 Facebook, this feature helps users bypass the conventional sign up and sign in 
 process and lets them sign in directly with their Facebook account credentials, 
-which are verified by Facebook. 
+which are verified by Facebook. Also, if a user does not have account in our website,
+then they will be allowed to signup using the facebook option too. Once they signup,
+they need to fill only the necessary details that are required to complete their
+profile.
 
 **_What was the most significant challenge you encountered and how did you solve 
 it?_**
+
+Managing multiple channels for chat was the most significant challenge that we
+encountered. Because the channel cannot be stored in the state, we had to 
+connect to the chat channel everytime the chat componenent was revisited. 
+Messages from various users can be sent to one user and one user can send 
+messages to multiple users, so managing the channels properly was a challenging
+and time consuming task. Due to channel switching, and component not being 
+present on the screen all the time, the connection to socket gets lost and thus 
+the user cannot receive the message so that was handled with the help of 
+notifications channel. 
