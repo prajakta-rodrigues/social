@@ -22,7 +22,7 @@ class Requests extends React.Component {
         const { requests } = this.props;
         requests.map((req, index) => {
             request.push(
-                <div className="rec-user-card" style={{ width: '22em' }} key={index}>
+                <div className="rec-user-card" style={{ width: '24em' }} key={index}>
                     <Row>
                         <div className="name" style={{ paddingLeft: '1em'}}>
                             <Link to={"/user-profile/" + req.request_id}>{req.name}</Link>
