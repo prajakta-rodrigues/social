@@ -1,36 +1,34 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
 import Card from "./card";
+import Chat from './chat';
+import { connect } from 'react-redux';
+import RecommendedUsers from './recommended-users'
+import PopularInterests from './popular-interests'
+import FriendsComponent from './friendsComponent'
 
-export default class Home extends React.Component {
+class Home extends React.Component {
   constructor(props) {
     super(props);
   }
 
   render() {
     return (
-      <div style={{ marginLeft: '1.8em' }}>
-        <Row>
-          <Col xs={12} style={{ textAlign: 'center', padding: "1em" }}>
-            <h1>
-              Home
-            </h1>
-          </Col>
-        </Row>
+      <div className="container-fluid home-container">
 				<Row>
-					<Col xs={4}>
+					<Col sm={4}>
 						<Card title="Popular Interests">
-							ADD POPULAR INTERESTS HERE
+							<PopularInterests />
 						</Card>
 					</Col>
-					<Col xs={4}>
+					<Col sm={4}>
 						<Card title="Recommended Users">
-							ADD RECOMMENDED USERS HERE
+							<RecommendedUsers />
 						</Card>
 					</Col>
-					<Col xs={4}>
-						<Card title="Chat" style={{ borderTopRightRadius: '0px', borderBottomRightRadius: '0px' }}>
-							ADD CHAT COMPONENT HERE
+					<Col sm={4}>
+						<Card title="Chat">
+							<FriendsComponent action={"start chat"}/>
 						</Card>
 					</Col>
 				</Row>
@@ -38,3 +36,9 @@ export default class Home extends React.Component {
     );
   }
 }
+
+function stateToProps(state) {
+	return state;
+  }
+
+export default connect(stateToProps)(Home)

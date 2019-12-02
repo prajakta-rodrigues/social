@@ -18,7 +18,8 @@ defmodule SocialWeb.UserView do
       dob: user.dob,
       password: user.password,
       longitude: user.longitude,
-      latitude: user.latitude
+      latitude: user.latitude,
+      profile_picture: user.profile_picture
     }
   end
 end

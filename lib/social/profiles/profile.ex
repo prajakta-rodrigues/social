@@ -3,9 +3,10 @@ defmodule Social.Profiles.Profile do
   import Ecto.Changeset
 
   schema "profiles" do
-    field :behavior, {:array, :string}
     field :description, :string
-    field :interests, :string
+    field :sports, {:array, :string}
+    field :interests, {:array, :string}
+    field :movies, {:array, :string}
     field :qualities, {:array, :string}
     field :request_setting_allow, :string
     belongs_to :user, Social.Users.User
@@ -16,7 +17,7 @@ defmodule Social.Profiles.Profile do
   @doc false
   def changeset(profile, attrs) do
     profile
-    |> cast(attrs, [:request_setting_allow, :interests, :description, :qualities, :behavior, :user_id])
-    |> validate_required([:request_setting_allow, :interests, :description, :user_id])
+    |> cast(attrs, [:request_setting_allow, :interests, :description, :movies, :sports, :user_id])
+    |> validate_required([:interests, :description, :user_id])
   end
 end

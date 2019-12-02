@@ -4,6 +4,7 @@ import { Row, Col, Form, Button, Alert } from "react-bootstrap";
 import { Redirect } from "react-router";
 import { submitLogin, post } from "../ajax";
 import logo from "../../static/logo.png";
+import store from "../store";
 // import argon2 from 'argon2'
 
 class Login extends React.Component {
@@ -48,27 +49,26 @@ class Login extends React.Component {
         // Check if the user exists on our database.
         let details = resp
         post("/user/get_with_token", {
-        email: details.email,
-        id: process.env.APP_ID
-        }).then(resp => {
-        // If user does not exist, then create a new one.
-        if(!resp.user_id) {
-          this.props.dispatch({
-          type: "CHANGE_NEW_USER",
-          data: {name: details.name, email: details.email}
-          })
-          FB.logout();
-          this.redirect('/signup')
-        } else {
-          let email = details.email;
-          let FB_ID = details.id;
-          // If user exists, login them to our app and get a token from
-          // the server.
-          this.props.joinChannel(email);
-          localStorage.setItem("session", JSON.stringify(resp));
-          this.props.dispatch({
-          type: "LOG_IN",
-          data: { ...resp, FB_ID }
+          email: details.email,
+          id: process.env.APP_ID
+          }).then(resp => {
+          // If user does not exist, then create a new one.
+          if(!resp.user_id) {
+            this.props.dispatch({
+            type: "CHANGE_NEW_USER",
+            data: {name: details.name, email: details.email}
+            })
+            FB.logout();
+            this.redirect('/signup')
+          } else {
+            let email = details.email;
+            let FB_ID = details.id;
+            // If user exists, login them to our app and get a token from
+            // the server.
+            this.props.joinChannel(email);
+            this.props.dispatch({
+            type: "LOG_IN",
+            data: { ...resp, FB_ID }
           });
           // Then redirect them to their dashboard.
           // THIS IS TEMP ROUTING.
@@ -92,6 +92,9 @@ class Login extends React.Component {
   }
 
   render() {
+  if(store.getState().session.token)
+    return <Redirect to="/home" />
+    
   if (this.state.redirect) {
     return <Redirect to={this.state.redirect} />;
   }

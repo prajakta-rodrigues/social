@@ -5,7 +5,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const Dotenv = require('dotenv-webpack')
+const Dotenv = require('dotenv-webpack');
+const SRC = path.resolve(__dirname, 'node_modules');
 
 module.exports = (env, options) => ({
   optimization: {
@@ -53,7 +54,14 @@ module.exports = (env, options) => ({
             },
           },
         ],
-      }
+      },
+      { test: /\.txt$/,
+        use: 'raw-loader' },
+        {
+          test: /\.mp3$/,
+          include: SRC,
+          loader: 'file-loader'
+        }
     ]
   },
   devtool: 'cheap-module-source-map',
@@ -69,6 +77,7 @@ module.exports = (env, options) => ({
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery',
+      react: 'react',
       Popper: ['popper.js', 'default'],
     }),
     new CopyWebpackPlugin([{ from: 'static/', to: '../' }])

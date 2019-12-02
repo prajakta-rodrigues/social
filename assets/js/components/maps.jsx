@@ -1,7 +1,8 @@
 import React from 'react'
-import {Polygon, Map, GoogleApiWrapper, Marker} from 'google-maps-react'
 let mapboxgl = require('mapbox-gl/dist/mapbox-gl')
-import logo from "../../static/logo.png";
+import store from '../store'
+import placeholder from '../../static/placeholder.svg'
+import { get } from '../ajax'
 
 class MapComponent extends React.Component {
   constructor(props) {
@@ -9,16 +10,41 @@ class MapComponent extends React.Component {
     this.getLatLong = this.getLatLong.bind(this)
     this.state = {
       position: {
-        lat: 47.444,
-        lng: -122.176
+        lat: 42.338696899999995,
+        lng: -71.08824229999999
       },
-      map: null
+      map: null,
+      friends: store.getState().friends
     }
     mapboxgl.accessToken = "pk.eyJ1IjoibWVnaGFydGgiLCJhIjoiY2szZXh6NnZpMDBmZzNic2EzZ3M5NmxraCJ9.DEgkR_QJ8kwofNnyx_PvzQ"
+    if(this.state.friends.length == 0) {
+      get('/user/friends/' + store.getState().session.user_id).then(resp => {
+        store.dispatch({
+          type: 'GOT_FRIENDS',
+          data: resp.data
+        })
+        this.setState({
+          friends: resp.data
+        })
+      })
+    }
   }
 
   getPosition() {
     navigator.geolocation.getCurrentPosition(this.getLatLong)
+  }
+
+  createMarker(lat, lng, dp, name) {
+    let el = document.createElement('div')
+    el.className = 'marker'
+    dp = dp ? dp : placeholder
+    el.style.backgroundImage = "url('" + dp + "')"
+    el.style.backgroundColor = 'white'
+    new mapboxgl.Marker(el)
+        .setLngLat({lng, lat})
+        .setPopup(new mapboxgl.Popup({ offset: 25 })
+            .setHTML('<h6 className=\"popup-text\">' + name + '</h6>'))
+        .addTo(this.state.map)
   }
 
   getLatLong(position) {
@@ -26,20 +52,15 @@ class MapComponent extends React.Component {
     let lat = position.coords.latitude
     let lng = position.coords.longitude
     this.setState({position: {lat, lng}})
-    let el = document.createElement('div');
-    el.className = 'marker'
-    //replace url with the profile photo
-    el.style.backgroundImage = "url('https://scontent.xx.fbcdn.net/v/t51.2885-15/70663288_1203736696487156_3419353749570991582_n.jpg?_nc_cat=104&_nc_ohc=Xh2ya6Fjoi4AQn1uHwdkholp8uLiFGsUzb3T4vXAowP1e2Wy36uMrA8Cw&_nc_ht=scontent.xx&oh=d11d2dd3b1c2c33a985b3c507fc97e3c&oe=5E48B907')"
     this.state.map.flyTo({
       center: [lng, lat],
       zoom: 14
     })
 
-    new mapboxgl.Marker(el)
-        .setLngLat({lng, lat})
-        .setPopup(new mapboxgl.Popup({ offset: 25 })
-            .setHTML('<h6 className=\"popup-text\">Me</h6>'))
-        .addTo(this.state.map)
+    let dp = store.getState().session.profile_picture
+    let name = store.getState().session.user_name
+
+    this.createMarker(lat, lng, dp, name)
         
   }
 
@@ -64,6 +85,11 @@ class MapComponent extends React.Component {
   render() {
     if(navigator.geolocation) {       
       this.getPosition()
+      if(this.state.friends.length > 0 && this.state.map) {
+        this.state.friends.forEach(friend => {
+          this.createMarker(friend.latitude, friend.longitude, friend.profile_picture, friend.name)
+        })
+      }
       return (
         <div ref={el => this.mapContainer = el} id="map"></div>
       )
@@ -80,6 +106,4 @@ class MapComponent extends React.Component {
   }
 } 
 
-export default GoogleApiWrapper({
-  apiKey: process.env.GOOGLE_API_KEY
-})(MapComponent)
+export default MapComponent

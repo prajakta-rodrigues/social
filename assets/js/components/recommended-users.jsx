@@ -1,50 +1,82 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import store from '../store';
-import {Card, Button} from 'react-bootstrap';
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
-import {get_recommended_users, updateUserLocation} from "../ajax";
+import {get_recommended_users, updateUserLocation, sendRequest} from "../ajax";
+import placeholder from '../../static/placeholder.svg'
+import Spinner from '../components/spinner'
+
+// This image is provided by www.flaticon.com
+import addFriendLogo from '../../static/add-friend-logo.svg'
 
 
-export default function RecommendedUsers(params){
-  if (navigator.geolocation) {
-   navigator.geolocation.getCurrentPosition(savePosition);
-   } else {
-     console.log("Geolocation is not supported by this browser.");
+
+ class RecommendedUsers extends React.Component {
+
+   constructor(props) {
+     super(props);
+     this.props = props;
+     this.state = {
+       redirect: null,
+       data: []
+     };
+     if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(savePosition);
+      } else {
+        console.log("Geolocation is not supported by this browser.");
+      }
+       get_recommended_users();
+
    }
-  return <Req />;
+
+
+   render() {
+
+     return (<div><Req /></div>);
+   }
+
+
 
 }
 
-let flag = 0;
 
 let Req = connect(({recommendedUsers, session}) =>
 ({recommendedUsers, session}))(({recommendedUsers, session, dispatch}) =>{
-  console.log("in", recommendedUsers);
   let recommend = [];
-  if(flag == 0){
-    get_recommended_users();
-    flag = 1;
-  }
+
   recommendedUsers.forEach((tt) => {
-    recommend.push(<Recommend key={tt.id} id= {tt.id} name={tt.name} session={session}/>)
+    recommend.push(<Recommend key={tt.id} id= {tt.id} name={tt.name}
+      session={session} dp={tt.profile_picture}/>)
 });
-  return <div className="container-fluid">
+  if(recommend.length == 0) {
+    recommend.push(<Spinner key="spinner"/>)
+  }
+  return <div className="recommended-users-container" id="scroll">
     {recommend}
   </div>;
 });
 
-function sendRequest(ev) {
-  console.log(ev.target.value);
-  getLocation();
+function sendRequestUser(id1, id2) {
+  console.log(id1, id2);
+  // console.log(ev.target.value);
+  store.dispatch({
+    type: "REQUEST_SENT",
+    data: id2
+  });
+  sendRequest(id1, id2)
 }
 
 
 function savePosition(position) {
-  console.log("Latitude: " + position.coords.latitude +
-  "<br>Longitude: " + position.coords.longitude);
-  updateUserLocation(position.coords.longitude, position.coords.latitude);
+  let session = store.getState().session;
+  console.log("sess", session.longitude);
+  console.log("poss", position.coords.longitude);
+  if(session.longitude!= position.coords.longitude
+    || session.latitude!= position.coords.latitude ) {
+        updateUserLocation(position.coords.longitude, position.coords.latitude);
+    }
+
 }
 
 
@@ -52,19 +84,23 @@ function Recommend(params){
   let name = params.name;
   let session = params.session;
   let id = params.id;
+  let dp = params.dp
 
+  dp = dp ? dp : placeholder
 
-  return <Card key={"card" + id}>
-        <Card.Body  key={"body" + id}>
-          <Card.Title key={"title" + id}>
-            <Link to="#" >
-            {name}</Link>
-
-          </Card.Title>
-          <Card.Text key={"text" + id}>
-            <Button key={"btn" + id} value={id} variant="primary"
-              onClick={sendRequest} >Send Request</Button>
-          </Card.Text>
-        </Card.Body>
-      </Card>;
+  return (
+    <div className="rec-user-card">
+      <div className="rec-user-dp">
+        <img src={dp} alt="dp" />
+      </div>
+      <div className="name">
+        <Link to={"/user-profile/" + id}>{name}</Link>
+      </div>
+      <button  className="req-btn" onClick={() => {sendRequestUser(session.user_id, id)}}>
+        <img src={addFriendLogo} alt="add-friend-logo" className="img-fluid" />
+      </button>
+    </div>
+  );
 }
+
+export default RecommendedUsers;

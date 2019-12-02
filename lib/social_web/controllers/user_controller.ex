@@ -3,6 +3,7 @@ defmodule SocialWeb.UserController do
 
   alias Social.Users
   alias Social.Users.User
+  alias Social.Profiles
 
   action_fallback SocialWeb.FallbackController
 
@@ -65,7 +66,8 @@ defmodule SocialWeb.UserController do
       token: token,
       user_id: user.id,
       email: email,
-      message: "success"
+      message: "success",
+      profile_picture: user.profile_picture,
     }
     send_resp(conn, 200, Jason.encode!(data))
     else
@@ -120,9 +122,68 @@ defmodule SocialWeb.UserController do
   end
 
 
-  def get_recommended_users(conn, _params) do
-  users = Users.get_recommended_users(1)
-  render(conn, "index.json", users: users)
+  def get_recommended_users(conn,  params) do
+    IO.inspect(params)
+    users = Users.get_recommended_users(params["id"])
+    render(conn, "index.json", users: users)
   end
+
+  def get_search_users(conn,  params) do
+    IO.inspect(params)
+    users = Users.get_search_users(params["id"], params["query"])
+    render(conn, "index.json", users: users)
+  end
+
+  def get_user_show_profile(conn,  params) do
+      IO.inspect(params)
+      user = Users.get_user!(params["id"])
+      profile = Profiles.get_profile_by_user_id!(params["id"])
+      if(user != nil and profile != nil) do
+        send_resp(conn, 200, Jason.encode!(%{data: %{
+          id: user.id,
+          name: user.name,
+          dob: user.dob,
+          email: user.email,
+          profile_picture: user.profile_picture,
+          description: profile.description,
+          interests: profile.interests,
+          movies: profile.movies,
+          sports: profile.sports
+          }}))
+      else if(user != nil) do
+        send_resp(conn, 200, Jason.encode!(%{data: %{
+          id: user.id,
+          name: user.name,
+          dob: user.dob,
+          email: user.email,
+          profile_picture: user.profile_picture,
+          description: "",
+          interests: [],
+          movies: [],
+          sports: []
+          }}))
+        else
+          send_resp(conn, 500, Jason.encode!(%{error: "No user found"}))
+        end
+      end
+    end
+
+    def get_friends(conn, %{"id" => id}) do
+      friends = Social.Connections.get_friends(id)
+      |> Enum.map(fn connection ->
+        IO.inspect connection
+        {id, _} = Integer.parse(id)
+        if connection.user1_id == id do
+          IO.inspect connection.user1_id
+          Social.Users.get_user!(connection.user2_id)
+        else
+          IO.inspect connection.user2_id
+          Social.Users.get_user!(connection.user1_id)
+        end
+      end)
+
+      IO.inspect friends
+      render(conn, "index.json", users: friends)
+    end
 
 end

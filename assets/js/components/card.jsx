@@ -10,7 +10,7 @@ export default function Card(props) {
   return (
     <div className="card" style={style}>
       {title ? (
-        <h5 style={{ paddingBottom: '0.3em', borderBottom: '2px solid #db625c'}}>
+        <h5 style={{ paddingBottom: '0.3em', borderBottom: '1px solid #db625c'}}>
           {title}
         </h5>
       ) : (

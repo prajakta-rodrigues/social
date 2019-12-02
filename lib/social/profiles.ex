@@ -37,6 +37,12 @@ defmodule Social.Profiles do
   """
   def get_profile!(id), do: Repo.get!(Profile, id)
 
+  def get_profile_by_user_id!(user_id) do
+    profile = Repo.all from p in Profile,
+            where: p.user_id == ^user_id
+    profile |> Enum.at(0)
+  end
+
   @doc """
   Creates a profile.
 
@@ -50,18 +56,18 @@ defmodule Social.Profiles do
 
   """
   def create_profile(attrs \\ %{}) do
-    user = Repo.get!(User, attrs["user_id"])
-    resp = HTTPoison.get!("https://api.crystalknows.com/v1/personality_assessments/"
-    <> "find?token=1a613c04defd06c13683629d55d91b3c&email=" <> user.email)
-    IO.inspect(resp.body)
-    {:ok, body} = Jason.decode(resp.body)
-    IO.inspect(body["content"]["behavior"]["phrases"])
-    IO.inspect(body["content"]["profile"]["qualities"])
-    behavior = body["content"]["behavior"]["phrases"] || []
-    qualities = body["content"]["profile"]["qualities"] || []
-    IO.inspect(attrs)
-    attrs = Map.put(attrs, "behavior", behavior)
-    attrs = Map.put(attrs, "qualities", qualities)
+    # user = Repo.get!(User, attrs["user_id"])
+    # resp = HTTPoison.get!("https://api.crystalknows.com/v1/personality_assessments/"
+    # <> "find?token=1a613c04defd06c13683629d55d91b3c&email=" <> user.email)
+    # IO.inspect(resp.body)
+    # {:ok, body} = Jason.decode(resp.body)
+    # IO.inspect(body["content"]["behavior"]["phrases"])
+    # IO.inspect(body["content"]["profile"]["qualities"])
+    # behavior = body["content"]["behavior"]["phrases"] || []
+    # qualities = body["content"]["profile"]["qualities"] || []
+    # IO.inspect(attrs)
+    # attrs = Map.put(attrs, "behavior", behavior)
+    # attrs = Map.put(attrs, "qualities", qualities)
     IO.inspect(attrs)
     %Profile{}
     |> Profile.changeset(attrs)
@@ -113,5 +119,19 @@ defmodule Social.Profiles do
   """
   def change_profile(%Profile{} = profile) do
     Profile.changeset(profile, %{})
+  end
+
+  def get_popular_interests() do
+    user_interests = Repo.all from p in Profile,
+                limit: 20,
+                select: p.interests
+    IO.inspect(user_interests)
+    interests = Enum.reduce(user_interests, [] , fn(item, acc) -> acc ++ item end)
+
+    counts = Enum.reduce(interests, %{}, fn(item, acc) ->  acc |>
+    Map.put(item, Enum.count(interests, &(&1 == item))) end )
+
+    Enum.reduce(counts, [],  fn ({k,v}, acc)
+    -> acc ++ [%{value: k , count: v}] end)
   end
 end
