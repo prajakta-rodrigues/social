@@ -70,6 +70,14 @@ startChat(receiver_id) {
         let list = this.state.friends.map(friend => {
             let dp = friend.profile_picture
             dp = dp ? dp : placeholder
+
+            // return(
+                // <div className="friend" key={friend.id}>
+                //     <img src={dp} alt="dp" className="friend-img"/>
+                //     <Link to={"/user-profile/" + friend.id} className="friend-name">{friend.name}</Link>
+                //     <hr/>
+                // </div>
+            // )
             if(this.props.action == "start chat") {
                 return(
                         <div className="friend" key={friend.id} onClick={() => {
@@ -82,13 +90,11 @@ startChat(receiver_id) {
                     )
             }else {
                 return(
-                    <Link to="" key={friend.id}>
-                        <div className="friend">
+                        <div className="friend" key={friend.id}>
                             <img src={dp} alt="dp" className="friend-img"/>
-                            <span className="">{friend.name}</span>
+                            <Link to={"/user-profile/" + friend.id} className="friend-name">{friend.name}</Link>
                             <hr/>
                         </div>
-                    </Link>
                     )
             }
         }) 

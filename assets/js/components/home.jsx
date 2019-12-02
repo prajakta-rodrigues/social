@@ -26,8 +26,8 @@ class Home extends React.Component {
 							<RecommendedUsers />
 						</Card>
 					</Col>
-					<Col xs={4}>
-						<Card title="Chat" style={{ borderTopRightRadius: '0px', borderBottomRightRadius: '0px' }}>
+					<Col sm={4}>
+						<Card title="Chat">
 							<FriendsComponent action={"start chat"}/>
 						</Card>
 					</Col>

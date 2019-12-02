@@ -10,9 +10,9 @@ class Chat extends React.Component {
     super(props);
     this.props = props;
     this.state = {
-      currentMessage: "",
+      //currentMessage: "",
       messages: [],
-      open: true
+      //open: true
     }
     console.log(this.props.channel)
     if(this.props.channel.topic != this.props.current_channel) {
@@ -21,14 +21,11 @@ class Chat extends React.Component {
         data: this.props.channel.topic
       });
     }
-    console.log("state", this.state)
     if(this.props.channel.status != "joined") {
       this.props.channel.join().receive("ok", (resp) => {
         console.log("chat channel joined", resp)
       })
     }
-
-    this.list_messages(this.props.channel.topic);
     console.log("check here", this.state.messages)
     this.props.channel.on("send_msg",payload=> {
         console.log("received heere", payload)
@@ -38,7 +35,8 @@ class Chat extends React.Component {
           state.messages = msg;
           this.setState(state);
         });
-    
+        this.list_messages(this.props.channel.topic);
+        console.log("messages seeee", this.state.messages)
   }
   
   list_messages(room) {
@@ -56,7 +54,11 @@ class Chat extends React.Component {
           addResponseMessage(resp.data[i].text)
         }
       }
-      this.setState({messages: resp.data})
+      console.log("messages")
+      let state = _.cloneDeep(this.state);
+          state.messages = resp.data;
+          this.setState(state);
+      // this.setState({messages: resp.data})
     });
   }
 
@@ -76,18 +78,31 @@ class Chat extends React.Component {
           if(channel.state != "joined") {
             channel.join().receive("ok", (resp) => {console.log(resp)})
           }
-          let data = {text: message.text, sender_name: message.name, id: message.id,
-            room: channel.topic, sender_id: message.id}
-          console.log("data", data)
-          channel.push("send_msg", data).receive("ok", console.log("received"));
+        //   let data = {text: message.text, sender_name: message.name, id: message.id,
+        //     room: channel.topic, sender_id: message.id}
+        //   console.log("data", data)
+        //   channel.push("send_msg", data).receive("ok", console.log("received"));
 
-          let msg = this.state.messages;
-        msg.push(data)
-        let state = _.cloneDeep(this.state);
-          state.messages = msg;
-          this.setState(state);
+        //   let msg = this.state.messages;
+        // msg.push(data)
+        // let state = _.cloneDeep(this.state);
+        //   state.messages = msg;
+        //   this.setState(state);
         console.log("current state", state)
         });
+        if(this.props.channel.status != "joined") {
+          channel.join().receive("ok", (resp) => {console.log(resp)})
+        }
+        let data = {text: message.text, sender_name: message.name, id: message.id,
+          room: channel.topic, sender_id: message.id}
+        console.log("data", data)
+        channel.push("send_msg", data).receive("ok", console.log("received"));
+
+        let msg = this.state.messages;
+        msg.push(data)
+        let state = _.cloneDeep(this.state);
+        state.messages = msg;
+        this.setState(state);
   }
 
   inputChange(e) {
