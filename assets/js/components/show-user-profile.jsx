@@ -8,15 +8,13 @@ class ShowUserProfile extends React.Component {
   constructor(props) {
     super(props);
     this.props = props;
-    console.log(this.props.match.params.id);
-    console.log("in show user profile");
     this.state = {
       redirect: null,
     };
   }
 
   render() {
-    let id = this.props.match.params.id
+    let id = this.props.computedMatch.params.id
     getUserShowProfileById(id);
     return (
       <Profile />
@@ -70,7 +68,7 @@ let Profile = connect(({showUserProfile}) =>
     dp = dp ? dp : placeholder
 
     let noPost = (
-      <div class="ig-placeholder-container">
+      <div className="ig-placeholder-container">
         <div className="connect-ig"><h3>This user has not linked their Instagram account.</h3></div>
       </div>
     )
@@ -137,10 +135,9 @@ let Profile = connect(({showUserProfile}) =>
           </div>
         </div>
         <div className="ig-post-container">
-          <h2 class="insta-header">Instagram Posts</h2>
-          <div className="posts">
-            {posts.length > 0 ? posts : noPost}
-          </div>
+          <h2 className="insta-header">Instagram Posts</h2>
+          {posts.length > 0 ? <div className="posts">{posts}</div> : noPost}
+          
         </div>
       </div>
       );

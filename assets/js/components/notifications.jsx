@@ -8,6 +8,7 @@ import socket from '../socket';
 import Chat from "./chat";
 import notificationLogo from '../../static/notification-logo.svg';
 import store from '../store';
+import addFriendLogo from '../../static/add-friend-logo.svg'
 
 class Notifications extends React.Component {
     constructor(props) {
@@ -15,9 +16,9 @@ class Notifications extends React.Component {
     this.props = props
 
     let channel = socket.channel("notif:" + this.props.session.user_id);
-        channel.join().receive("ok", (resp) => {
-            console.log("notif joined", resp)
-        })
+      channel.join().receive("ok", (resp) => {
+        console.log("notif joined", resp)
+    })
 
         channel.on("send_request",payload=>
         {   console.log("payload", payload)
@@ -109,8 +110,17 @@ closeNotifications() {
             let alert = this.props.notifications[i];
           let notif = <div className="notification" key={i} onClick={() => this.onAlertDismissed(alert)}>
             {this.props.notifications[i].type == 'CONNECTION' ? 
-            <NavLink to="/requests">{this.props.notifications[i].text}</NavLink> : 
-            <NavLink to="/home">{this.props.notifications[i].text}</NavLink>}
+            <NavLink to="/requests" onClick={() => {this.closeNotifications()}}>
+              <div className="notification-img">
+                <img src={addFriendLogo} alt="add-friend-logo"/>
+              </div>
+              <div className="notification-text">
+                {this.props.notifications[i].text}
+              </div>
+            </NavLink> : 
+            <NavLink to="/home" onClick={() => {this.closeNotifications()}}>
+              {this.props.notifications[i].text}
+            </NavLink>}
           </div>
           list.push(notif)
           }
@@ -118,16 +128,18 @@ closeNotifications() {
           console.log("notif here", list)
         return(
         <div>
-            <NavLink to="#" onClick={() => this.openNotification()}>
+            <NavLink to="#" onClick={() => this.openNotification()} className="notification-logo-container">
+              {list.length > 0 ? <Badge pill variant="danger" className="notification-badge">{list.length}</Badge>: null}
               <OverlayTrigger placement="bottom" overlay={<Tooltip>Notifications</Tooltip>}>
-                <img src={notificationLogo} alt="notification-logo" className="nav-icon" />
+                <img src={notificationLogo} alt="notification-logo" className="nav-icon notification-logo" />
               </OverlayTrigger>
             </NavLink>
             <div className="notification-container hide" id="notification-container">
               <div className="notifications">
                 <div className="close-btn" onClick={() => {this.closeNotifications()}}>&times;</div>
-
-                {list}
+                <div className="notification-list">
+                  {list.length > 0 ? list : <p style={{ color: "gray", textAlign: 'center', marginTop: '20%' }}> <i> No Notifications to show </i> </p>}
+                </div>
               </div>
             </div>
           {/* {list.length > 0 ? <Badge pill variant="danger">{list.length}</Badge>: null}

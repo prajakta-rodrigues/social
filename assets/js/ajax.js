@@ -80,10 +80,27 @@ export function submitLogin(form) {
   });
 }
 
-export function changeRequest(request_id, status) {
+export function changeRequest(request_id, status, idx) {
   post('/connections/update/'+ request_id, {id: request_id, connection : {status: status}})
   .then((resp) => {
+    console.log("index of request", idx)
     console.log('connection changes', resp)
+    let requests = store.getState().requests
+    let idx = -1;
+    for(let i = 0; i < requests.length; i++) {
+      if(requests[i].request_id == request_id) {
+        idx = i;
+        break;
+      }
+    }
+    console.log("seee index", idx)
+    console.log("see requests", requests)
+    const new_requests = [...requests.slice(0, idx), ...requests.slice(idx + 1)]
+    console.log(new_requests)
+          store.dispatch({
+              type: "REMOVE_REQUEST",
+              data: new_requests
+            });
   })
 }
 

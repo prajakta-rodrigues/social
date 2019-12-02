@@ -4,6 +4,7 @@ import { Row, Col, Form, Button, Alert } from "react-bootstrap";
 import { Redirect } from "react-router";
 import { submitLogin, post } from "../ajax";
 import logo from "../../static/logo.png";
+import store from "../store";
 // import argon2 from 'argon2'
 
 class Login extends React.Component {
@@ -91,6 +92,9 @@ class Login extends React.Component {
   }
 
   render() {
+  if(store.getState().session.token)
+    return <Redirect to="/home" />
+    
   if (this.state.redirect) {
     return <Redirect to={this.state.redirect} />;
   }

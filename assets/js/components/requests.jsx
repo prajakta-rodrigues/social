@@ -32,6 +32,7 @@ class Requests extends React.Component {
                 </div>
             );
         });
+
         console.log("res",request);
 
         return(
