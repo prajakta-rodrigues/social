@@ -15,7 +15,11 @@ defmodule SocialWeb.UserView do
       name: user.name,
       username: user.username,
       email: user.email,
+      dob: user.dob,
       password: user.password,
-      dob: user.dob}
+      longitude: user.longitude,
+      latitude: user.latitude,
+      profile_picture: user.profile_picture
+    }
   end
 end

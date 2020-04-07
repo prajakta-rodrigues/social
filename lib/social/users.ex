@@ -7,6 +7,10 @@ defmodule Social.Users do
   alias Social.Repo
 
   alias Social.Users.User
+  alias Social.Profiles.Profile
+  alias SocialWeb.ProfileView
+  alias Social.Connections
+
 
   @doc """
   Returns the list of users.
@@ -19,6 +23,83 @@ defmodule Social.Users do
   """
   def list_users do
     Repo.all(User)
+  end
+
+  def isMatch(a, b) do
+    if(length(a -- b) == length(a)) do
+      false
+    else
+      true
+    end
+  end
+
+
+  def get_profile_matches(id) do
+    users = []
+    query1 = from p in Profile,
+             where: p.user_id == ^id
+    user_profile = Repo.all(query1)
+    if(length(user_profile)!= 0) do
+       user_profile = user_profile |> Enum.at(0)
+       query2 = from p in Profile,
+                where: p.user_id != ^id
+       profiles = Repo.all(query2)
+
+      selectedSports = Enum.filter(profiles, fn p ->
+      isMatch(p.sports, user_profile.sports) end)
+
+      selectedInterests = Enum.filter(profiles, fn p ->
+      isMatch(p.interests, user_profile.interests) end)
+
+      selectedMovies = Enum.filter(profiles, fn p ->
+      isMatch(p.movies, user_profile.movies) end)
+
+
+
+
+      ping = ProfileView.render("index.json", %{profiles:
+      selectedSports ++ selectedInterests ++ selectedMovies})
+      IO.inspect(ping)
+      ids = ping.data |> Enum.map(fn x -> x.user_id end)
+      IO.inspect(ids)
+      IO.puts("random")
+      query3 = from u in User,
+                where: u.id in ^ids
+      users = Repo.all(query3)
+      IO.puts("users")
+      IO.inspect(users)
+       users
+    else
+      users
+    end
+  end
+
+  def get_recommended_users(id) do
+    user = get_user!(id)
+    existing = Connections.get_friends_or_pending_friends(id)
+    query0 = from u in User,
+              where: u.id in ^existing
+    existing_req = Repo.all(query0)
+
+
+    IO.inspect(existing)
+    profile_users = get_profile_matches(id)
+    query = from u in User,
+            where: u.id != ^id and u.longitude < ^(user.longitude + 0.5)
+            and u.longitude > ^(user.longitude - 0.5)
+            and u.latitude < ^(user.latitude + 0.5)
+            and u.latitude > ^(user.latitude - 0.5)
+    matched_users = Repo.all(query) ++ profile_users
+    matched_users = matched_users |> Enum.uniq
+    matched_users -- existing_req
+  end
+
+  def get_search_users(id, q) do
+    s = q <> "%"
+    IO.puts(s)
+    query = from u in User,
+            where: u.id != ^id and ilike(u.name, ^s)
+    Repo.all(query)
   end
 
   @doc """
@@ -69,7 +150,7 @@ defmodule Social.Users do
   """
   def update_user(%User{} = user, attrs) do
     user
-    |> User.changeset(attrs)
+    |> User.updateset(attrs)
     |> Repo.update()
   end
 

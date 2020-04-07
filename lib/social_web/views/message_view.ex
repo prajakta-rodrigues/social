@@ -13,6 +13,8 @@ defmodule SocialWeb.MessageView do
   def render("message.json", %{message: message}) do
     %{id: message.id,
       text: message.text,
-      date: message.date}
+      date: message.date,
+      sender_id: message.sender_id,
+      sender_name: message.sender_name}
   end
 end

@@ -2,12 +2,24 @@
 
 @import "~bootstrap/scss/bootstrap";
 
+
+::-webkit-scrollbar {
+    display: none;
+}
 .header-container {
     width: 100%;
     color: #2c2b2b;
-    height: 5em;
+    height: auto;
     text-align: center;
-    margin-top: 2em;
+    margin-top: 3em;
+    padding-bottom: 3em;
+}
+
+.navbar-style {
+    background-color: #050505;
+    -webkit-box-shadow: 0 8px 8px -8px gray;
+	-moz-box-shadow: 0 8px 8px -8px gray;
+	box-shadow: 0 8px 8px -8px gray;
 }
 
 .action-btn {
@@ -20,34 +32,699 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
+    background-color: #F5F5F5;
+}
+
+.dropdown-menu {
+    right: 0;
+    left: auto;
 }
 
 #map {
-    height: 100%;
+    position: absolute;
+    top: 70px;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
 
+.marker {
+  background-size: cover;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 4px 2px #656565;
+}
+
+.mapboxgl-popup {
+  max-width: 200px;
+  min-width: 100px;
+}
+
+.mapboxgl-popup-content {
+  font-family: 'Open Sans', sans-serif;
+  padding: 5px;
+  min-height: 40px;
+  color: rgb(0, 182, 136);
+}
+
+.mapboxgl-popup-content h6 {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+}
 .dropdown-link, .dropdown-link a {
     padding: 5px;
     color: black;
 }
 
 .ig_post {
-    height: 300px;
-    // border-radius: 5px;
+    height: 200px;
+    width: 200px;
     border: 1px solid #aaaaaa;
-    // margin: 2px;
+    margin: 2px;
+    display: inline-block;
+    transition: all 0.2s ease-in;
+}
+
+.connect-ig:hover a {
+    color: white;
+    text-decoration: none;
+}
+
+.button_margin {
+    margin: 10px;
 }
 
 .ig_post img {
-    max-height: 300px;
-    padding: 10px;
-    position: relative;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%)
+    height: 200px;
+    width: 200px;
+    transition: all 0.2s ease-in;
 }
 
-.brand-text, .brand-text:hover {
+.brand-text {
     color: white;
+    font-size: 1.5em;
+    letter-spacing: 0.1em;
     text-decoration: none;
+    font-family: 'Eczar';
+    transition: all 0.2s ease-in;
+}
+
+.brand-text:hover {
+    color: white;
+    font-size: 1.5em;
+    text-decoration: none;
+    font-family: 'Eczar';
+    letter-spacing: 0.2em;
+    color: #e9a09d;
+}
+
+.btn-outline-social {
+    color: #db625c;
+    border-color: #db625c;
+}
+
+.btn-outline-social:hover {
+    background-color: #db625c;
+    color: white;
+}
+
+.card {
+    padding: 1em;
+    border-radius: 15px;
+    background-color: white;
+    -webkit-box-shadow: 0 8px 6px -6px gray;
+    -moz-box-shadow: 0 8px 6px -6px gray;
+    box-shadow: 0 8px 6px -6px gray;
+}
+
+.centered-spinner {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: transparent;
+}
+
+
+#user-profile .header {
+    height: 150px;
+    margin-top: 50px;
+}
+
+.dp, .dp img {
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    display: inline-block;
+    background-color: #fff;
+    box-shadow: 0 0 2px 4px lightgray;
+}
+
+#user-profile .header .details {
+    display: inline-block;
+    margin-left: 40px;
+    font-size: 20px;
+}
+
+.nav-tabs {
+    margin-top: 30px !important;
+}
+
+.seach-title {
+  color: black;
+  font-size: 1rem;
+}
+
+.search-results {
+  position: absolute;
+  background: white;
+  z-index: 100;
+  max-height: 300px;
+  overflow-y: scroll;
+  width: 80%;
+  border-radius: 5px;
+  border-left: 1px solid #050505;
+  border-right: 1px solid #050505;
+  border-bottom: 1px solid #050505;
+  box-shadow: 0 4px 8px 0 gray, 0 6px 20px 0 gray;
+}
+
+.search-row a {
+    color: black;
+    transition: all 0.2s ease-in;
+}
+
+.search-row {
+    padding: 0.3em;
+  transition: all 0.2s ease-in;
+}
+
+.search-row:hover {
+    background-color: #f5f5f5;
+    transition: all 0.2s ease-in;
+}
+
+.search-row:hover a {
+    color: #db625c;
+    text-decoration: none;
+}
+.chat-box {
+    // right: 0;
+    // position: absolute;
+    // bottom: 50px;
+    // height: 200px;
+    width:300px;
+    // border: 1px solid #4d4c4c
+
+    // scroll-behavior: auto;
+    background: rgb(239, 241, 241);
+}
+.chat-ele {
+    float: right;
+    padding: 20px
+}
+
+.chats {
+    right: 0;
+    bottom: 0;
+    // position: absolute;
+    position: fixed;
+}
+
+.chat-header {
+    background-color: black;
+    width:300px;
+    color:rgb(248, 247, 252);
+    padding: 2%;
+}
+
+
+.chat-messages {
+    bottom: 50px;
+    height: 200px;
+    width:300px;
+    // color:rgb(248, 247, 252);
+    // height: 167px;
+    scroll-behavior: auto;
+    overflow-y: scroll;
+}
+
+.friend {
+    margin: 10px;
+}
+
+.friend img {
+    display: inline-block;
+    height: 50px;
+    width: 50px;
+    border-radius: 50px;
+}
+
+.ig-placeholder-container {
+    margin-top: 20px;
+    height: 500px;
+    width: 100%;
+    border-radius: 5px;
+    border: 3px dashed #e9a09d;
+    text-align: center;
+    overflow: scroll;
+}
+
+.connect-ig {
+    position: relative;
+    top: 50%;
+}
+
+.border {
+  border: 1px solid gray;
+
+}
+
+.padding {
+  padding: 2%;
+}
+
+.center-align {
+  margin: auto;
+  width: 50%;
+}
+
+.name-row {
+  padding-bottom: 3%;
+}
+
+.word-wrap {
+  word-wrap: break-word;
+}
+
+
+.pic_wrapper {
+  position: relative;
+}
+
+.outer-box {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: inherit;
+  width: inherit;
+  background: rgba(29, 106, 154, 0.72);
+  color: #fff;
+  visibility: hidden;
+  opacity: 0;
+  border-radius: 50%;
+  transition: opacity .2s, visibility .2s;
+}
+
+.pic_wrapper:hover .outer-box {
+  visibility: visible;
+  opacity: 1;
+  border-radius: 50%
+}
+
+
+.change-pic-link {
+  color: white;
+}
+
+.enclosing {
+  top:50%;
+  position: relative;
+}
+
+.margin-bottom {
+  margin-bottom: 2%;
+}
+
+.search-bar {
+    display: inline-block;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.search {
+    position: relative;
+    width: 300px;
+    margin-top: 5px;
+}
+
+.search .search-input {
+    left: 0;
+}
+
+.seach-box {
+  display: inline-block;
+}
+
+.search .search-logo {
+  display: inline-block;
+  width: 20%
+}
+
+.search-logo img {
+    height: 10px;
+    padding: 5px;
+}
+
+.nav-icon {
+    height: 30px;
+    margin: 10px;
+    transition: all 0.3s ease-out;
+}
+
+.nav-icon:hover {
+    transform: scale(1.2);
+}
+
+.change-photo {
+    width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+    position: relative;
+
+}
+
+.change-photo + label{
+    height: 50px;
+    width: 50px;
+    background: url("../static/edit-logo.png");
+    background-size: cover;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: inline-block;
+    cursor: pointer;
+}
+
+.ig-post-container {
+    margin-top: 20px;
+    margin-left: 50px;
+}
+
+.tags {
+    max-height: 150px;
+}
+
+.tags-interests {
+    max-height: 15em;
+    overflow-y: scroll;
+    background-color: #fff;
+    border: 1px solid #ced4db;
+    border-radius: 5px;
+    padding: 0.3em;
+}
+
+.tag {
+    display: inline-block;
+    margin: 5px;
+    padding: 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    background-color: #fafafa;
+    border: 1px solid #ced4db;
+    transition: all 0.2s ease-in-out;
+}
+
+.tag:hover {
+    background-color: #e9a09d;
+    color: white;
+    border: 1px solid white;
+}
+
+.selected {
+    color: white;
+    background: #db625c;
+    border: 1px solid white;
+}
+
+.interests-container {
+    margin-top :20px;
+}
+
+.popular-interests, .recommended-users-container, .chat-container {
+    height: 80vh;
+    overflow-y: auto;
+}
+
+.rec-user-card {
+    // background: #db625c;
+    margin: 15px;
+    position: relative;
+    background-color: #fafafa;
+    border: 1px solid #ced4db;
+    border-radius: 15px;
+    padding: 0.5em;
+}
+
+.rec-user-card a, .rec-user-card a:hover {
+    color: #22252a;
+    text-decoration: none;
+}
+
+.rec-user-card .rec-user-dp, .rec-user-card .name, .rec-user-card .req-btn {
+    display: inline-block;
+    margin: 5px;
+}
+
+.rec-user-card .rec-user-dp img {
+    height: 50px;
+    width: 50px;
+    border-radius: 50px;
+}
+
+.rec-user-card .name {
+    font-size: 20px;
+}
+
+.rec-user-card .req-btn {
+    background: transparent;
+    position: absolute;
+    right: 0px;
+    top: 5px;
+    box-shadow: none;
+    border: 0;
+    outline: 0;
+    transition: all 0.2s ease-out;
+}
+
+.req-btn:hover {
+    transform: scale(1.2);
+}
+.rec-user-card .req-btn img {
+    height: 30px;
+    width: 30px;
+}
+
+.home-container {
+    padding-bottom: 10px;
+}
+
+.home-container .col-sm-4 {
+    margin-top: 20px;
+}
+
+.search-profile-picture {
+  width: 30px;
+  height: 30px;
+  border-radius: 50px;
+  margin-left: 10px;
+  margin-top: 2px;
+}
+
+.search-profile-picture-left {
+  display: inline-block;
+  width: 18%;
+  padding: 1%;
+}
+
+.search-profile-picture-right {
+  display: inline-block;
+  width: 82%;
+  padding: 3%;
+}
+
+.home-main {
+  margin-left: 1.8em;
+  position: relative;
+}
+
+.navbar {
+  z-index: 100;
+}
+
+.nav-tabs .nav-link.active {
+    background-color: #f5f5f5;
+}
+
+.nav-tabs .nav-link {
+    color: #db625c;
+}
+
+.btn-outline-social a {
+    color: #db625c;
+}
+
+.friend-name {
+    color: black;
+    font-size: 20px;
+    margin-left: 15px;
+    display: inline-block;
+    position: relative;
+    top: 5px;
+}
+
+.friend-name:hover {
+    color: #db625c
+}
+
+#friend-profile .profile {
+    margin-top: 50px;
+}
+.profile img {
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+}
+
+.profile .contact {
+    text-align: center;
+    font-size: 24px;
+    color: #db625c;
+    font-weight: bold;
+}
+
+.profile .contact .info {
+    margin-top: 5px;
+}
+
+.profile .profile-details {
+    font-size: 20px;
+    background: white;
+    border-radius: 5px;
+    margin: 10px 0 10px 0;
+    box-shadow: 0 2px 2px #656565;
+}
+
+.info {
+    margin-left: 10px;
+    padding: 5px;
+    word-wrap: break-word;;
+}
+
+.info .key {
+    font-weight: bold;
+}
+
+.info .value {
+    color: #db625c;
+    font-weight: bold;
+}
+.info .tag {
+    font-size: 16px;
+}
+
+#friend-profile .ig-post-container{
+    margin-top: 50px;
+    background: white;
+    margin-bottom: 20px;
+    margin-left: 0;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 2px #656565;
+}
+
+#friend-profile .ig-post-container .posts {
+    margin-left: 35px;
+    margin-top: 20px;
+}
+
+.insta-header {
+    color: #db625c;
+    text-align: center;
+}
+
+.notification-container {
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    left: 0;
+    top: 0;
+    background: rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+}
+
+.notification-container .close-btn {
+    color: red;
+    font-weight: bold;
+    position: absolute;
+    right: 10px;
+    top: -10px;
+    font-size: 36px;
+    display: block;
+    cursor: pointer;
+}
+.notifications {
+    position: absolute;
+    top: 50vh;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 600px;
+    width: 600px;
+    background: white;
+    overflow-y: scroll;
+    border-radius: 5px;
+    box-shadow: 0 2px 2px #656565;
+    padding: 1em;
+    animation: pop-in 0.3s linear forwards;
+}
+
+@keyframes pop-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+.notifications .notification {
+    margin-top: 10px;
+    font-size: 20px;
+    text-align: center;
+    background-color: #fafafa;
+    border: 1px solid #ced4db;
+    border-radius: 15px;
+    padding: 0.5em;
+}
+
+.notifications .notification-list {
+    margin-top: 50px;
+}
+
+.notification a {
+    color: #db625c;
+}
+
+.hide {
+    display: none;
+    animation: pop-in 0.3s ease-out reverse;
+}
+
+.notification-logo-container {
+    position: relative;
+}
+
+.notification-logo-container .notification-badge {
+    position: absolute;
+}
+
+.notification-img, .notification-text {
+    display: inline-block;
+}
+
+.notification-img img {
+    height: 25px;
+    width: 25px;
+    margin-right: 25px;
+    margin-bottom: 5px;
+}
+
+.rcw-launcher {
+    background-color: #db625c !important;
+}
+
+.rcw-conversation-container .rcw-header {
+    background-color: #050505 !important;
+}
+
+.rcw-client {
+    background-color: #F7DFDE !important;
 }

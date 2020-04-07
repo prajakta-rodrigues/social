@@ -6,7 +6,8 @@ defmodule Social.Posts.Post do
     field :media_id, :string
     field :media_type, :string
     field :media_url, :string
-    field :user_id, :id
+
+    belongs_to :user, Social.Users.User
 
     timestamps()
   end
@@ -14,7 +15,7 @@ defmodule Social.Posts.Post do
   @doc false
   def changeset(post, attrs) do
     post
-    |> cast(attrs, [:media_id, :media_url, :media_type])
+    |> cast(attrs, [:media_id, :media_url, :media_type, :user_id])
     |> validate_required([:media_id, :media_url, :media_type])
   end
 end

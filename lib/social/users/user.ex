@@ -9,17 +9,31 @@ defmodule Social.Users.User do
     field :password, :string
     field :username, :string
     field :password_hash, :string
+    field :longitude, :float, default: 9999.9
+    field :latitude, :float,  default: 9999.9
+    field :profile_picture, :string
 
+    has_many :posts, Social.Posts.Post
     timestamps()
   end
 
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:name, :username, :email, :password, :dob])
+    |> cast(attrs, [:name, :username, :email, :password_hash, :password, :dob, :longitude, :latitude, :profile_picture])
     |> hash_password()
     |> validate_required([:name, :username, :email, :dob, :password_hash])
   end
+
+  def updateset(user, attrs) do
+    user = user
+     |> cast(attrs, [:name, :username, :email, :password_hash, :dob, :longitude, :latitude, :profile_picture])
+    if(Map.has_key?(user, :password)) do
+      user = user |> hash_password()
+    else
+      user
+    end
+   end
 
   def hash_password(cset) do
     pw = get_change(cset, :password)

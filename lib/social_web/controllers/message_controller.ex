@@ -25,6 +25,11 @@ defmodule SocialWeb.MessageController do
     render(conn, "show.json", message: message)
   end
 
+  def list_messages(conn, %{"room" => room}) do
+    messages = Messages.list_messages(room)
+    render(conn, "index.json", messages: messages)
+  end
+
   def update(conn, %{"id" => id, "message" => message_params}) do
     message = Messages.get_message!(id)
 

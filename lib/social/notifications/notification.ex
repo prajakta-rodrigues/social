@@ -8,6 +8,7 @@ defmodule Social.Notifications.Notification do
     field :type, :string
     field :associated_sender_id, :id
     field :receiver_id, :id
+    field :status, :string
 
     timestamps()
   end
@@ -15,7 +16,7 @@ defmodule Social.Notifications.Notification do
   @doc false
   def changeset(notification, attrs) do
     notification
-    |> cast(attrs, [:text, :date, :type])
-    |> validate_required([:text, :date, :type])
+    |> cast(attrs, [:text, :date, :type, :associated_sender_id, :receiver_id, :status])
+    |> validate_required([:text, :date, :type, :associated_sender_id, :receiver_id, :status])
   end
 end

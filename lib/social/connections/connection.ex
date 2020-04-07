@@ -14,7 +14,7 @@ defmodule Social.Connections.Connection do
   @doc false
   def changeset(connection, attrs) do
     connection
-    |> cast(attrs, [:status])
-    |> validate_required([:status])
+    |> cast(attrs, [:status, :user1_id, :user2_id, :requester_id])
+    |> validate_required([:status, :user1_id, :user2_id, :requester_id])
   end
 end
