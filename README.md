@@ -3,9 +3,6 @@ Social is a web based application that helps people connect with other like mind
 
 Users can view their friend’s profiles and instagram posts that are imported from their instagram accounts. Users can also chat with their friends and view their friends on a map. This can be especially helpful in cases when the users want to meet up and socialize.
 
-## Contributing
-Based on regions and countries, various complexity levels of this game is known. Feel free to add your own version or improve existing version by forking the repository and  raising a pull request.
-
 ## Requirements
 1. Node v11+ and npm
 2. Elixir 1.6+
